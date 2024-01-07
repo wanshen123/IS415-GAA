@@ -45,3 +45,6 @@
   color: black;
 }
 
+#quarto-margin-sidebar > div > div:hover {
+  text-decoration: underline;
+}

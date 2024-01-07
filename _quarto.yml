@@ -5,13 +5,13 @@ website:
   title: "IS415-Wan Shen"
   navbar:
     left:
+      #- href: "index.qmd"
+        #icon: "bi bi-house-door-fill"
       - text: "Hands-on Exercise"
         menu: 
           - text: "Hands-on Exercise 1"
             href: "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"
     right:
-      - href: index.qmd
-        text: Home
       - href: "https://github.com/wanshen123/IS415-GAA"
         icon: "bi bi-github"
   #sidebar:

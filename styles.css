@@ -31,3 +31,17 @@
 #quarto-document-content > p:nth-child(2) {
   font-size: 20px;
 }
+
+/** #navbarCollapse > ul.navbar-nav.navbar-nav-scroll.me-auto > li:nth-child(1) > a > span {
+  display: none;
+}
+**/
+
+.navbar-dark:hover .navbar-nav:hover .nav-link:hover {
+  color: black;
+}
+
+#quarto-header > nav > div > div.navbar-brand-container > a:hover {
+  color: black;
+}
+

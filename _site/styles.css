@@ -48,3 +48,7 @@
 #quarto-margin-sidebar > div > div:hover {
   text-decoration: underline;
 }
+
+#listing-listing > div.list.quarto-listing-default > div > div.body > a > h3:hover {
+  color: green;
+}

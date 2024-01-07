@@ -4,11 +4,12 @@
     color: black;
     background-color: hsla(200,40%,30%,0);
     text-align: center;
+    font-size: 32px;
 }
 
 #title-block-header > div.quarto-title-banner.page-columns.page-full {
   background-image: url("img/1744-scaled-1.jpg");
-  background-size: 520px, 200px;
+  background-size: 610px, 200px;
   animation: slide 800s linear infinite;
 }
 

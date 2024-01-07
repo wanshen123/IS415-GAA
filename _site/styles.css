@@ -1,1 +1,32 @@
 /* css styles */
+#title-block-header > div.quarto-title-banner.page-columns.page-full > div {
+    line-height: 1.75em;
+    color: black;
+    background-color: hsla(200,40%,30%,0);
+    text-align: center;
+}
+
+#title-block-header > div.quarto-title-banner.page-columns.page-full {
+  background-image: url("img/1744-scaled-1.jpg");
+  background-size: 520px, 200px;
+  animation: slide 800s linear infinite;
+}
+
+@keyframes slide {
+  100% {
+		background-position: 
+			-5000px 20%,
+			-800px 95%,
+			500px 50%,
+			1000px 100%,
+			400px 0;
+		}
+}
+
+#quarto-document-content > p:nth-child(1) {
+  font-size: 32px;
+}
+
+#quarto-document-content > p:nth-child(2) {
+  font-size: 20px;
+}

@@ -1,5 +1,8 @@
 ---
-title: "IS415-GAA"
+listing:
+  categories: true
+  contents:
+    - "Hands-on_Ex/Hands-on_Ex01/*.qmd"
 ---
 
 Welcome to **IS415 Geospatial Analytics and Applications.**

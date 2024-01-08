@@ -1,0 +1,17 @@
+---
+title: "Hands-on Exercise 2"
+#subtitle: "Geospatial Data Wrangling with R"
+description: "Insert Description Here"
+execute: 
+  warning: false
+# date: "`r Sys.Date()`"
+date: 01/09/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Hands-On Exercise
+title-block-categories: false
+---

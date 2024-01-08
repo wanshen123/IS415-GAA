@@ -68,5 +68,12 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "In-Class_Ex/ICE_01/ICE_01.html",
+    "href": "In-Class_Ex/ICE_01/ICE_01.html",
+    "title": "In-class Exercise 1",
+    "section": "",
+    "text": "1.0 Getting Started\n\npacman::p_load(arrow, lubricate, tidyverse, sf)"
   }
 ]

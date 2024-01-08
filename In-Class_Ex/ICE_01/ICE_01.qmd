@@ -15,3 +15,11 @@ categories:
   - In-Class Exercise
 title-block-categories: false
 ---
+
+# 1.0 Getting Started
+
+```{r}
+#| eval: false
+pacman::p_load(arrow, lubricate, tidyverse, sf)
+```
+

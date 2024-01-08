@@ -4,7 +4,7 @@ listing:
   sort: "date asc"
   contents:
     - "Hands-on_Ex/Hands-on_Ex01/*.qmd"
-    - "In-Class_Ex/ICE_01/*.qmd"
+    - "In-class_Ex/In-class_Ex01/*.qmd"
     - "Hands-on_Ex/Hands-on_Ex02/*.qmd"
 ---
 

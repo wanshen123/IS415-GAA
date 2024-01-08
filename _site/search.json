@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "IS415-Wan Shen",
     "section": "",
-    "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nInsert Description Here\n\n\n\n\n\n\nJan 9, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nInsert Description Here\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nInsert Description Here\n\n\n\n\n\n\nJan 9, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -68,12 +68,5 @@
     "title": "Hands-on Exercise 1",
     "section": "7.2 Point-in-polygon count",
     "text": "7.2 Point-in-polygon count\n\nmpsz3414$`PreSch Count`&lt;- lengths(st_intersects(mpsz3414, preschool3414))\nsummary(mpsz3414$`PreSch Count`)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00    0.00    4.00    7.09   10.00   72.00 \n\ntop_n(mpsz3414, 1, `PreSch Count`)\n\nSimple feature collection with 1 feature and 16 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 39655.33 ymin: 35966 xmax: 42940.57 ymax: 38622.37\nProjected CRS: SVY21 / Singapore TM\n  OBJECTID SUBZONE_NO     SUBZONE_N SUBZONE_C CA_IND PLN_AREA_N PLN_AREA_C\n1      189          2 TAMPINES EAST    TMSZ02      N   TAMPINES         TM\n     REGION_N REGION_C          INC_CRC FMEL_UPD_D   X_ADDR   Y_ADDR SHAPE_Leng\n1 EAST REGION       ER 21658EAAF84F4D8D 2014-12-05 41122.55 37392.39   10180.62\n  SHAPE_Area                       geometry PreSch Count\n1    4339824 MULTIPOLYGON (((42196.76 38...           72\n\nmpsz3414$Area &lt;- mpsz3414 %&gt;% st_area()\nmpsz3414 &lt;- mpsz3414 %&gt;%\n  mutate(`PreSch Density` = `PreSch Count`/Area * 1000000)\nmpsz3414['PreSch Density']\n\nSimple feature collection with 323 features and 1 field\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21 / Singapore TM\nFirst 10 features:\n      PreSch Density                       geometry\n1   0.000000 [1/m^2] MULTIPOLYGON (((31495.56 30...\n2  10.717803 [1/m^2] MULTIPOLYGON (((29092.28 30...\n3   0.000000 [1/m^2] MULTIPOLYGON (((29932.33 29...\n4   8.397308 [1/m^2] MULTIPOLYGON (((27131.28 30...\n5   7.743345 [1/m^2] MULTIPOLYGON (((26451.03 30...\n6  12.616719 [1/m^2] MULTIPOLYGON (((25899.7 297...\n7   9.062370 [1/m^2] MULTIPOLYGON (((27746.95 30...\n8   3.446082 [1/m^2] MULTIPOLYGON (((29351.26 29...\n9  10.140190 [1/m^2] MULTIPOLYGON (((20996.49 30...\n10  1.583170 [1/m^2] MULTIPOLYGON (((24472.11 29..."
-  },
-  {
-    "objectID": "In-class_Ex/ICE_01/ICE_01.html",
-    "href": "In-class_Ex/ICE_01/ICE_01.html",
-    "title": "In-class Exercise 1",
-    "section": "",
-    "text": "1.0 Getting Started\n\npacman::p_load(arrow, lubricate, tidyverse, sf)"
   }
 ]

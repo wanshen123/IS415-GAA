@@ -3,6 +3,7 @@ listing:
   categories: true
   contents:
     - "Hands-on_Ex/Hands-on_Ex01/*.qmd"
+    - "In-Class_Ex/ICE_01/*.qmd"
 ---
 
 Welcome to **IS415 Geospatial Analytics and Applications.**

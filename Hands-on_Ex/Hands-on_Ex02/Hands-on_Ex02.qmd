@@ -146,10 +146,27 @@ tm_shape(mpsz_pop2020)+
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY",
+          n = 10,
+          style = "jenks") +
+  tm_borders(alpha = 0.5)
+```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
           n = 5,
           style = "equal") +
   tm_borders(alpha = 0.5)
 ```
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY",
+          n = 5,
+          style = "quantile") +
+  tm_borders(alpha = 0.5)
+```
+
 ### 3.3.2 Plotting choropleth map with custome break
 
 ```{r}

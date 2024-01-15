@@ -1,0 +1,23 @@
+---
+title: "Take-home Exercise 1"
+#subtitle: "Geospatial Data Wrangling with R"
+description: "Insert Description"
+execute: 
+  warning: false
+  eval: true
+  echo: true
+# date: "`r Sys.Date()`"
+date: 01/16/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Take-Home Exercise
+title-block-categories: false
+format: 
+  html: 
+    code-fold: true
+    code-summary: "Show the code"
+---

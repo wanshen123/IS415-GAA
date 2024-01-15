@@ -17,6 +17,8 @@ website:
         menu: 
           - text: "In-class Exercise 1"
             href: "In-class_Ex/In-class_Ex01/In-class_Ex01.html"
+          - text: "In-class Exercise 2"
+            href: "In-class_Ex/In-class_Ex02/In-class_Ex02.html"
     right:
       - href: "https://github.com/wanshen123/IS415-GAA"
         icon: "bi bi-github"

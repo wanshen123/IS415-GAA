@@ -1,0 +1,37 @@
+---
+title: "In-class Exercise 2"
+#subtitle: "Geospatial Data Wrangling with R"
+description: "R for Geospatital Data Science"
+execute: 
+  warning: false
+# date: "`r Sys.Date()`"
+date: 01/15/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - In-Class Exercise
+title-block-categories: false
+---
+
+# 1.0 Getting Started
+
+```{r}
+pacman::p_load(sf, tmap, tidyverse, lubridate, arrow)
+```
+
+# 2.0 Importing Grab-Posisi Dataset
+
+```{r}
+mpsz <- st_read(dsn = "C:/wanshen123/IS415-GAA/data/geospatial", 
+                layer = "MP14_SUBZONE_WEB_PL")
+mpsz
+```
+
+# 3.0 Converting into sf tibble data.frame
+
+# 4.0 Visualising as Point Symbol Map
+
+# 5.0 Importing Master Plan 2019 Planning Subzone Boundary

@@ -27,9 +27,11 @@ format:
 ```{r}
 pacman::p_load(sf, tmap, tidyverse, lubridate, arrow)
 ```
+
 ::: callout-note
 **Hi I am WANSHEN**
 :::
+
 # 2.0 Importing Grab-Posisi Dataset
 
 ```{r}
@@ -86,10 +88,22 @@ destination_df <- read_rds("../../data/rds/destination_df.rds")
 ```
 
 ```{r}
-ggplot(data=origin_df, aes(x=weekday)) 
+ggplot(data=origin_df, aes(x=weekday)) +
+  geom_histogram(stat="count", bins=7, 
+                   color="lightblue") +
+  labs(title = "Distribution of Values", x = "Days", 
+       y = "Frequency") + theme_bw()
 ```
 
 # 3.0 Converting into sf tibble data.frame
+
+```{r}
+listings_sf <- st_as_sf(origin_df, 
+                       coords = c("rawlng", "rawlat"),
+                       crs=4326) %>%
+  st_transform(crs = 3414)
+glimpse(listings_sf)
+```
 
 # 4.0 Visualising as Point Symbol Map
 

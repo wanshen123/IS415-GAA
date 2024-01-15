@@ -11,7 +11,7 @@
     "href": "In-class_Ex/In-class_Ex02/In-class_Ex02.html#import-data",
     "title": "In-class Exercise 2",
     "section": "2.1 Import data",
-    "text": "2.1 Import data\n\n\nCode\norigin_df &lt;- read_rds(\"../../data/rds/origin_df.rds\")\ndestination_df &lt;- read_rds(\"../../data/rds/destination_df.rds\")\n\n\n\n\nCode\nggplot(data=origin_df, aes(x=weekday))"
+    "text": "2.1 Import data\n\n\nCode\norigin_df &lt;- read_rds(\"../../data/rds/origin_df.rds\")\ndestination_df &lt;- read_rds(\"../../data/rds/destination_df.rds\")\n\n\n\n\nCode\nggplot(data=origin_df, aes(x=weekday)) +\n  geom_histogram(stat=\"count\", bins=7, \n                   color=\"lightblue\") +\n  labs(title = \"Distribution of Values\", x = \"Days\", \n       y = \"Frequency\") + theme_bw()"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html",

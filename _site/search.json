@@ -151,7 +151,7 @@
     "href": "In-class_Ex/In-class_Ex02/In-class_Ex02.html",
     "title": "In-class Exercise 2",
     "section": "",
-    "text": "Code\npacman::p_load(sf, tmap, tidyverse, lubridate, arrow)\n\n\n\nHi I am WANSHEN"
+    "text": "Code\npacman::p_load(sf, tmap, tidyverse, lubridate, arrow)\n\n\n\n\n\n\n\n\nNote\n\n\n\nHi I am WANSHEN"
   },
   {
     "objectID": "In-class_Ex/In-class_Ex02/In-class_Ex02.html#import-data",

@@ -27,8 +27,8 @@ format:
 ```{r}
 pacman::p_load(sf, tmap, tidyverse, lubridate, arrow)
 ```
-::: Notes
-Hi I am WANSHEN
+::: callout-note
+**Hi I am WANSHEN**
 :::
 # 2.0 Importing Grab-Posisi Dataset
 

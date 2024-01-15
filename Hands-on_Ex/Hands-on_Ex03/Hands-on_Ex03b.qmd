@@ -1,0 +1,17 @@
+---
+title: "Hands-on Exercise 3B"
+#subtitle: "Geospatial Data Wrangling with R"
+description: "2nd Order Spatial Point Patterns Analysis Methods"
+execute: 
+  warning: false
+# date: "`r Sys.Date()`"
+date: 01/17/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Hands-On Exercise
+title-block-categories: false
+---

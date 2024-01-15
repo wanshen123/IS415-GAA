@@ -4,6 +4,8 @@ title: "In-class Exercise 2"
 description: "R for Geospatital Data Science"
 execute: 
   warning: false
+  eval: true
+  echo: true
 # date: "`r Sys.Date()`"
 date: 01/15/2024
 date-format: "D MMM, YYYY" 
@@ -14,6 +16,10 @@ title-block-banner: true
 categories:
   - In-Class Exercise
 title-block-categories: false
+format: 
+  html: 
+    code-fold: true
+    code-summary: "Show the code"
 ---
 
 # 1.0 Getting Started
@@ -25,9 +31,60 @@ pacman::p_load(sf, tmap, tidyverse, lubridate, arrow)
 # 2.0 Importing Grab-Posisi Dataset
 
 ```{r}
-mpsz <- st_read(dsn = "C:/wanshen123/IS415-GAA/data/geospatial", 
-                layer = "MP14_SUBZONE_WEB_PL")
-mpsz
+#| eval: false
+df <- read_parquet("../../data/GrabPosisi/part-00000.parquet")
+df
+```
+
+```{r}
+#| eval: false
+df$pingtimestamp <- as_datetime(df$pingtimestamp)
+```
+
+```{r}
+#| eval: false
+origin_df <- df %>% 
+  group_by(trj_id) %>%
+  arrange(pingtimestamp) %>%
+  filter(row_number()==1) %>%
+  mutate(weekday = wday(pingtimestamp,
+                        label=TRUE,
+                        abbr=TRUE),
+         start_hr = factor(hour(pingtimestamp)),
+         day = factor(mday(pingtimestamp)))
+origin_df
+```
+
+```{r}
+#| eval: false
+destination_df <- df %>% 
+  group_by(trj_id) %>%
+  arrange(desc(pingtimestamp)) %>%
+  filter(row_number()==1) %>%
+  mutate(weekday = wday(pingtimestamp,
+                        label=TRUE,
+                        abbr=TRUE),
+         end_hr = factor(hour(pingtimestamp)),
+         day = factor(mday(pingtimestamp)))
+destination_df
+```
+
+```{r}
+#| eval: false
+#| echo: false
+write_rds(origin_df, "../../data/rds/origin_df.rds")
+write_rds(destination_df, "../../data/rds/destination_df.rds")
+```
+
+## 2.1 Import data
+
+```{r}
+origin_df <- read_rds("../../data/rds/origin_df.rds")
+destination_df <- read_rds("../../data/rds/destination_df.rds")
+```
+
+```{r}
+ggplot(data=origin_df, aes(x=weekday)) 
 ```
 
 # 3.0 Converting into sf tibble data.frame

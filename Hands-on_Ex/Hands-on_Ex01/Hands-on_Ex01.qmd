@@ -31,13 +31,13 @@ pacman::p_load(tidyverse, sf)
 ```{r}
 #| echo: true #false if you do not want code display
 #| eval: true #false if you do not want output
-mpsz <- st_read(dsn = "C:/wanshen123/IS415-GAA/data/geospatial", 
+mpsz <- st_read(dsn = "../../data/geospatial", 
                 layer = "MP14_SUBZONE_WEB_PL")
 
-cyclingpath = st_read(dsn = "C:/wanshen123/IS415-GAA/data/geospatial", 
+cyclingpath = st_read(dsn = "../../data/geospatial", 
                          layer = "CyclingPathGazette")
 
-preschool = st_read("C:/wanshen123/IS415-GAA/data/geospatial/PreSchoolsLocation.kml")
+preschool = st_read("../../data/geospatial/PreSchoolsLocation.kml")
 ```
 
 # 3.0 Checking the Content of A Simple Feature Data Frame
@@ -78,7 +78,7 @@ preschool3414 <- st_transform(preschool,
 ## 6.1 Importing the aspatial data
 
 ```{r}
-listings <- read_csv("C:/wanshen123/IS415-GAA/data/aspatial/listings.csv")
+listings <- read_csv("../../data/aspatial/listings.csv")
 list(listings) 
 ```
 

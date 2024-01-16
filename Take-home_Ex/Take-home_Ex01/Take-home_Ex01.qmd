@@ -45,4 +45,5 @@ head(roadMe, n=3)
 ```{r}
 islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") %>%
   st_transform(crs = 3414) 
+head(islandMe, n=3)
 ```

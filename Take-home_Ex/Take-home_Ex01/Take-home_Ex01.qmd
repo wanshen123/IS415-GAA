@@ -26,10 +26,14 @@ format:
 pacman::p_load(sf, tidyverse, tmap, arrow, lubridate)
 ```
 
+# Aspatial Data
+
 ```{r}
 grabMe <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
 head(grabMe, n=3)
 ```
+
+# Geospatial Data
 
 ```{r}
 roadMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial",

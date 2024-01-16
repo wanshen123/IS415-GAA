@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wan Shen">
-<meta name="description" content="Insert Description">
+<meta name="description" content="Application of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore">
 
 <title>IS415-Wan Shen - Take-home Exercise 1</title>
 <style>
@@ -190,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">Take-home Exercise 1</h1>
                   <div>
         <div class="description">
-          Insert Description
+          Application of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore
         </div>
       </div>
                               </div>
@@ -221,7 +221,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#aspatial-data" id="toc-aspatial-data" class="nav-link active" data-scroll-target="#aspatial-data">Aspatial Data</a></li>
+  <li><a href="#geospatial-data" id="toc-geospatial-data" class="nav-link" data-scroll-target="#geospatial-data">Geospatial Data</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -235,6 +242,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tidyverse, tmap, arrow, lubridate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<section id="aspatial-data" class="level1">
+<h1>Aspatial Data</h1>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -250,6 +259,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 3 75567  car          android    1555141026   1.33   104.  14.0      34      3.9</code></pre>
 </div>
 </div>
+</section>
+<section id="geospatial-data" class="level1">
+<h1>Geospatial Data</h1>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -307,6 +319,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

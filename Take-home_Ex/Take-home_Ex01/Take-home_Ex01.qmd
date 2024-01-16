@@ -1,7 +1,7 @@
 ---
 title: "Take-home Exercise 1"
 #subtitle: "Geospatial Data Wrangling with R"
-description: "Insert Description"
+description: "Application of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore"
 execute: 
   warning: false
   eval: true

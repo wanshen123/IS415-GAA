@@ -154,10 +154,66 @@
     "text": "7.2 Point-in-polygon count\n\nmpsz3414$`PreSch Count`&lt;- lengths(st_intersects(mpsz3414, preschool3414))\nsummary(mpsz3414$`PreSch Count`)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n   0.00    0.00    4.00    7.09   10.00   72.00 \n\ntop_n(mpsz3414, 1, `PreSch Count`)\n\nSimple feature collection with 1 feature and 16 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 39655.33 ymin: 35966 xmax: 42940.57 ymax: 38622.37\nProjected CRS: SVY21 / Singapore TM\n  OBJECTID SUBZONE_NO     SUBZONE_N SUBZONE_C CA_IND PLN_AREA_N PLN_AREA_C\n1      189          2 TAMPINES EAST    TMSZ02      N   TAMPINES         TM\n     REGION_N REGION_C          INC_CRC FMEL_UPD_D   X_ADDR   Y_ADDR SHAPE_Leng\n1 EAST REGION       ER 21658EAAF84F4D8D 2014-12-05 41122.55 37392.39   10180.62\n  SHAPE_Area                       geometry PreSch Count\n1    4339824 MULTIPOLYGON (((42196.76 38...           72\n\nmpsz3414$Area &lt;- mpsz3414 %&gt;% st_area()\nmpsz3414 &lt;- mpsz3414 %&gt;%\n  mutate(`PreSch Density` = `PreSch Count`/Area * 1000000)\nmpsz3414['PreSch Density']\n\nSimple feature collection with 323 features and 1 field\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21 / Singapore TM\nFirst 10 features:\n      PreSch Density                       geometry\n1   0.000000 [1/m^2] MULTIPOLYGON (((31495.56 30...\n2  10.717803 [1/m^2] MULTIPOLYGON (((29092.28 30...\n3   0.000000 [1/m^2] MULTIPOLYGON (((29932.33 29...\n4   8.397308 [1/m^2] MULTIPOLYGON (((27131.28 30...\n5   7.743345 [1/m^2] MULTIPOLYGON (((26451.03 30...\n6  12.616719 [1/m^2] MULTIPOLYGON (((25899.7 297...\n7   9.062370 [1/m^2] MULTIPOLYGON (((27746.95 30...\n8   3.446082 [1/m^2] MULTIPOLYGON (((29351.26 29...\n9  10.140190 [1/m^2] MULTIPOLYGON (((20996.49 30...\n10  1.583170 [1/m^2] MULTIPOLYGON (((24472.11 29..."
   },
   {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html",
+    "title": "Hands-on Exercise 3A",
+    "section": "",
+    "text": "pacman::p_load(maptools, sf, raster, spatstat, tmap)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#importing-the-spatial-data",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#importing-the-spatial-data",
+    "title": "Hands-on Exercise 3A",
+    "section": "2.1 Importing the spatial data",
+    "text": "2.1 Importing the spatial data\n\nchildcare_sf &lt;- st_read(\"../../data/geospatial/PreSchoolsLocation.geojson\") %&gt;%\n  st_transform(crs = 3414)\n\nReading layer `PreSchoolsLocation' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial\\PreSchoolsLocation.geojson' \n  using driver `GeoJSON'\nSimple feature collection with 2290 features and 2 fields\nGeometry type: POINT\nDimension:     XYZ\nBounding box:  xmin: 103.6878 ymin: 1.247759 xmax: 103.9897 ymax: 1.462134\nz_range:       zmin: 0 zmax: 0\nGeodetic CRS:  WGS 84\n\n\n\n#sg_sf &lt;- st_read(dsn = \"chap04/data\", layer=\"CostalOutline\")\n\n\nmpsz_sf &lt;- st_read(dsn = \"../../data/geospatial/\", \n                layer = \"MP14_SUBZONE_WEB_PL\")\n\nReading layer `MP14_SUBZONE_WEB_PL' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial' using driver `ESRI Shapefile'\nSimple feature collection with 323 features and 15 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#mapping-the-geospatial-data-sets",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#mapping-the-geospatial-data-sets",
+    "title": "Hands-on Exercise 3A",
+    "section": "2.2 Mapping the geospatial data sets",
+    "text": "2.2 Mapping the geospatial data sets\n\ntmap_mode('plot') #view mode will freeze the render\ntm_shape(childcare_sf)+\n  tm_dots()\n\n\n\n\n\ntmap_mode('plot')"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#converting-sf-data-frames-to-sps-spatial-class",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#converting-sf-data-frames-to-sps-spatial-class",
+    "title": "Hands-on Exercise 3A",
+    "section": "3.1 Converting sf data frames to sp’s Spatial* class",
+    "text": "3.1 Converting sf data frames to sp’s Spatial* class\n\nchildcare &lt;- as_Spatial(childcare_sf)\nmpsz &lt;- as_Spatial(mpsz_sf)\n#sg &lt;- as_Spatial(sg_sf)\n\n\nchildcare\n\nclass       : SpatialPointsDataFrame \nfeatures    : 2290 \nextent      : 11810.03, 45404.24, 25596.33, 49300.88  (xmin, xmax, ymin, ymax)\ncrs         : +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs \nvariables   : 2\nnames       :    Name,                                                                                                                                                                                                                                                                                                                                                                       Description \nmin values  :   kml_1, &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor=\"#E3E3F3\"&gt; &lt;th&gt;CENTRE_NAME&lt;/th&gt; &lt;td&gt;3-IN-1 FAMILY CENTRE&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=\"\"&gt; &lt;th&gt;CENTRE_CODE&lt;/th&gt; &lt;td&gt;ST0027&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=\"#E3E3F3\"&gt; &lt;th&gt;INC_CRC&lt;/th&gt; &lt;td&gt;DF7EC9C2478FA5A5&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=\"\"&gt; &lt;th&gt;FMEL_UPD_D&lt;/th&gt; &lt;td&gt;20211201093631&lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;/center&gt; \nmax values  : kml_999,   &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor=\"#E3E3F3\"&gt; &lt;th&gt;CENTRE_NAME&lt;/th&gt; &lt;td&gt;Zulfa Kindergarten&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=\"\"&gt; &lt;th&gt;CENTRE_CODE&lt;/th&gt; &lt;td&gt;PT9603&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=\"#E3E3F3\"&gt; &lt;th&gt;INC_CRC&lt;/th&gt; &lt;td&gt;527C1231DDD0FA64&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=\"\"&gt; &lt;th&gt;FMEL_UPD_D&lt;/th&gt; &lt;td&gt;20211201093632&lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;/center&gt; \n\n\n\nmpsz\n\nclass       : SpatialPolygonsDataFrame \nfeatures    : 323 \nextent      : 2667.538, 56396.44, 15748.72, 50256.33  (xmin, xmax, ymin, ymax)\ncrs         : +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +datum=WGS84 +units=m +no_defs \nvariables   : 15\nnames       : OBJECTID, SUBZONE_NO, SUBZONE_N, SUBZONE_C, CA_IND, PLN_AREA_N, PLN_AREA_C,       REGION_N, REGION_C,          INC_CRC, FMEL_UPD_D,     X_ADDR,     Y_ADDR,    SHAPE_Leng,    SHAPE_Area \nmin values  :        1,          1, ADMIRALTY,    AMSZ01,      N, ANG MO KIO,         AM, CENTRAL REGION,       CR, 00F5E30B5C9B7AD8,      16409,  5092.8949,  19579.069, 871.554887798, 39437.9352703 \nmax values  :      323,         17,    YUNNAN,    YSSZ09,      Y,     YISHUN,         YS,    WEST REGION,       WR, FFCCF172717C2EAF,      16409, 50424.7923, 49552.7904, 68083.9364708,  69748298.792"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#converting-the-spatial-class-into-generic-sp-format",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#converting-the-spatial-class-into-generic-sp-format",
+    "title": "Hands-on Exercise 3A",
+    "section": "3.2 Converting the Spatial* class into generic sp format",
+    "text": "3.2 Converting the Spatial* class into generic sp format\n\nchildcare_sp &lt;- as(childcare, \"SpatialPoints\")\n#sg_sp &lt;- as(sg, \"SpatialPolygons\")\n\n\nchildcare_sp\n\nclass       : SpatialPoints \nfeatures    : 2290 \nextent      : 11810.03, 45404.24, 25596.33, 49300.88  (xmin, xmax, ymin, ymax)\ncrs         : +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#converting-the-generic-sp-format-into-spatstats-ppp-format",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#converting-the-generic-sp-format-into-spatstats-ppp-format",
+    "title": "Hands-on Exercise 3A",
+    "section": "3.3 Converting the generic sp format into spatstat’s ppp format",
+    "text": "3.3 Converting the generic sp format into spatstat’s ppp format\n\n#childcare_ppp &lt;- as(childcare_sp, \"ppp\")\n#childcare_ppp\n\n\n#plot(childcare_ppp)\n\n\n#summary(childcare_ppp)"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "IS415-Wan Shen",
     "section": "",
     "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nData Preparation\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nThematic Mapping and GeoVisualisation with R\n\n\n\n\n\n\nJan 11, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 2\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nR for Geospatital Data Science\n\n\n\n\n\n\nJan 15, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nInsert Description\n\n\n\n\n\n\nJan 16, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n1st Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n2nd Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#handling-duplicated-points",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#handling-duplicated-points",
+    "title": "Hands-on Exercise 3A",
+    "section": "3.4 Handling duplicated points",
+    "text": "3.4 Handling duplicated points\n\n#any(duplicated(childcare_ppp))\n\n\n#multiplicity(childcare_ppp)\n\n\n#sum(multiplicity(childcare_ppp) &gt; 1)\n\n\ntmap_mode('plot')\ntm_shape(childcare) +\n  tm_dots(alpha=0.4, \n          size=0.05)\n\n\n\n\n\n#childcare_ppp_jit &lt;- rjitter(childcare_ppp, \n#                             retry=TRUE, \n#                             nsim=1, \n#                             drop=TRUE)\n\n\n#any(duplicated(childcare_ppp_jit))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#creating-owin-object",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#creating-owin-object",
+    "title": "Hands-on Exercise 3A",
+    "section": "3.5 Creating owin object",
+    "text": "3.5 Creating owin object"
   }
 ]

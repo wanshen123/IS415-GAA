@@ -15,3 +15,121 @@ categories:
   - Hands-On Exercise
 title-block-categories: false
 ---
+
+# 1.0 Getting Started
+
+```{r}
+pacman::p_load(maptools, sf, raster, spatstat, tmap)
+```
+
+# 2.0 Spatial Data Wrangling
+
+## 2.1 Importing the spatial data
+
+```{r}
+childcare_sf <- st_read("../../data/geospatial/PreSchoolsLocation.geojson") %>%
+  st_transform(crs = 3414)
+```
+
+```{r}
+#sg_sf <- st_read(dsn = "chap04/data", layer="CostalOutline")
+```
+
+```{r}
+mpsz_sf <- st_read(dsn = "../../data/geospatial/", 
+                layer = "MP14_SUBZONE_WEB_PL")
+```
+
+## 2.2 Mapping the geospatial data sets
+
+```{r}
+tmap_mode('plot') #view mode will freeze the render
+tm_shape(childcare_sf)+
+  tm_dots()
+```
+
+```{r}
+tmap_mode('plot')
+```
+
+# 3.0 Geospatial Data wrangling
+
+## 3.1 Converting sf data frames to sp’s Spatial* class
+
+```{r}
+childcare <- as_Spatial(childcare_sf)
+mpsz <- as_Spatial(mpsz_sf)
+#sg <- as_Spatial(sg_sf)
+```
+
+```{r}
+childcare
+```
+
+```{r}
+mpsz
+```
+
+## 3.2 Converting the Spatial* class into generic sp format
+
+```{r}
+childcare_sp <- as(childcare, "SpatialPoints")
+#sg_sp <- as(sg, "SpatialPolygons")
+```
+
+```{r}
+childcare_sp
+```
+
+## 3.3 Converting the generic sp format into spatstat’s ppp format
+
+```{r}
+#childcare_ppp <- as(childcare_sp, "ppp")
+#childcare_ppp
+```
+
+```{r}
+#plot(childcare_ppp)
+```
+
+```{r}
+#summary(childcare_ppp)
+```
+
+## 3.4 Handling duplicated points
+
+```{r}
+#any(duplicated(childcare_ppp))
+```
+
+```{r}
+#multiplicity(childcare_ppp)
+```
+
+```{r}
+#sum(multiplicity(childcare_ppp) > 1)
+```
+
+```{r}
+tmap_mode('plot')
+tm_shape(childcare) +
+  tm_dots(alpha=0.4, 
+          size=0.05)
+```
+
+```{r}
+#childcare_ppp_jit <- rjitter(childcare_ppp, 
+#                             retry=TRUE, 
+#                             nsim=1, 
+#                             drop=TRUE)
+```
+
+```{r}
+#any(duplicated(childcare_ppp_jit))
+```
+
+## 3.5 Creating owin object
+
+```{r}
+
+```

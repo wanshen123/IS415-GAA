@@ -21,3 +21,24 @@ format:
     code-fold: true
     code-summary: "Show the code"
 ---
+
+```{r}
+pacman::p_load(sf, tidyverse, tmap, arrow, lubridate)
+```
+
+```{r}
+grabMe <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
+head(grabMe, n=3)
+```
+
+```{r}
+roadMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial",
+               layer = "gis_osm_roads_free_1") %>%
+  st_transform(crs = 3414) 
+head(roadMe, n=3)
+```
+
+```{r}
+islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") %>%
+  st_transform(crs = 3414) 
+```

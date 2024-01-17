@@ -27,12 +27,13 @@ pacman::p_load(maptools, sf, raster, spatstat, tmap)
 ## 2.1 Importing the spatial data
 
 ```{r}
-childcare_sf <- st_read("../../data/geospatial/PreSchoolsLocation.geojson") %>%
+childcare_sf <- st_read("../../data/geospatial/ChildCareServices.geojson") %>%
   st_transform(crs = 3414)
 ```
 
 ```{r}
-#sg_sf <- st_read(dsn = "chap04/data", layer="CostalOutline")
+sg_sf <- st_read("../../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaGEOJSON.geojson") %>% 
+  st_transform(crs = 3414)
 ```
 
 ```{r}
@@ -70,6 +71,10 @@ childcare
 mpsz
 ```
 
+```{r}
+#sg
+```
+
 ## 3.2 Converting the Spatial* class into generic sp format
 
 ```{r}
@@ -81,10 +86,14 @@ childcare_sp <- as(childcare, "SpatialPoints")
 childcare_sp
 ```
 
+```{r}
+#sg_sp
+```
+
 ## 3.3 Converting the generic sp format into spatstat’s ppp format
 
 ```{r}
-#childcare_ppp <- as(childcare_sp, "ppp")
+#childcare_ppp <- as.ppp(childcare_sp)
 #childcare_ppp
 ```
 

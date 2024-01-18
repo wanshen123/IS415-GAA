@@ -5,7 +5,7 @@ description: "2nd Order Spatial Point Patterns Analysis Methods"
 execute: 
   warning: false
 # date: "`r Sys.Date()`"
-date: 01/17/2024
+date: 01/19/2024
 date-format: "D MMM, YYYY" 
 author: 
   - Wan Shen
@@ -15,3 +15,77 @@ categories:
   - Hands-On Exercise
 title-block-categories: false
 ---
+
+# 1.0 Getting Started
+
+Use the code chunk below to install and launch the five R packages.
+
+```{r}
+pacman::p_load(maptools, sf, raster, spatstat, tmap)
+```
+
+# 2.0 Spatial Data Wrangling
+
+## 2.1 Importing the spatial data
+
+In this section, [*st_read()*](https://r-spatial.github.io/sf/reference/st_read.html) of **sf** package will be used to import these three geospatial data sets into R.
+
+```{r}
+childcare_sf <- st_read("../../data/geospatial/PreSchoolsLocation.geojson") %>% st_transform(crs = 3414)
+```
+
+```{r}
+sg_sf <- st_read(dsn = "../../data/geospatial/", 
+                layer = "CostalOutline")
+```
+
+```{r}
+mpsz_sf <- st_read(dsn = "../../data/geospatial/", 
+                layer = "MP14_SUBZONE_WEB_PL")
+```
+
+::: callout-note
+DIY: Using the appropriate sf function you learned in Hands-on Exercise 2, retrieve the referencing system information of these geospatial data.
+:::
+
+```{r}
+crs_info1 <- st_crs(childcare_sf)
+crs_info2 <- st_crs(sg_sf)
+crs_info3 <- st_crs(mpsz_sf)
+crs_info1
+```
+
+```{r}
+crs_info2
+```
+
+```{r}
+crs_info3
+```
+
+::: callout-note
+DIY: Using the method you learned in Lesson 2, assign the correct crs to mpsz_sf and sg_sf simple feature data frames.
+
+DIY: If necessary, changing the referencing system to Singapore national projected coordinate system.
+:::
+
+```{r}
+sg_sf <- st_transform(sg_sf, crs = 3414)
+mpsz_sf <- st_transform(mpsz_sf, crs = 3414)
+```
+
+## 2.2 Mapping the geospatial data sets
+
+After checking the referencing system of each geospatial data data frame, it is also useful for us to plot a map to show their spatial patterns.
+
+::: callout-note
+DIY: Using the mapping methods you learned in Hands-on Exercise 3, prepare a map as shown below.
+:::
+
+```{r}
+tmap_mode("plot")
+tm_shape(mpsz_sf) +
+  tm_polygons() +
+  tm_shape(childcare_sf) +
+  tm_dots()
+```

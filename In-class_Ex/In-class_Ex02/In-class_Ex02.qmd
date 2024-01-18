@@ -87,15 +87,7 @@ origin_df <- read_rds("../../data/rds/origin_df.rds")
 destination_df <- read_rds("../../data/rds/destination_df.rds")
 ```
 
-```{r}
-ggplot(data=origin_df, aes(x=weekday)) +
-  geom_histogram(stat="count", bins=7, 
-                   color="lightblue") +
-  labs(title = "Distribution of Values", x = "Days", 
-       y = "Frequency") + theme_bw()
-```
-
-# 3.0 Converting into sf tibble data.frame
+# 3.0 Converting aspatial data into geospatial data
 
 ```{r}
 listings_sf <- st_as_sf(origin_df, 
@@ -105,6 +97,34 @@ listings_sf <- st_as_sf(origin_df,
 glimpse(listings_sf)
 ```
 
-# 4.0 Visualising as Point Symbol Map
+# 4.0 Visualising the data
+
+## 4.1 Visualising frequency distribution
+
+```{r}
+ggplot(data=origin_df, 
+       aes(x=weekday)) + 
+  geom_bar()
+```
+
+## 4.2 Visualising as Point Symbol Map
+
+```{r}
+tmap_mode("plot")
+tm_shape(listings_sf) +
+  tm_dots()
+```
 
 # 5.0 Importing Master Plan 2019 Planning Subzone Boundary
+
+```{r}
+mpsz2019 <- st_read("../../data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") %>%
+  st_transform(crs = 3414)
+```
+
+```{r}
+tm_shape(mpsz2019) +
+  tm_polygons() +
+tm_shape(listings_sf) +
+  tm_dots()
+```

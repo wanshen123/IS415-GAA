@@ -42,14 +42,28 @@ Aspatial Data
 Geospatial Data
 
 ```{r}
+#| eval: false 
 roadMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial",
                layer = "gis_osm_roads_free_1")
 head(roadMe, n=3)
 ```
 
 ```{r}
+#| eval: false 
 islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml")
 head(islandMe, n=3)
+```
+
+```{r}
+#| eval: false 
+#| echo: false 
+write_rds(roadMe, "../../data/TakeHome/TakeHome_01/rds/road_df.rds")
+write_rds(islandMe, "../../data/TakeHome/TakeHome_01/rds/island_df.rds")
+```
+
+```{r}
+road_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/road_df.rds")
+island_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/island_df.rds")
 ```
 
 ::: callout-note
@@ -57,8 +71,8 @@ Using the crs info function to retrieve the referencing system information of th
 :::
 
 ```{r}
-crs_info1 <- st_crs(roadMe)
-crs_info2 <- st_crs(islandMe)
+crs_info1 <- st_crs(road_df)
+crs_info2 <- st_crs(island_df)
 crs_info1
 ```
 
@@ -71,8 +85,8 @@ Changing the referencing system to Singapore national projected coordinate syste
 :::
 
 ```{r}
-road_sf <- st_transform(roadMe, crs = 3414)
-island_sf <- st_transform(islandMe, crs = 3414)
+road_sf <- st_transform(road_df, crs = 3414)
+island_sf <- st_transform(island_df, crs = 3414)
 ```
 
 ## 2.2 Mapping the geospatial data sets
@@ -87,4 +101,76 @@ tm_shape(island_sf) +
   tm_polygons() +
   tm_shape(road_sf) +
   tm_dots()
+```
+
+# 3.0 Geospatial Data wrangling
+
+## 3.1 Converting sf data frames to sp’s Spatial* class
+
+::: callout-note
+The code chunk below uses as_Spatial() of sf package to convert the three geospatial data from simple feature data frame to sp’s Spatial* class.
+:::
+
+```{r}
+island_sf <- island_sf[st_is_valid(island_sf), ]
+# Identify empty geometries
+empty_geoms <- st_is_empty(island_sf)
+
+# Remove features with empty geometries
+island_sf <- island_sf[!empty_geoms, ]
+island_sf <- st_zm(island_sf)
+```
+
+```{r}
+island <- as_Spatial(island_sf)
+road <- as_Spatial(road_sf)
+```
+
+```{r}
+island
+```
+
+```{r}
+#road
+```
+
+## 3.2 Converting the Spatial* class into generic sp format
+
+::: callout-note
+Since spatstat requires the analytical data in ppp object form. There is no direct way to convert a Spatial* classes into ppp object. We need to convert the Spatial classes* into Spatial object first.
+
+The codes chunk below converts the Spatial* classes into generic sp objects.
+:::
+
+```{r}
+island_sp <- as(island, "SpatialPolygons")
+#road_sp <- as(road, "SpatialPoints")
+```
+
+```{r}
+island_sp
+```
+
+```{r}
+#road_sp
+```
+
+```{r}
+#sg_owin <- as(island_sp, "owin")
+#plot(sg_owin)
+```
+
+## 3.3 Converting the generic sp format into spatstat’s ppp format
+
+::: callout-note
+Now, we will use as.ppp() function of spatstat to convert the spatial data into spatstat’s ppp object format.
+:::
+
+```{r}
+#road_ppp <- as(road_sp, "ppp")
+#road_ppp
+```
+
+```{r}
+#plot(road_ppp)
 ```

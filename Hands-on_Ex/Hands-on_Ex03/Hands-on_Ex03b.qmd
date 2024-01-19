@@ -89,3 +89,183 @@ tm_shape(mpsz_sf) +
   tm_shape(childcare_sf) +
   tm_dots()
 ```
+
+```{r}
+tmap_mode('view')
+```
+
+```{r}
+tm_shape(childcare_sf)+
+  tm_dots()
+```
+
+```{r}
+tmap_mode('plot')
+```
+
+# 3.0 Geospatial Data wrangling
+
+## 3.1 Converting sf data frames to sp’s Spatial\* class
+
+The code chunk below uses [*as_Spatial()*](https://r4gdsa.netlify.app/chap05) of **sf** package to convert the three geospatial data from simple feature data frame to sp’s Spatial\* class.
+
+```{r}
+childcare <- as_Spatial(childcare_sf)
+mpsz <- as_Spatial(mpsz_sf)
+sg <- as_Spatial(sg_sf)
+```
+
+::: callout-note
+DIY: Using appropriate function, display the information of these three Spatial\* classes as shown below.
+:::
+
+```{r}
+childcare
+```
+
+```{r}
+mpsz
+```
+
+```{r}
+sg
+```
+
+## 3.2 Converting the Spatial\* class into generic sp format
+
+Since **spatstat** requires the analytical data in ***ppp*** object form. There is no direct way to convert a Spatial\* classes into ***ppp*** object. We need to convert the ***Spatial*** **classes**\* into ***Spatial*** object first.
+
+The codes chunk below converts the Spatial\* classes into generic sp objects.
+
+```{r}
+childcare_sp <- as(childcare, "SpatialPoints")
+sg_sp <- as(sg, "SpatialPolygons")
+```
+
+```{r}
+childcare_sp
+```
+
+```{r}
+sg_sp
+```
+
+## 3.3 Converting the generic sp format into spatstat’s ppp format
+
+Now, we will use *as.ppp()* function of **spatstat** to convert the spatial data into **spatstat**’s ***ppp*** object format.
+
+```{r}
+childcare_ppp <- as(childcare_sp, "ppp")
+childcare_ppp
+```
+
+Now, let us plot ***childcare_ppp*** and examine the different.
+
+```{r}
+plot(childcare_ppp)
+```
+
+```{r}
+summary(childcare_ppp)
+```
+
+## 3.4 Handling duplicated points
+
+We can check the duplication in a **ppp** object by using the code chunk below.
+
+```{r}
+any(duplicated(childcare_ppp))
+```
+
+To count the number of co-indicence point, we will use the multiplicity() function as shown in the code chunk below.
+
+```{r}
+multiplicity(childcare_ppp)
+```
+
+If we want to know how many locations have more than one point event, we can use the code chunk below.
+
+```{r}
+sum(multiplicity(childcare_ppp) > 1)
+```
+
+The output shows that there are 128 duplicated point events.
+
+To view the locations of these duplicate point events, we will plot childcare data by using the code chunk below.
+
+```{r}
+tmap_mode('view')
+```
+
+```{r}
+tm_shape(childcare) +
+  tm_dots(alpha=0.4, 
+          size=0.05)
+```
+
+```{r}
+tmap_mode('plot')
+```
+
+The second solution is use jittering, which will add a small perturbation to the duplicate points so that they do not occupy the exact same space. The code chunk below implements the jittering approach.
+
+```{r}
+childcare_ppp_jit <- rjitter(childcare_ppp, 
+                             retry=TRUE, 
+                             nsim=1, 
+                             drop=TRUE)
+```
+
+::: callout-note
+DIY: Using the method you learned in previous section, check if any duplicated point in this geospatial data.
+:::
+
+```{r}
+any(duplicated(childcare_ppp_jit))
+```
+
+## 3.5 Creating owin object
+
+When analysing spatial point patterns, it is a good practice to confine the analysis with a geographical area like Singapore boundary. In **spatstat**, an object called **owin** is specially designed to represent this polygonal region.
+
+The code chunk below is used to covert sg SpatialPolygon object into owin object of **spatstat**.
+
+```{r}
+sg_owin <- as(sg_sp, "owin")
+```
+
+```{r}
+plot(sg_owin)
+```
+
+```{r}
+summary(sg_owin)
+```
+
+## 3.6 Combining point events object and owin object
+
+In this last step of geospatial data wrangling, we will extract childcare events that are located within Singapore by using the code chunk below.
+
+::: callout-note
+DIY: Using the method you learned in previous exercise, plot the newly derived childcareSG_ppp as shown below.
+:::
+
+```{r}
+childcareSG_ppp = childcare_ppp[sg_owin]
+plot(childcareSG_ppp)
+```
+
+```{r}
+summary(childcareSG_ppp)
+```
+
+### 3.6.1 Extracting study area
+
+The code chunk below will be used to extract the target planning areas.
+
+```{r}
+pg = mpsz[mpsz@data$PLN_AREA_N == "PUNGGOL",]
+tm = mpsz[mpsz@data$PLN_AREA_N == "TAMPINES",]
+ck = mpsz[mpsz@data$PLN_AREA_N == "CHOA CHU KANG",]
+jw = mpsz[mpsz@data$PLN_AREA_N == "JURONG WEST",]
+```

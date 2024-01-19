@@ -44,6 +44,31 @@ mpsz_sf <- st_read(dsn = "../../data/geospatial/",
                 layer = "MP14_SUBZONE_WEB_PL")
 ```
 
+::: callout-note
+DIY: Using the appropriate sf function you learned in Hands-on Exercise 2, retrieve the referencing system information of these geospatial data.
+:::
+
+```{r}
+crs_info1 <- st_crs(childcare_sf)
+crs_info2 <- st_crs(sg_sf)
+crs_info3 <- st_crs(mpsz_sf)
+crs_info1
+```
+
+```{r}
+crs_info2
+```
+
+```{r}
+crs_info3
+```
+
+::: callout-note
+DIY: Using the method you learned in Lesson 2, assign the correct crs to mpsz_sf and sg_sf simple feature data frames.
+
+DIY: If necessary, changing the referencing system to Singapore national projected coordinate system.
+:::
+
 ```{r}
 sg_sf <- st_transform(sg_sf, crs = 3414)
 mpsz_sf <- st_transform(mpsz_sf, crs = 3414)
@@ -52,6 +77,10 @@ mpsz_sf <- st_transform(mpsz_sf, crs = 3414)
 ## 2.2 Mapping the geospatial data sets
 
 After checking the referencing system of each geospatial data data frame, it is also useful for us to plot a map to show their spatial patterns.
+
+::: callout-note
+DIY: Using the mapping methods you learned in Hands-on Exercise 3, prepare a map as shown below.
+:::
 
 ```{r}
 tmap_mode("plot")
@@ -84,6 +113,10 @@ childcare <- as_Spatial(childcare_sf)
 mpsz <- as_Spatial(mpsz_sf)
 sg <- as_Spatial(sg_sf)
 ```
+
+::: callout-note
+DIY: Using appropriate function, display the information of these three Spatial* classes as shown below.
+:::
 
 ```{r}
 childcare
@@ -141,13 +174,21 @@ We can check the duplication in a **ppp** object by using the code chunk below.
 any(duplicated(childcare_ppp))
 ```
 
+To count the number of co-indicence point, we will use the multiplicity() function as shown in the code chunk below.
+
 ```{r}
 multiplicity(childcare_ppp)
 ```
 
+If we want to know how many locations have more than one point event, we can use the code chunk below.
+
 ```{r}
 sum(multiplicity(childcare_ppp) > 1)
 ```
+
+The output shows that there are 128 duplicated point events.
+
+To view the locations of these duplicate point events, we will plot childcare data by using the code chunk below.
 
 ```{r}
 tmap_mode('view')
@@ -160,12 +201,18 @@ tm_shape(childcare) +
 tmap_mode('plot')
 ```
 
+The second solution is use jittering, which will add a small perturbation to the duplicate points so that they do not occupy the exact same space. The code chunk below implements the jittering approach.
+
 ```{r}
 childcare_ppp_jit <- rjitter(childcare_ppp, 
                              retry=TRUE, 
                              nsim=1, 
                              drop=TRUE)
 ```
+
+::: callout-note
+DIY: Using the method you learned in previous section, check if any duplicated point in this geospatial data.
+:::
 
 ```{r}
 any(duplicated(childcare_ppp_jit))
@@ -174,6 +221,8 @@ any(duplicated(childcare_ppp_jit))
 ## 3.5 Creating owin object
 
 When analysing spatial point patterns, it is a good practice to confine the analysis with a geographical area like Singapore boundary. In **spatstat**, an object called **owin** is specially designed to represent this polygonal region.
+
+The code chunk below is used to covert sg SpatialPolygon object into owin object of **spatstat**.
 
 ```{r}
 sg_owin <- as(sg_sp, "owin")
@@ -190,6 +239,10 @@ summary(sg_owin)
 ## 3.6 Combining point events object and owin object
 
 In this last step of geospatial data wrangling, we will extract childcare events that are located within Singapore by using the code chunk below.
+
+::: callout-note
+DIY: Using the method you learned in previous exercise, plot the newly derived childcareSG_ppp as shown below.
+:::
 
 ```{r}
 childcareSG_ppp = childcare_ppp[sg_owin]

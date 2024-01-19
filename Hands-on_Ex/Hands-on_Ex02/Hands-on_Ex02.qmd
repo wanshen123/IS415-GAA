@@ -118,7 +118,7 @@ tm_shape(mpsz_pop2020)+
   tm_polygons("DEPENDENCY")
 ```
 
-### 3.2.3 Drawing a choropleth map using tm_fill() and *tm_border()**
+### 3.2.3 Drawing a choropleth map using tm_fill() and \*tm_border()\*\*
 
 ```{r}
 tm_shape(mpsz_pop2020)+

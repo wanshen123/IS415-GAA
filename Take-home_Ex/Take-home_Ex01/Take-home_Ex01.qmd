@@ -16,36 +16,75 @@ title-block-banner: true
 categories:
   - Take-Home Exercise
 title-block-categories: false
-format: 
-  html: 
-    code-fold: true
-    code-summary: "Show the code"
+#format: 
+  #html: 
+    #code-fold: true
+    #code-summary: "Show the code"
 ---
 
-# Getting Started
+# 1.0 Getting Started
 
 ```{r}
 pacman::p_load(sf, tidyverse, tmap, arrow, lubridate)
 ```
 
-# Aspatial Data
+# 2.0 Spatial Data Wrangling
+
+## 2.1 Importing the spatial data
+
+Aspatial Data
 
 ```{r}
-grabMe <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
-head(grabMe, n=3)
+#grabMe <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
+#head(grabMe, n=3)
 ```
 
-# Geospatial Data
+Geospatial Data
 
 ```{r}
 roadMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial",
-               layer = "gis_osm_roads_free_1") %>%
-  st_transform(crs = 3414) 
+               layer = "gis_osm_roads_free_1")
 head(roadMe, n=3)
 ```
 
 ```{r}
-islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml") %>%
-  st_transform(crs = 3414) 
+islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml")
 head(islandMe, n=3)
+```
+
+::: callout-note
+Using the crs info function to retrieve the referencing system information of these geospatial data.
+:::
+
+```{r}
+crs_info1 <- st_crs(roadMe)
+crs_info2 <- st_crs(islandMe)
+crs_info1
+```
+
+```{r}
+crs_info2
+```
+
+::: callout-note
+Changing the referencing system to Singapore national projected coordinate system.
+:::
+
+```{r}
+road_sf <- st_transform(roadMe, crs = 3414)
+island_sf <- st_transform(islandMe, crs = 3414)
+```
+
+## 2.2 Mapping the geospatial data sets
+
+::: callout-note
+After checking the referencing system of each geospatial data data frame, it is also useful for us to plot a map to show their spatial patterns.
+:::
+
+```{r}
+tmap_mode("plot")
+tm_shape(island_sf) +
+  tm_polygons() +
+  tm_shape(road_sf) +
+  tm_dots()
 ```

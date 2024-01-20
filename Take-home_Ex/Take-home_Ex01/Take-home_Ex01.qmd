@@ -66,6 +66,10 @@ road_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/road_df.rds")
 island_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/island_df.rds")
 ```
 
+```{r}
+road_df <- road_df[!(is.na(road_df$name)), ]
+```
+
 ::: callout-note
 Using the crs info function to retrieve the referencing system information of these geospatial data.
 :::
@@ -131,7 +135,19 @@ island
 ```
 
 ```{r}
-#road
+road
+```
+
+```{r}
+#| eval: false
+#| echo: false
+write_rds(road, "../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
+write_rds(island, "../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
+```
+
+```{r}
+road_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
+island_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
 ```
 
 ## 3.2 Converting the Spatial* class into generic sp format
@@ -143,8 +159,8 @@ The codes chunk below converts the Spatial* classes into generic sp objects.
 :::
 
 ```{r}
-island_sp <- as(island, "SpatialPolygons")
-#road_sp <- as(road, "SpatialPoints")
+island_sp <- as(island_as, "SpatialPolygons")
+road_sp <- as(road_as, "SpatialPoints")
 ```
 
 ```{r}
@@ -152,12 +168,19 @@ island_sp
 ```
 
 ```{r}
-#road_sp
+road_sp
 ```
 
 ```{r}
-#sg_owin <- as(island_sp, "owin")
-#plot(sg_owin)
+#| eval: false
+#| echo: false
+write_rds(road_sp, "../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
+write_rds(island_sp, "../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
+```
+
+```{r}
+road_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
+island_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
 ```
 
 ## 3.3 Converting the generic sp format into spatstat’s ppp format
@@ -169,8 +192,15 @@ Now, we will use as.ppp() function of spatstat to convert the spatial data into 
 ```{r}
 #road_ppp <- as(road_sp, "ppp")
 #road_ppp
+#library(spatstat)
+#road_ppp <- as.ppp(road_sp)
 ```
 
 ```{r}
 #plot(road_ppp)
+```
+
+```{r}
+#sg_owin <- as(island_sp, "owin")
+#plot(sg_owin)
 ```

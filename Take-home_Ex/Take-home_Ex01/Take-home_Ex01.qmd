@@ -25,7 +25,7 @@ title-block-categories: false
 # 1.0 Getting Started
 
 ```{r}
-pacman::p_load(sf, tidyverse, tmap, arrow, lubridate)
+pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat)
 ```
 
 # 2.0 Spatial Data Wrangling
@@ -68,6 +68,7 @@ island_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/island_df.rds")
 
 ```{r}
 road_df <- road_df[!(is.na(road_df$name)), ]
+island_df <- island_df[!(is.na(island_df$geometry)), ]
 ```
 
 ::: callout-note
@@ -93,6 +94,15 @@ road_sf <- st_transform(road_df, crs = 3414)
 island_sf <- st_transform(island_df, crs = 3414)
 ```
 
+```{r}
+island_sf <- st_zm(island_sf)
+```
+
+```{r}
+sf_df <- st_as_sf(road_sf, wkt = "geometry")
+roads_in_singapore <- st_intersection(sf_df, island_sf)
+```
+
 ## 2.2 Mapping the geospatial data sets
 
 ::: callout-note
@@ -100,42 +110,30 @@ After checking the referencing system of each geospatial data data frame, it is 
 :::
 
 ```{r}
-tmap_mode("plot")
-tm_shape(island_sf) +
-  tm_polygons() +
-  tm_shape(road_sf) +
-  tm_dots()
+roads_in_singapore <- st_transform(roads_in_singapore, crs = 3414)
+```
+
+```{r}
+#tmap_mode("plot")
+#tm_shape(island_sf) +
+#  tm_polygons() +
+#  tm_shape(roads_in_singapore) +
+#  tm_dots()
 ```
 
 # 3.0 Geospatial Data wrangling
 
-## 3.1 Converting sf data frames to sp’s Spatial* class
+## 3.1 Converting sf data frames to sp’s Spatial\* class
 
 ::: callout-note
-The code chunk below uses as_Spatial() of sf package to convert the three geospatial data from simple feature data frame to sp’s Spatial* class.
+The code chunk below uses as_Spatial() of sf package to convert the three geospatial data from simple feature data frame to sp’s Spatial\* class.
 :::
 
 ```{r}
-island_sf <- island_sf[st_is_valid(island_sf), ]
-# Identify empty geometries
-empty_geoms <- st_is_empty(island_sf)
-
-# Remove features with empty geometries
-island_sf <- island_sf[!empty_geoms, ]
-island_sf <- st_zm(island_sf)
-```
-
-```{r}
+#| eval: false
 island <- as_Spatial(island_sf)
-road <- as_Spatial(road_sf)
-```
-
-```{r}
-island
-```
-
-```{r}
-road
+#road <- as_Spatial(road_sf)
+road <- as_Spatial(roads_in_singapore)
 ```
 
 ```{r}
@@ -150,12 +148,20 @@ road_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
 island_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
 ```
 
-## 3.2 Converting the Spatial* class into generic sp format
+```{r}
+island_as
+```
+
+```{r}
+road_as
+```
+
+## 3.2 Converting the Spatial\* class into generic sp format
 
 ::: callout-note
-Since spatstat requires the analytical data in ppp object form. There is no direct way to convert a Spatial* classes into ppp object. We need to convert the Spatial classes* into Spatial object first.
+Since spatstat requires the analytical data in ppp object form. There is no direct way to convert a Spatial\* classes into ppp object. We need to convert the Spatial classes\* into Spatial object first.
 
-The codes chunk below converts the Spatial* classes into generic sp objects.
+The codes chunk below converts the Spatial\* classes into generic sp objects.
 :::
 
 ```{r}
@@ -190,17 +196,82 @@ Now, we will use as.ppp() function of spatstat to convert the spatial data into 
 :::
 
 ```{r}
-#road_ppp <- as(road_sp, "ppp")
-#road_ppp
-#library(spatstat)
-#road_ppp <- as.ppp(road_sp)
+#library(maptools)
+road_ppp <- as(road_sp, "ppp")
 ```
 
 ```{r}
-#plot(road_ppp)
+plot(road_ppp)
 ```
 
 ```{r}
-#sg_owin <- as(island_sp, "owin")
-#plot(sg_owin)
+summary(road_ppp)
+```
+
+```{r}
+#library(maptools)
+sg_owin <- as(island_sp, "owin")
+plot(sg_owin)
+```
+
+```{r}
+summary(sg_owin)
+```
+
+## 3.4 Combining point events object and owin object
+
+In this last step of geospatial data wrangling, we will extract childcare events that are located within Singapore by using the code chunk below.
+
+::: callout-note
+Plot the newly derived islandSG_ppp as shown below.
+:::
+
+```{r}
+islandSG_ppp = road_ppp[sg_owin]
+plot(islandSG_ppp)
+```
+
+```{r}
+summary(islandSG_ppp)
+```
+
+# 4.0 Kernel Density Estimation
+
+## 4.1 Computing kernel density estimation using automatic bandwidth selection method
+
+The code chunk below computes a kernel density by using the following configurations of density() of spatstat:
+
+-   [*bw.diggle()*](https://rdrr.io/cran/spatstat/man/bw.diggle.html) automatic bandwidth selection method. Other recommended methods are [*bw.CvL()*](https://rdrr.io/cran/spatstat/man/bw.CvL.html), [*bw.scott()*](https://rdrr.io/cran/spatstat/man/bw.scott.html) or [*bw.ppl()*](https://rdrr.io/cran/spatstat/man/bw.ppl.html).
+
+-   The smoothing kernel used is *gaussian*, which is the default. Other smoothing methods are: “epanechnikov”, “quartic” or “disc”.
+
+-   The intensity estimate is corrected for edge effect bias by using method described by Jones (1993) and Diggle (2010, equation 18.9). The default is *FALSE*.
+
+```{r}
+kde_roadSG_bw <- density(road_ppp,
+                              sigma=bw.diggle,
+                              edge=TRUE,
+                            kernel="gaussian") 
+```
+
+```{r}
+plot(kde_roadSG_bw)
+```
+
+```{r}
+bw <- bw.diggle(road_ppp)
+bw
+```
+
+## 4.2 Rescalling KDE values
+
+In the code chunk below, rescale() is used to covert the unit of measurement from meter to kilometer.
+
+```{r}
+road_ppp.km <- rescale(road_ppp, 1000, "km")
+```
+
+```{r}
+kde_roadSG.bw <- density(road_ppp.km, sigma=bw.diggle, edge=TRUE, kernel="gaussian")
+plot(kde_roadSG.bw)
 ```

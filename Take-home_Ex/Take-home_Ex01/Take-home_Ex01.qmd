@@ -532,6 +532,6 @@ osm_layer <- qtm(basemaps = "OpenStreetMap", zoom = 12)
 ```{r}
 tm_shape(kde_kde_roadSG_bw_raster) +
   tm_raster(style = "cont", palette = "viridis") +
-  tm_layout(legend.show = TRUE) +
+  tm_layout(legend.show = TRUE, legend.text.color = "white") +
   osm_layer
 ```

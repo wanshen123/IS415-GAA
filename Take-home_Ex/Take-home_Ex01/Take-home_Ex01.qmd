@@ -7,7 +7,7 @@ execute:
   eval: true
   echo: true
 # date: "`r Sys.Date()`"
-date: 01/16/2024
+date: 01/21/2024
 date-format: "D MMM, YYYY" 
 author: 
   - Wan Shen
@@ -35,8 +35,9 @@ pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat
 Aspatial Data
 
 ```{r}
-#grabMe <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
-#head(grabMe, n=3)
+#| eval: false 
+grab0 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
+head(grab0, n=3)
 ```
 
 Geospatial Data
@@ -66,9 +67,40 @@ road_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/road_df.rds")
 island_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/island_df.rds")
 ```
 
+## 2.2 Data Pre-Processing
+
 ```{r}
 road_df <- road_df[!(is.na(road_df$name)), ]
 island_df <- island_df[!(is.na(island_df$geometry)), ]
+```
+
+```{r}
+#| eval: false
+grab0_df$pingtimestamp <- as_datetime(grab0_df$pingtimestamp)
+```
+
+```{r}
+#| eval: false
+origin0_df <- grab0_df %>% 
+  group_by(trj_id) %>%
+  arrange(pingtimestamp) %>%
+  filter(row_number()==1) %>%
+  mutate(weekday = wday(pingtimestamp,
+                        label=TRUE,
+                        abbr=TRUE),
+         start_hr = factor(hour(pingtimestamp)),
+         day = factor(mday(pingtimestamp)))
+origin0_df
+```
+
+```{r}
+#| eval: false 
+#| echo: false 
+write_rds(origin0_df, "../../data/TakeHome/TakeHome_01/rds/grab0.rds")
+```
+
+```{r}
+grab0_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/grab0.rds")
 ```
 
 ::: callout-note
@@ -86,12 +118,38 @@ crs_info2
 ```
 
 ::: callout-note
+Preparing the following geospatial data layer in sf tibble data.frames.
+:::
+
+Road layer within Singapore excluding outer islands.
+
+```{r}
+tibble1 <- as_tibble(road_df)
+tibble1
+```
+
+Singapore boundary layer excluding outer islands
+
+```{r}
+tibble2 <- as_tibble(island_df)
+tibble2
+```
+
+::: callout-note
 Changing the referencing system to Singapore national projected coordinate system.
 :::
 
 ```{r}
 road_sf <- st_transform(road_df, crs = 3414)
 island_sf <- st_transform(island_df, crs = 3414)
+```
+
+```{r}
+grab0_sf <- st_as_sf(grab0_df, 
+                       coords = c("rawlng", "rawlat"),
+                       crs=4326) %>%
+  st_transform(crs = 3414)
+glimpse(grab0_sf)
 ```
 
 ```{r}
@@ -103,7 +161,7 @@ sf_df <- st_as_sf(road_sf, wkt = "geometry")
 roads_in_singapore <- st_intersection(sf_df, island_sf)
 ```
 
-## 2.2 Mapping the geospatial data sets
+## 2.3 Mapping the geospatial data sets
 
 ::: callout-note
 After checking the referencing system of each geospatial data data frame, it is also useful for us to plot a map to show their spatial patterns.
@@ -113,11 +171,27 @@ After checking the referencing system of each geospatial data data frame, it is 
 roads_in_singapore <- st_transform(roads_in_singapore, crs = 3414)
 ```
 
+Grab Taxi Location Points 
+
 ```{r}
-#tmap_mode("plot")
+tmap_mode("plot")
+tm_shape(grab0_sf) +
+  tm_dots()
+```
+
+Master Plan 2019 Planning Subzone Boundary with Grab Taxi Location Points
+
+```{r}
+tm_shape(island_sf) +
+  tm_polygons() +
+tm_shape(grab0_sf) +
+  tm_dots()
+```
+
+```{r}
 #tm_shape(island_sf) +
 #  tm_polygons() +
-#  tm_shape(roads_in_singapore) +
+#tm_shape(roads_in_singapore) +
 #  tm_dots()
 ```
 

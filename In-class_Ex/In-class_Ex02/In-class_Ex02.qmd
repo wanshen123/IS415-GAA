@@ -16,10 +16,10 @@ title-block-banner: true
 categories:
   - In-Class Exercise
 title-block-categories: false
-format: 
-  html: 
-    code-fold: true
-    code-summary: "Show the code"
+#format: 
+#  html: 
+#    code-fold: true
+#    code-summary: "Show the code"
 ---
 
 # 1.0 Getting Started
@@ -27,10 +27,6 @@ format:
 ```{r}
 pacman::p_load(sf, tmap, tidyverse, lubridate, arrow)
 ```
-
-::: callout-note
-**Hi I am WANSHEN**
-:::
 
 # 2.0 Importing Grab-Posisi Dataset
 

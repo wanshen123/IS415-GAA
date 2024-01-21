@@ -313,7 +313,7 @@ plot(sg_owin)
 ```
 
 ```{r}
-summary(sg_owin)
+glimpse(summary(sg_owin))
 ```
 
 ## 3.4 Combining point events object and owin object
@@ -330,7 +330,7 @@ plot(islandSG_ppp_road)
 ```
 
 ```{r}
-summary(islandSG_ppp_road)
+glimpse(summary(islandSG_ppp_road))
 ```
 
 ## 3.5 Handling duplicated points
@@ -346,6 +346,7 @@ To count the number of co-indicence point, we will use the multiplicity() functi
 :::
 
 ```{r}
+#| eval: false
 multiplicity(islandSG_ppp_road)
 ```
 
@@ -364,14 +365,10 @@ To view the locations of these duplicate point events, we will plot **road_as** 
 :::
 
 ```{r}
-tmap_mode('view')
+tmap_mode('plot')
 tm_shape(road_as) +
   tm_dots(alpha=0.4, 
           size=0.05)
-```
-
-```{r}
-tmap_mode('plot')
 ```
 
 ::: callout-note
@@ -446,15 +443,7 @@ Beside bw.diggle(), there are three other **spatstat** functions can be used to 
 Let us take a look at the bandwidth return by these automatic bandwidth calculation methods by using the code chunk below.
 
 ```{r}
-#bw.CvL(road_ppp.km)
-```
-
-```{r}
 bw.scott(road_ppp.km)
-```
-
-```{r}
-#bw.ppl(road_ppp.km)
 ```
 
 ```{r}
@@ -471,34 +460,57 @@ plot(kde_roadSG.bw, main = "bw.diggle")
 plot(kde_roadSG.scott, main = "bw.scott")
 ```
 
-## 4.4 Working with different kernel methods
-
-By default, the kernel method used in density.ppp() is gaussian. But there are three other options, namely: Epanechnikov, Quartic and Dics.
-
-The code chunk below will be used to compute three more kernel density estimations by using these three kernel function.
+## 4.4 Converting KDE output into grid object
 
 ```{r}
-par(mfrow=c(2,2))
-plot(density(road_ppp.km, 
-             sigma=bw.diggle, 
-             edge=TRUE, 
-             kernel="gaussian"), 
-     main="Gaussian")
-plot(density(road_ppp.km, 
-             sigma=bw.diggle, 
-             edge=TRUE, 
-             kernel="epanechnikov"), 
-     main="Epanechnikov")
-plot(density(road_ppp.km, 
-             sigma=bw.diggle, 
-             edge=TRUE, 
-             kernel="quartic"), 
-     main="Quartic")
-plot(density(road_ppp.km, 
-             sigma=bw.diggle, 
-             edge=TRUE, 
-             kernel="disc"), 
-     main="Disc")
+gridded_kde_roadSG_bw <- as.SpatialGridDataFrame.im(kde_roadSG.bw)
+spplot(gridded_kde_roadSG_bw)
 ```
 
-# 5.0 Fixed and Adaptive KDE
+## 4.5 Converting gridded output into raster
+
+Next, we will convert the gridded kernal density objects into RasterLayer object by using *raster()* of **raster** package.
+
+```{r}
+kde_kde_roadSG_bw_raster <- raster(gridded_kde_roadSG_bw)
+```
+
+::: callout-note
+Let us take a look at the properties of kde_roadSG_bw_raster RasterLayer.
+:::
+
+```{r}
+kde_kde_roadSG_bw_raster
+```
+
+::: callout-note
+Notice that the crs property is NA.
+:::
+
+## 4.6 Assigning projection systems
+
+::: callout-note
+The code chunk below will be used to include the CRS information on kde_roadSG_bw_raster RasterLayer.
+:::
+
+```{r}
+projection(kde_kde_roadSG_bw_raster) <- CRS("+init=EPSG:3414")
+kde_kde_roadSG_bw_raster
+```
+
+::: callout-note
+Notice that the crs property is completed.
+:::
+
+# 5.0 Visualising the output in tmap
+
+::: callout-note
+Finally, we will display the raster in cartographic quality map using tmap package.
+:::
+
+```{r}
+tm_shape(kde_kde_roadSG_bw_raster) + 
+  tm_raster("v") +
+  tm_layout(legend.position = c("right", "bottom"), frame = FALSE)
+```
+

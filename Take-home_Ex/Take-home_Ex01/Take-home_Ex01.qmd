@@ -530,8 +530,9 @@ osm_layer <- qtm(basemaps = "OpenStreetMap", zoom = 12)
 ```
 
 ```{r}
+tmap_mode("plot")
 tm_shape(kde_kde_roadSG_bw_raster) +
-  tm_raster(style = "cont", palette = "viridis") +
+  tm_raster(style = "cont", palette = "plasma", title= "Kernel Density") +
   tm_layout(legend.show = TRUE, legend.text.color = "white") +
   osm_layer
 ```

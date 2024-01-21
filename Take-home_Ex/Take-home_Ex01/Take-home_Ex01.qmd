@@ -408,6 +408,13 @@ The code chunk below computes a kernel density by using the following configurat
 -   The intensity estimate is corrected for edge effect bias by using method described by Jones (1993) and Diggle (2010, equation 18.9). The default is *FALSE*.
 
 ```{r}
+#kde_grab0_bw <- density(grab0_ppp,
+#                              sigma=bw.diggle,
+#                              edge=TRUE,
+#                            kernel="gaussian") 
+```
+
+```{r}
 kde_roadSG_bw <- density(road_ppp,
                               sigma=bw.diggle,
                               edge=TRUE,
@@ -514,3 +521,17 @@ tm_shape(kde_kde_roadSG_bw_raster) +
   tm_layout(legend.position = c("right", "bottom"), frame = FALSE)
 ```
 
+::: callout-note
+Using appropriate tmap functions, display the kernel density layers on openstreetmap of Singapore
+:::
+
+```{r}
+osm_layer <- qtm(basemaps = "OpenStreetMap", zoom = 12)
+```
+
+```{r}
+tm_shape(kde_kde_roadSG_bw_raster) +
+  tm_raster(style = "cont", palette = "viridis") +
+  tm_layout(legend.show = TRUE) +
+  osm_layer
+```

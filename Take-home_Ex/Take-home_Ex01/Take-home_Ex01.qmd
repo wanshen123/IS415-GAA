@@ -171,7 +171,7 @@ After checking the referencing system of each geospatial data data frame, it is 
 roads_in_singapore <- st_transform(roads_in_singapore, crs = 3414)
 ```
 
-Grab Taxi Location Points 
+Grab Taxi Location Points
 
 ```{r}
 tmap_mode("plot")
@@ -206,7 +206,7 @@ The code chunk below uses as_Spatial() of sf package to convert the three geospa
 ```{r}
 #| eval: false
 island <- as_Spatial(island_sf)
-#road <- as_Spatial(road_sf)
+grab0_as <- as_Spatial(grab0_sf)
 road <- as_Spatial(roads_in_singapore)
 ```
 
@@ -215,11 +215,13 @@ road <- as_Spatial(roads_in_singapore)
 #| echo: false
 write_rds(road, "../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
 write_rds(island, "../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
+write_rds(grab0_as, "../../data/TakeHome/TakeHome_01/rds/as_grab0_df.rds")
 ```
 
 ```{r}
 road_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
 island_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
+grab0_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_grab0_df.rds")
 ```
 
 ```{r}
@@ -228,6 +230,10 @@ island_as
 
 ```{r}
 road_as
+```
+
+```{r}
+grab0_as
 ```
 
 ## 3.2 Converting the Spatial\* class into generic sp format
@@ -239,8 +245,24 @@ The codes chunk below converts the Spatial\* classes into generic sp objects.
 :::
 
 ```{r}
+#| eval: false
 island_sp <- as(island_as, "SpatialPolygons")
 road_sp <- as(road_as, "SpatialPoints")
+grab0_sp <- as(grab0_as, "Spatial")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+write_rds(road_sp, "../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
+write_rds(island_sp, "../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
+write_rds(grab0_sp, "../../data/TakeHome/TakeHome_01/rds/sp_grab0_df.rds")
+```
+
+```{r}
+road_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
+island_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
+grab0_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_grab0_df.rds")
 ```
 
 ```{r}
@@ -252,15 +274,7 @@ road_sp
 ```
 
 ```{r}
-#| eval: false
-#| echo: false
-write_rds(road_sp, "../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
-write_rds(island_sp, "../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
-```
-
-```{r}
-road_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
-island_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
+grab0_sp
 ```
 
 ## 3.3 Converting the generic sp format into spatstat’s ppp format
@@ -270,7 +284,6 @@ Now, we will use as.ppp() function of spatstat to convert the spatial data into 
 :::
 
 ```{r}
-#library(maptools)
 road_ppp <- as(road_sp, "ppp")
 ```
 
@@ -283,7 +296,18 @@ summary(road_ppp)
 ```
 
 ```{r}
-#library(maptools)
+grab0_ppp <- as(grab0_sp, "ppp")
+```
+
+```{r}
+#plot(grab0_ppp)
+```
+
+```{r}
+summary(grab0_ppp)
+```
+
+```{r}
 sg_owin <- as(island_sp, "owin")
 plot(sg_owin)
 ```
@@ -294,19 +318,84 @@ summary(sg_owin)
 
 ## 3.4 Combining point events object and owin object
 
-In this last step of geospatial data wrangling, we will extract childcare events that are located within Singapore by using the code chunk below.
+In this last step of geospatial data wrangling, we will extract road events that are located within Singapore by using the code chunk below.
 
 ::: callout-note
 Plot the newly derived islandSG_ppp as shown below.
 :::
 
 ```{r}
-islandSG_ppp = road_ppp[sg_owin]
-plot(islandSG_ppp)
+islandSG_ppp_road = road_ppp[sg_owin]
+plot(islandSG_ppp_road)
 ```
 
 ```{r}
-summary(islandSG_ppp)
+summary(islandSG_ppp_road)
+```
+
+## 3.5 Handling duplicated points
+
+We can check the duplication in a **ppp** object by using the code chunk below.
+
+```{r}
+any(duplicated(islandSG_ppp_road))
+```
+
+::: callout-note
+To count the number of co-indicence point, we will use the multiplicity() function as shown in the code chunk below.
+:::
+
+```{r}
+multiplicity(islandSG_ppp_road)
+```
+
+::: callout-note
+If we want to know how many locations have more than one point event, we can use the code chunk below.
+:::
+
+```{r}
+sum(multiplicity(islandSG_ppp_road) > 1)
+```
+
+::: callout-note
+The output shows that there are 165061 duplicated point events.
+
+To view the locations of these duplicate point events, we will plot **road_as** data by using the c
+:::
+
+```{r}
+tmap_mode('view')
+tm_shape(road_as) +
+  tm_dots(alpha=0.4, 
+          size=0.05)
+```
+
+```{r}
+tmap_mode('plot')
+```
+
+::: callout-note
+The solution is use jittering, which will add a small perturbation to the duplicate points so that they do not occupy the exact same space. The code chunk below implements the jittering approach.
+:::
+
+```{r}
+road_ppp_jit <- rjitter(road_ppp, 
+                             retry=TRUE, 
+                             nsim=1, 
+                             drop=TRUE)
+```
+
+```{r}
+any(duplicated(road_ppp_jit))
+```
+
+```{r}
+#islandSG_ppp_grab0 = grab0_ppp[sg_owin]
+#plot(islandSG_ppp_grab0)
+```
+
+```{r}
+#summary(islandSG_ppp_grab0)
 ```
 
 # 4.0 Kernel Density Estimation
@@ -349,3 +438,67 @@ road_ppp.km <- rescale(road_ppp, 1000, "km")
 kde_roadSG.bw <- density(road_ppp.km, sigma=bw.diggle, edge=TRUE, kernel="gaussian")
 plot(kde_roadSG.bw)
 ```
+
+## 4.3 Working with different automatic badwidth methods
+
+Beside bw.diggle(), there are three other **spatstat** functions can be used to determine the bandwidth, they are: bw.CvL(), bw.scott(), and bw.ppl().
+
+Let us take a look at the bandwidth return by these automatic bandwidth calculation methods by using the code chunk below.
+
+```{r}
+#bw.CvL(road_ppp.km)
+```
+
+```{r}
+bw.scott(road_ppp.km)
+```
+
+```{r}
+#bw.ppl(road_ppp.km)
+```
+
+```{r}
+bw.diggle(road_ppp.km)
+```
+
+```{r}
+kde_roadSG.scott <- density(road_ppp.km, 
+                               sigma=bw.scott, 
+                               edge=TRUE,
+                               kernel="gaussian")
+par(mfrow=c(1,2))
+plot(kde_roadSG.bw, main = "bw.diggle")
+plot(kde_roadSG.scott, main = "bw.scott")
+```
+
+## 4.4 Working with different kernel methods
+
+By default, the kernel method used in density.ppp() is gaussian. But there are three other options, namely: Epanechnikov, Quartic and Dics.
+
+The code chunk below will be used to compute three more kernel density estimations by using these three kernel function.
+
+```{r}
+par(mfrow=c(2,2))
+plot(density(road_ppp.km, 
+             sigma=bw.diggle, 
+             edge=TRUE, 
+             kernel="gaussian"), 
+     main="Gaussian")
+plot(density(road_ppp.km, 
+             sigma=bw.diggle, 
+             edge=TRUE, 
+             kernel="epanechnikov"), 
+     main="Epanechnikov")
+plot(density(road_ppp.km, 
+             sigma=bw.diggle, 
+             edge=TRUE, 
+             kernel="quartic"), 
+     main="Quartic")
+plot(density(road_ppp.km, 
+             sigma=bw.diggle, 
+             edge=TRUE, 
+             kernel="disc"), 
+     main="Disc")
+```
+
+# 5.0 Fixed and Adaptive KDE

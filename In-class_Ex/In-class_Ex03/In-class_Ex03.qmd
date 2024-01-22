@@ -87,7 +87,7 @@ any(duplicated(childcare_ppp))
 ```
 
 ```{r}
-sum(multiplicity((duplicated(childcare_ppp))) > 1)
+sum(multiplicity((childcare_ppp)) > 1)
 ```
 
 ```{r}

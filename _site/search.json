@@ -585,7 +585,7 @@
     "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#handling-duplicated-points",
     "title": "In-class Exercise 3",
     "section": "3.2 Handling duplicated points",
-    "text": "3.2 Handling duplicated points\n\nany(duplicated(childcare_ppp))\n\n[1] FALSE\n\n\n\nsum(multiplicity((duplicated(childcare_ppp))) &gt; 1)\n\n[1] 1925\n\n\n\nchildcare_ppp_jit &lt;- rjitter(childcare_ppp, \n                             retry=TRUE, \n                             nsim=1, \n                             drop=TRUE)\n\n\nany(duplicated(childcare_ppp_jit))\n\n[1] FALSE"
+    "text": "3.2 Handling duplicated points\n\nany(duplicated(childcare_ppp))\n\n[1] FALSE\n\n\n\nsum(multiplicity((childcare_ppp)) &gt; 1)\n\n[1] 0\n\n\n\nchildcare_ppp_jit &lt;- rjitter(childcare_ppp, \n                             retry=TRUE, \n                             nsim=1, \n                             drop=TRUE)\n\n\nany(duplicated(childcare_ppp_jit))\n\n[1] FALSE"
   },
   {
     "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#create-owin-object-sf-method",

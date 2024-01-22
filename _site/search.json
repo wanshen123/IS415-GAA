@@ -221,7 +221,7 @@
     "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
     "title": "Take-home Exercise 1",
     "section": "",
-    "text": "pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat)"
+    "text": "pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat, spNetwork, classInt, viridis)"
   },
   {
     "objectID": "In-class_Ex/In-class_Ex02/In-class_Ex02.html#visualising-frequency-distribution",
@@ -452,7 +452,7 @@
     "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#importing-the-spatial-data",
     "title": "Take-home Exercise 1",
     "section": "2.1 Importing the spatial data",
-    "text": "2.1 Importing the spatial data\nAspatial Data\n\ngrab0 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet\")\nhead(grab0, n=3)\n\nGeospatial Data\n\nroadMe &lt;- st_read(\"../../data/TakeHome/TakeHome_01/geospatial\",\n               layer = \"gis_osm_roads_free_1\")\nhead(roadMe, n=3)\n\n\nislandMe &lt;- st_read(\"../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml\")\nhead(islandMe, n=3)\n\n\nroad_df &lt;- read_rds(\"../../data/TakeHome/TakeHome_01/rds/road_df.rds\")\nisland_df &lt;- read_rds(\"../../data/TakeHome/TakeHome_01/rds/island_df.rds\")"
+    "text": "2.1 Importing the spatial data\nAspatial Data\n\ngrab0 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet\") \ngrab1 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00001.parquet\")\ngrab2 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00002.parquet\")\ngrab3 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00003.parquet\")\ngrab4 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00004.parquet\")\ngrab5 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00005.parquet\")\ngrab6 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00006.parquet\")\ngrab7 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00007.parquet\")\ngrab8 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00008.parquet\")\ngrab9 &lt;- read_parquet(\"../../data/TakeHome/TakeHome_01/aspatial/part-00009.parquet\")\n\nGeospatial Data\n\nroadMe &lt;- st_read(\"../../data/TakeHome/TakeHome_01/geospatial\",\n               layer = \"gis_osm_roads_free_1\")\nhead(roadMe, n=3)\n\n\nislandMe &lt;- st_read(\"../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml\")\nhead(islandMe, n=3)\n\n\nroad_df &lt;- read_rds(\"../../data/TakeHome/TakeHome_01/rds/road_df.rds\")\nisland_df &lt;- read_rds(\"../../data/TakeHome/TakeHome_01/rds/island_df.rds\")"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#mapping-the-geospatial-data-sets",

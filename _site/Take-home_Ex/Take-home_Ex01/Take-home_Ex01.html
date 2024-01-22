@@ -140,6 +140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 3B</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 3C</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -154,6 +158,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex02/In-class_Ex02.html" rel="" target="">
  <span class="dropdown-text">In-class Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex03/In-class_Ex03.html" rel="" target="">
+ <span class="dropdown-text">In-class Exercise 3</span></a>
   </li>  
     </ul>
   </li>
@@ -262,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="getting-started" class="level1">
 <h1>1.0 Getting Started</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat, spNetwork, classInt, viridis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="spatial-data-wrangling" class="level1">
@@ -271,8 +279,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="importing-the-spatial-data">2.1 Importing the spatial data</h2>
 <p>Aspatial Data</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>grab0 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(grab0, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>grab0 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet"</span>) </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>grab1 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00001.parquet"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>grab2 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00002.parquet"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>grab3 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00003.parquet"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>grab4 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00004.parquet"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>grab5 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00005.parquet"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>grab6 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00006.parquet"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>grab7 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00007.parquet"</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>grab8 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00008.parquet"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>grab9 <span class="ot">&lt;-</span> <span class="fu">read_parquet</span>(<span class="st">"../../data/TakeHome/TakeHome_01/aspatial/part-00009.parquet"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Geospatial Data</p>
 <div class="cell">

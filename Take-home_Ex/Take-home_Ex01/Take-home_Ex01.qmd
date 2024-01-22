@@ -25,7 +25,7 @@ title-block-categories: false
 # 1.0 Getting Started
 
 ```{r}
-pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat)
+pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat, spNetwork, classInt, viridis)
 ```
 
 # 2.0 Spatial Data Wrangling
@@ -36,8 +36,16 @@ Aspatial Data
 
 ```{r}
 #| eval: false 
-grab0 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet")
-head(grab0, n=3)
+grab0 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00000.parquet") 
+grab1 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00001.parquet")
+grab2 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00002.parquet")
+grab3 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00003.parquet")
+grab4 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00004.parquet")
+grab5 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00005.parquet")
+grab6 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00006.parquet")
+grab7 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00007.parquet")
+grab8 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00008.parquet")
+grab9 <- read_parquet("../../data/TakeHome/TakeHome_01/aspatial/part-00009.parquet")
 ```
 
 Geospatial Data

@@ -200,7 +200,7 @@
     "href": "index.html",
     "title": "IS415-Wan Shen",
     "section": "",
-    "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nData Preparation\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nThematic Mapping and GeoVisualisation with R\n\n\n\n\n\n\nJan 11, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 2\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nR for Geospatital Data Science\n\n\n\n\n\n\nJan 15, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n1st Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n2nd Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 19, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore\n\n\n\n\n\n\nJan 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nData Preparation\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nThematic Mapping and GeoVisualisation with R\n\n\n\n\n\n\nJan 11, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 2\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nR for Geospatital Data Science\n\n\n\n\n\n\nJan 15, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n1st Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n2nd Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 19, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore\n\n\n\n\n\n\nJan 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 3\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nKernel Density Estimation\n\n\n\n\n\n\nJan 22, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html#handling-duplicated-points",
@@ -551,5 +551,54 @@
     "title": "Take-home Exercise 1",
     "section": "4.6 Assigning projection systems",
     "text": "4.6 Assigning projection systems\n\n\n\n\n\n\nNote\n\n\n\nThe code chunk below will be used to include the CRS information on kde_roadSG_bw_raster RasterLayer.\n\n\n\nprojection(kde_kde_roadSG_bw_raster) &lt;- CRS(\"+init=EPSG:3414\")\nkde_kde_roadSG_bw_raster\n\nclass      : RasterLayer \ndimensions : 128, 128, 16384  (nrow, ncol, ncell)\nresolution : 0.4061259, 0.2113649  (x, y)\nextent     : 3.620434, 55.60455, 23.09951, 50.15422  (xmin, xmax, ymin, ymax)\ncrs        : +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +ellps=WGS84 +units=m +no_defs \nsource     : memory\nnames      : v \nvalues     : -1.013988e-12, 4997.626  (min, max)\n\n\n\n\n\n\n\n\nNote\n\n\n\nNotice that the crs property is completed."
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html",
+    "title": "In-class Exercise 3",
+    "section": "",
+    "text": "pacman::p_load(maptools, sf, raster, spatstat, tmap, tidyverse)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#importing-the-spatial-data",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#importing-the-spatial-data",
+    "title": "In-class Exercise 3",
+    "section": "2.1 Importing the spatial data",
+    "text": "2.1 Importing the spatial data\n\nchildcare_sf &lt;- st_read(\"../../data/geospatial/ChildCareServices.geojson\") %&gt;% st_transform(crs = 3414)\n\nReading layer `ChildCareServices' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial\\ChildCareServices.geojson' \n  using driver `GeoJSON'\nSimple feature collection with 1925 features and 2 fields\nGeometry type: POINT\nDimension:     XYZ\nBounding box:  xmin: 103.6878 ymin: 1.247759 xmax: 103.9897 ymax: 1.462134\nz_range:       zmin: 0 zmax: 0\nGeodetic CRS:  WGS 84\n\n\n\nmpsz_sf &lt;- st_read(\"../../data/geospatial\", layer=\"MP14_SUBZONE_WEB_PL\")\n\nReading layer `MP14_SUBZONE_WEB_PL' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial' using driver `ESRI Shapefile'\nSimple feature collection with 323 features and 15 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21\n\n\n\nplot(mpsz_sf)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#creating-coastal-outline",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#creating-coastal-outline",
+    "title": "In-class Exercise 3",
+    "section": "2.2 Creating coastal outline",
+    "text": "2.2 Creating coastal outline\n\nsg_sf &lt;- mpsz_sf %&gt;%\n  st_union()\n\n\nplot(sg_sf)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#creating-ppp-objects-sf-method",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#creating-ppp-objects-sf-method",
+    "title": "In-class Exercise 3",
+    "section": "3.1 Creating ppp objects: sf method",
+    "text": "3.1 Creating ppp objects: sf method\n\n\n\n\n\n\nNote\n\n\n\nFrom sf to ppp directly.\n\n\n\nchildcare_sp &lt;- as_Spatial(childcare_sf)\nglimpse(childcare_sp)\n\nFormal class 'SpatialPointsDataFrame' [package \"sp\"] with 5 slots\n  ..@ data       :'data.frame': 1925 obs. of  2 variables:\n  .. ..$ Name       : chr [1:1925] \"kml_1\" \"kml_2\" \"kml_3\" \"kml_4\" ...\n  .. ..$ Description: chr [1:1925] \"&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor=\\\"#E3E3F3\\\"&gt; &lt;th&gt;ADD\"| __truncated__ \"&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor=\\\"#E3E3F3\\\"&gt; &lt;th&gt;ADD\"| __truncated__ \"&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor=\\\"#E3E3F3\\\"&gt; &lt;th&gt;ADD\"| __truncated__ \"&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor=\\\"#E3E3F3\\\"&gt; &lt;th&gt;ADD\"| __truncated__ ...\n  ..@ coords.nrs : num(0) \n  ..@ coords     : num [1:1925, 1:3] 40986 28309 17829 25580 38981 ...\n  .. ..- attr(*, \"dimnames\")=List of 2\n  ..@ bbox       : num [1:3, 1:2] 11810 25596 0 45404 49301 ...\n  .. ..- attr(*, \"dimnames\")=List of 2\n  ..@ proj4string:Formal class 'CRS' [package \"sp\"] with 1 slot\n\n\n\nchildcare_ppp &lt;- as.ppp(childcare_sf)\nglimpse(childcare_ppp)\n\nList of 6\n $ window    :List of 4\n  ..$ type  : chr \"rectangle\"\n  ..$ xrange: num [1:2] 11810 45404\n  ..$ yrange: num [1:2] 25596 49301\n  ..$ units :List of 3\n  .. ..$ singular  : chr \"unit\"\n  .. ..$ plural    : chr \"units\"\n  .. ..$ multiplier: num 1\n  .. ..- attr(*, \"class\")= chr \"unitname\"\n  ..- attr(*, \"class\")= chr \"owin\"\n $ n         : int 1925\n $ x         : num [1:1925] 40986 28309 17829 25580 38981 ...\n $ y         : num [1:1925] 33848 45530 36607 29222 32483 ...\n $ markformat: chr \"vector\"\n $ marks     : chr [1:1925] \"kml_1\" \"kml_2\" \"kml_3\" \"kml_4\" ...\n - attr(*, \"class\")= chr \"ppp\"\n\n\n\nplot(childcare_ppp)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#handling-duplicated-points",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#handling-duplicated-points",
+    "title": "In-class Exercise 3",
+    "section": "3.2 Handling duplicated points",
+    "text": "3.2 Handling duplicated points\n\nany(duplicated(childcare_ppp))\n\n[1] FALSE\n\n\n\nsum(multiplicity((duplicated(childcare_ppp))) &gt; 1)\n\n[1] 1925\n\n\n\nchildcare_ppp_jit &lt;- rjitter(childcare_ppp, \n                             retry=TRUE, \n                             nsim=1, \n                             drop=TRUE)\n\n\nany(duplicated(childcare_ppp_jit))\n\n[1] FALSE"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#create-owin-object-sf-method",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#create-owin-object-sf-method",
+    "title": "In-class Exercise 3",
+    "section": "3.3 Create owin object: sf method",
+    "text": "3.3 Create owin object: sf method\n\nsg_owin &lt;- as.owin(sg_sf)\n\n\nplot(sg_owin)\n\n\n\n\n\nchildcare &lt;- childcare_ppp_jit[sg_owin]\nplot(childcare)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#plotting-target-planning-areas",
+    "href": "In-class_Ex/In-class_Ex03/In-class_Ex03.html#plotting-target-planning-areas",
+    "title": "In-class Exercise 3",
+    "section": "4.1 Plotting target planning areas",
+    "text": "4.1 Plotting target planning areas\n\npar(mfrow=c(2,2))\nplot(pg, main = \"PUNGGOL\")\n\n\n\nplot(tm, main = \"TAMPINES\")\n\n\n\nplot(ck, main = \"CHOA CHU KANG\")\n\n\n\nplot(jw, main = \"JURONG WEST\")"
   }
 ]

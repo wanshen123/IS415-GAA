@@ -1,0 +1,144 @@
+---
+title: "In-class Exercise 3"
+description: "Kernel Density Estimation"
+execute: 
+  warning: false
+  eval: true
+  echo: true
+# date: "`r Sys.Date()`"
+date: 01/22/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - In-Class Exercise
+title-block-categories: false
+---
+
+# 1.0 Getting Started
+
+```{r}
+pacman::p_load(maptools, sf, raster, spatstat, tmap, tidyverse)
+```
+
+# 2.0 Spatial Data Wrangling
+
+## 2.1 Importing the spatial data
+
+```{r}
+childcare_sf <- st_read("../../data/geospatial/ChildCareServices.geojson") %>% st_transform(crs = 3414)
+```
+
+```{r}
+mpsz_sf <- st_read("../../data/geospatial", layer="MP14_SUBZONE_WEB_PL")
+```
+
+```{r}
+plot(mpsz_sf)
+```
+
+## 2.2 Creating coastal outline
+
+```{r}
+sg_sf <- mpsz_sf %>%
+  st_union()
+```
+
+```{r}
+plot(sg_sf)
+```
+
+```{r}
+#| eval: false
+#| echo: false
+st_crs(childcare_sf)
+st_crs(mpsz_sf)
+st_crs(sg_sf)
+```
+
+# 3.0 Geospatial Data Wrangling
+
+## 3.1 Creating ppp objects: sf method
+
+:::callout-note
+From sf to ppp directly.
+:::
+
+```{r} 
+childcare_sp <- as_Spatial(childcare_sf)
+glimpse(childcare_sp)
+```
+
+```{r}
+childcare_ppp <- as.ppp(childcare_sf)
+glimpse(childcare_ppp)
+```
+
+```{r}
+plot(childcare_ppp)
+```
+
+## 3.2 Handling duplicated points
+
+```{r}
+any(duplicated(childcare_ppp))
+```
+
+```{r}
+sum(multiplicity((duplicated(childcare_ppp))) > 1)
+```
+
+```{r}
+childcare_ppp_jit <- rjitter(childcare_ppp, 
+                             retry=TRUE, 
+                             nsim=1, 
+                             drop=TRUE)
+```
+
+```{r}
+any(duplicated(childcare_ppp_jit))
+```
+
+## 3.3 Create owin object: sf method
+
+```{r}
+sg_owin <- as.owin(sg_sf)
+```
+
+```{r}
+plot(sg_owin)
+```
+
+```{r}
+childcare <- childcare_ppp_jit[sg_owin]
+plot(childcare)
+```
+
+# 4.0 First-order Spatial Points
+
+```{r}
+pg <- mpsz_sf %>%
+  filter(PLN_AREA_N == "PUNGGOL")
+tm <- mpsz_sf %>%
+  filter(PLN_AREA_N == "TAMPINES")
+ck <- mpsz_sf %>%
+  filter(PLN_AREA_N == "CHOA CHU KANG")
+jw <- mpsz_sf %>% 
+  filter(PLN_AREA_N == "JURONG WEST")
+```
+
+## 4.1 Plotting target planning areas
+
+```{r fig.width=16, fig.height=10} 
+par(mfrow=c(2,2))
+plot(pg, main = "PUNGGOL")
+plot(tm, main = "TAMPINES")
+plot(ck, main = "CHOA CHU KANG")
+plot(jw, main = "JURONG WEST")
+```
+
+```{r}
+
+```

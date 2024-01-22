@@ -83,8 +83,8 @@ densities <- nkde(network,
                   events = childcare,
                   w = rep(1,nrow(childcare)),
                   samples = samples,
-                  kernel_name = "quartic",
-                  bw = 300, 
+                  kernel_name = "quartic", #Impt
+                  bw = 300, #Impt
                   div= "bw", 
                   method = "simple", 
                   digits = 1, 

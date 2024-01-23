@@ -165,7 +165,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html#preparing-the-lixels-objects",
     "title": "Hands-on Exercise 3C",
     "section": "4.1 Preparing the lixels objects",
-    "text": "4.1 Preparing the lixels objects\nBefore computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.\n\nlixels &lt;- lixelize_lines(network, \n                         750, \n                         mindist = 375)\n\nWhat can we learned from the code chunk above:\n\nThe length of a lixel, lx_length is set to 700m, and\nThe minimum length of a lixel, mindist is set to 350m.\n\nAfter cut, if the length of the final lixel is shorter than the minimum distance, then it is added to the previous lixel. If NULL, then mindist = maxdist/10. Also note that the segments that are already shorter than the minimum distance are not modified\nNote: There is another function called lixelize_lines.mc() which provide multicore support."
+    "text": "4.1 Preparing the lixels objects\nBefore computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.\n\nlixels &lt;- lixelize_lines(network, \n                         750, \n                         mindist = 375)\n\nWhat can we learned from the code chunk above:\n\nThe length of a lixel, lx_length is set to 750m, and\nThe minimum length of a lixel, mindist is set to 375m.\n\nAfter cut, if the length of the final lixel is shorter than the minimum distance, then it is added to the previous lixel. If NULL, then mindist = maxdist/10. Also note that the segments that are already shorter than the minimum distance are not modified\nNote: There is another function called lixelize_lines.mc() which provide multicore support."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html#generating-line-centre-points",
@@ -649,5 +649,26 @@
     "title": "IS415-Wan Shen",
     "section": "",
     "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nData Preparation\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nThematic Mapping and GeoVisualisation with R\n\n\n\n\n\n\nJan 11, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 2\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nR for Geospatital Data Science\n\n\n\n\n\n\nJan 15, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n1st Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n2nd Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 19, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore\n\n\n\n\n\n\nJan 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 3\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nKernel Density Estimation\n\n\n\n\n\n\nJan 22, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3C\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nNetwork Constrained Spatial Point Patterns Analysis\n\n\n\n\n\n\nJan 23, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 4\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nSpatial Weights and Applications\n\n\n\n\n\n\nJan 24, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#preparing-the-lixels-objects",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#preparing-the-lixels-objects",
+    "title": "Take-home Exercise 1",
+    "section": "6.1 Preparing the lixels objects",
+    "text": "6.1 Preparing the lixels objects\nBefore computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.\n\nlixels &lt;- lixelize_lines(island_sf, \n                         750, \n                         mindist = 375)"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#generating-line-centre-points",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#generating-line-centre-points",
+    "title": "Take-home Exercise 1",
+    "section": "6.2 Generating line centre points",
+    "text": "6.2 Generating line centre points\nNext, lines_center() of spNetwork will be used to generate a SpatialPointsDataFrame (i.e. samples) with line centre points as shown in the code chunk below.\n\nsamples &lt;- lines_center(lixels)\n\nThe points are located at center of the line based on the length of the line."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#performing-netkde",
+    "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#performing-netkde",
+    "title": "Take-home Exercise 1",
+    "section": "6.3 Performing NetKDE",
+    "text": "6.3 Performing NetKDE\nWe are ready to compute the NetKDE by using the code chunk below.\n\nlines_sf &lt;- st_cast(island_sf, \"MULTILINESTRING\")\nlines_sf &lt;- st_cast(lines_sf, \"LINESTRING\")\ntest_sf &lt;- st_cast(listings_sf, \"LINESTRING\")"
   }
 ]

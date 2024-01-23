@@ -639,3 +639,37 @@ tm_shape(kde_kde_roadSG_bw_raster) +
   tm_layout(legend.show = TRUE, legend.text.color = "white") +
   osm_layer
 ```
+
+# 6.0 Network Constrained KDE (NetKDE) Analysis
+
+In this section, we will perform NetKDE analysis by using appropriate functions provided in **spNetwork** package.
+
+## 6.1 Preparing the lixels objects
+
+Before computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.
+
+```{r}
+lixels <- lixelize_lines(island_sf, 
+                         750, 
+                         mindist = 375)
+```
+
+## 6.2 Generating line centre points
+
+Next, lines_center() of **spNetwork** will be used to generate a SpatialPointsDataFrame (i.e. samples) with line centre points as shown in the code chunk below.
+
+```{r}
+samples <- lines_center(lixels)
+```
+
+The points are located at center of the line based on the length of the line.
+
+## 6.3 Performing NetKDE
+
+We are ready to compute the NetKDE by using the code chunk below.
+
+```{r}
+lines_sf <- st_cast(island_sf, "MULTILINESTRING")
+lines_sf <- st_cast(lines_sf, "LINESTRING")
+test_sf <- st_cast(listings_sf, "LINESTRING")
+```

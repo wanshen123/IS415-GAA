@@ -262,6 +262,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#assigning-projection-systems" id="toc-assigning-projection-systems" class="nav-link" data-scroll-target="#assigning-projection-systems">4.6 Assigning projection systems</a></li>
   </ul></li>
   <li><a href="#visualising-the-output-in-tmap" id="toc-visualising-the-output-in-tmap" class="nav-link" data-scroll-target="#visualising-the-output-in-tmap">5.0 Visualising the output in tmap</a></li>
+  <li><a href="#network-constrained-kde-netkde-analysis" id="toc-network-constrained-kde-netkde-analysis" class="nav-link" data-scroll-target="#network-constrained-kde-netkde-analysis">6.0 Network Constrained KDE (NetKDE) Analysis</a>
+  <ul class="collapse">
+  <li><a href="#preparing-the-lixels-objects" id="toc-preparing-the-lixels-objects" class="nav-link" data-scroll-target="#preparing-the-lixels-objects">6.1 Preparing the lixels objects</a></li>
+  <li><a href="#generating-line-centre-points" id="toc-generating-line-centre-points" class="nav-link" data-scroll-target="#generating-line-centre-points">6.2 Generating line centre points</a></li>
+  <li><a href="#performing-netkde" id="toc-performing-netkde" class="nav-link" data-scroll-target="#performing-netkde">6.3 Performing NetKDE</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -1320,8 +1326,38 @@ Note
 <p><img src="Take-home_Ex01_files/figure-html/unnamed-chunk-85-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+</section>
+<section id="network-constrained-kde-netkde-analysis" class="level1">
+<h1>6.0 Network Constrained KDE (NetKDE) Analysis</h1>
+<p>In this section, we will perform NetKDE analysis by using appropriate functions provided in <strong>spNetwork</strong> package.</p>
+<section id="preparing-the-lixels-objects" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-the-lixels-objects">6.1 Preparing the lixels objects</h2>
+<p>Before computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>lixels <span class="ot">&lt;-</span> <span class="fu">lixelize_lines</span>(island_sf, </span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">750</span>, </span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mindist =</span> <span class="dv">375</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="generating-line-centre-points" class="level2">
+<h2 class="anchored" data-anchor-id="generating-line-centre-points">6.2 Generating line centre points</h2>
+<p>Next, lines_center() of <strong>spNetwork</strong> will be used to generate a SpatialPointsDataFrame (i.e.&nbsp;samples) with line centre points as shown in the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb111"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>samples <span class="ot">&lt;-</span> <span class="fu">lines_center</span>(lixels)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The points are located at center of the line based on the length of the line.</p>
+</section>
+<section id="performing-netkde" class="level2">
+<h2 class="anchored" data-anchor-id="performing-netkde">6.3 Performing NetKDE</h2>
+<p>We are ready to compute the NetKDE by using the code chunk below.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>lines_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(island_sf, <span class="st">"MULTILINESTRING"</span>)</span>
+<span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>lines_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(lines_sf, <span class="st">"LINESTRING"</span>)</span>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>test_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(listings_sf, <span class="st">"LINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

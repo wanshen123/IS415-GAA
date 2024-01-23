@@ -78,9 +78,9 @@ lixels <- lixelize_lines(network,
 
 What can we learned from the code chunk above:
 
--   The length of a lixel, *lx_length* is set to 700m, and
+-   The length of a lixel, *lx_length* is set to 750m, and
 
--   The minimum length of a lixel, *mindist* is set to 350m.
+-   The minimum length of a lixel, *mindist* is set to 375m.
 
 After cut, if the length of the final lixel is shorter than the minimum distance, then it is added to the previous lixel. If NULL, then mindist = maxdist/10. Also note that the segments that are already shorter than the minimum distance are not modified
 

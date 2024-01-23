@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Wan Shen">
+<meta name="description" content="Spatial Weights and Applications">
 
-<title>IS415-Wan Shen</title>
+<title>IS415-Wan Shen - Hands-on Exercise 4</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +22,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -63,40 +97,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -106,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">IS415-Wan Shen</span>
     </a>
   </div>
@@ -122,27 +125,27 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" rel="" target="">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html" rel="" target="">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 3A</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html" rel="" target="">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 3B</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html" rel="" target="">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 3C</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex04.html" rel="" target="">
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex04.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 4</span></a>
   </li>  
     </ul>
@@ -153,15 +156,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html" rel="" target="">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex01/In-class_Ex01.html" rel="" target="">
  <span class="dropdown-text">In-class Exercise 1</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex02/In-class_Ex02.html" rel="" target="">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex02/In-class_Ex02.html" rel="" target="">
  <span class="dropdown-text">In-class Exercise 2</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./In-class_Ex/In-class_Ex03/In-class_Ex03.html" rel="" target="">
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex03/In-class_Ex03.html" rel="" target="">
  <span class="dropdown-text">In-class Exercise 3</span></a>
   </li>  
     </ul>
@@ -172,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
         <li>
-    <a class="dropdown-item" href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html" rel="" target="">
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html" rel="" target="">
  <span class="dropdown-text">Take-home Exercise 1</span></a>
   </li>  
     </ul>
@@ -193,380 +196,116 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Hands-on Exercise 4</h1>
+                  <div>
+        <div class="description">
+          Spatial Weights and Applications
+        </div>
+      </div>
+                              </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Wan Shen </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">24 Jan, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="Hands-On Exercise">Hands-On Exercise <span class="quarto-category-count">(6)</span></div><div class="category" data-category="In-Class Exercise">In-Class Exercise <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Take-Home Exercise">Take-Home Exercise <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link active" data-scroll-target="#getting-started">1.0 Getting Started</a></li>
+  <li><a href="#getting-the-data-into-r-environment" id="toc-getting-the-data-into-r-environment" class="nav-link" data-scroll-target="#getting-the-data-into-r-environment">2.0 Getting the Data Into R Environment</a>
+  <ul class="collapse">
+  <li><a href="#import-shapefile-into-r-environment" id="toc-import-shapefile-into-r-environment" class="nav-link" data-scroll-target="#import-shapefile-into-r-environment">2.1 Import shapefile into r environment</a></li>
+  <li><a href="#import-csv-file-into-r-environment" id="toc-import-csv-file-into-r-environment" class="nav-link" data-scroll-target="#import-csv-file-into-r-environment">2.2 Import csv file into r environment</a></li>
+  <li><a href="#performing-relational-join" id="toc-performing-relational-join" class="nav-link" data-scroll-target="#performing-relational-join">2.3 Performing relational join</a></li>
+  </ul></li>
+  <li><a href="#visualising-regional-development-indicator" id="toc-visualising-regional-development-indicator" class="nav-link" data-scroll-target="#visualising-regional-development-indicator">3.0 Visualising Regional Development Indicator</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-
-
-<p>Welcome to <strong>IS415 Geospatial Analytics and Applications.</strong></p>
-<p>This is the course website of IS415 I study this term. You will find my course work on this website.</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Hands-On Exercise" data-listing-date-sort="1704556800000" data-listing-file-modified-sort="1705384311104" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex01\Hands-on_Ex01_files\figure-html\unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+<section id="getting-started" class="level1">
+<h1>1.0 Getting Started</h1>
+<p>Before we get started, we need to ensure that&nbsp;<strong>spdep</strong>,&nbsp;<strong>sf</strong>,&nbsp;<strong>tmap</strong>&nbsp;and&nbsp;<strong>tidyverse</strong>&nbsp;packages of R are currently installed in your R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, spdep, tmap, tidyverse, knitr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="body">
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
-<h3 class="no-anchor listing-title">
-Hands-on Exercise 1
-</h3>
-<div class="listing-subtitle">
+</section>
+<section id="getting-the-data-into-r-environment" class="level1">
+<h1>2.0 Getting the Data Into R Environment</h1>
+<p>In this section, you will learn how to bring a geospatial data and its associated attribute table into R environment. The geospatial data is in ESRI shapefile format and the attribute table is in csv fomat.</p>
+<section id="import-shapefile-into-r-environment" class="level2">
+<h2 class="anchored" data-anchor-id="import-shapefile-into-r-environment">2.1 Import shapefile into r environment</h2>
+<p>The code chunk below uses&nbsp;<a href="https://r-spatial.github.io/sf/reference/st_read.html"><em>st_read()</em></a>&nbsp;of&nbsp;<strong>sf</strong>&nbsp;package to import Hunan shapefile into R. The imported shapefile will be&nbsp;<strong>simple features</strong>&nbsp;Object of&nbsp;<strong>sf</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hunan <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">"../../data/geospatial"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">layer =</span> <span class="st">"Hunan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `Hunan' from data source `C:\wanshen123\IS415-GAA\data\geospatial' using driver `ESRI Shapefile'
+Simple feature collection with 88 features and 7 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 108.7831 ymin: 24.6342 xmax: 114.2544 ymax: 30.12812
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+</div>
+</section>
+<section id="import-csv-file-into-r-environment" class="level2">
+<h2 class="anchored" data-anchor-id="import-csv-file-into-r-environment">2.2 Import csv file into r environment</h2>
+<p>Next, we will import&nbsp;<em>Hunan_2012.csv</em>&nbsp;into R by using&nbsp;<em>read_csv()</em>&nbsp;of&nbsp;<strong>readr</strong>&nbsp;package. The output is R dataframe class.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hunan2012 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../../data/aspatial/Hunan_2012.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="performing-relational-join" class="level2">
+<h2 class="anchored" data-anchor-id="performing-relational-join">2.3 Performing relational join</h2>
+<p>The code chunk below will be used to update the attribute table of&nbsp;<em>hunan</em>’s SpatialPolygonsDataFrame with the attribute fields of&nbsp;<em>hunan2012</em>&nbsp;dataframe. This is performed by using&nbsp;<em>left_join()</em>&nbsp;of&nbsp;<strong>dplyr</strong>&nbsp;package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>hunan <span class="ot">&lt;-</span> <span class="fu">left_join</span>(hunan,hunan2012)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#hunan &lt;- select(hunan, 1:4, 7, 15)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="visualising-regional-development-indicator" class="level1">
+<h1>3.0 Visualising Regional Development Indicator</h1>
+<p>Now, we are going to prepare a basemap and a choropleth map showing the distribution of GDPPC 2012 by using qtm() of <strong>tmap</strong> package.</p>
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Hands-On Exercise'); return false;">
-Hands-On Exercise
-</div>
-</div>
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
-<div class="listing-description">
-<p>Geospatial Data Wrangling with R</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
-<div class="listing-date">
-Jan 7, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="In-Class Exercise" data-listing-date-sort="1704643200000" data-listing-file-modified-sort="1705281458000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-<div class="thumbnail">
-<p><a href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
-<div class="body">
-<a href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html">
-<h3 class="no-anchor listing-title">
-In-class Exercise 1
-</h3>
-<div class="listing-subtitle">
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('In-Class Exercise'); return false;">
-In-Class Exercise
-</div>
-</div>
-<a href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html">
-<div class="listing-description">
-<p>Data Preparation</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./In-class_Ex/In-class_Ex01/In-class_Ex01.html">
-<div class="listing-date">
-Jan 8, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Hands-On Exercise" data-listing-date-sort="1704902400000" data-listing-file-modified-sort="1705639045366" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex02\Hands-on_Ex02_files\figure-html\unnamed-chunk-5-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
-<h3 class="no-anchor listing-title">
-Hands-on Exercise 2
-</h3>
-<div class="listing-subtitle">
+</section>
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Hands-On Exercise'); return false;">
-Hands-On Exercise
-</div>
-</div>
-<a href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
-<div class="listing-description">
-<p>Thematic Mapping and GeoVisualisation with R</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
-<div class="listing-date">
-Jan 11, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="In-Class Exercise" data-listing-date-sort="1705248000000" data-listing-file-modified-sort="1705801092761" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./In-class_Ex/In-class_Ex02/In-class_Ex02.html"> <p class="card-img-top"><img src="In-class_Ex\In-class_Ex02\In-class_Ex02_files\figure-html\unnamed-chunk-9-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./In-class_Ex/In-class_Ex02/In-class_Ex02.html">
-<h3 class="no-anchor listing-title">
-In-class Exercise 2
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('In-Class Exercise'); return false;">
-In-Class Exercise
-</div>
-</div>
-<a href="./In-class_Ex/In-class_Ex02/In-class_Ex02.html">
-<div class="listing-description">
-<p>R for Geospatital Data Science</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./In-class_Ex/In-class_Ex02/In-class_Ex02.html">
-<div class="listing-date">
-Jan 15, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Hands-On Exercise" data-listing-date-sort="1705420800000" data-listing-file-modified-sort="1705629299709" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex03\Hands-on_Ex03a_files\figure-html\unnamed-chunk-9-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">
-<h3 class="no-anchor listing-title">
-Hands-on Exercise 3A
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Hands-On Exercise'); return false;">
-Hands-On Exercise
-</div>
-</div>
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">
-<div class="listing-description">
-<p>1st Order Spatial Point Patterns Analysis Methods</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03a.html">
-<div class="listing-date">
-Jan 17, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Hands-On Exercise" data-listing-date-sort="1705593600000" data-listing-file-modified-sort="1705633788670" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex03\Hands-on_Ex03b_files\figure-html\unnamed-chunk-9-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">
-<h3 class="no-anchor listing-title">
-Hands-on Exercise 3B
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Hands-On Exercise'); return false;">
-Hands-On Exercise
-</div>
-</div>
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">
-<div class="listing-description">
-<p>2nd Order Spatial Point Patterns Analysis Methods</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03b.html">
-<div class="listing-date">
-Jan 19, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="Take-Home Exercise" data-listing-date-sort="1705766400000" data-listing-file-modified-sort="1705980570099" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"> <p class="card-img-top"><img src="Take-home_Ex\Take-home_Ex01\Take-home_Ex01_files\figure-html\unnamed-chunk-23-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html">
-<h3 class="no-anchor listing-title">
-Take-home Exercise 1
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Take-Home Exercise'); return false;">
-Take-Home Exercise
-</div>
-</div>
-<a href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html">
-<div class="listing-description">
-<p>Application of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html">
-<div class="listing-date">
-Jan 21, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="In-Class Exercise" data-listing-date-sort="1705852800000" data-listing-file-modified-sort="1705980124397" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./In-class_Ex/In-class_Ex03/In-class_Ex03.html"> <p class="card-img-top"><img src="In-class_Ex\In-class_Ex03\In-class_Ex03_files\figure-html\unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./In-class_Ex/In-class_Ex03/In-class_Ex03.html">
-<h3 class="no-anchor listing-title">
-In-class Exercise 3
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('In-Class Exercise'); return false;">
-In-Class Exercise
-</div>
-</div>
-<a href="./In-class_Ex/In-class_Ex03/In-class_Ex03.html">
-<div class="listing-description">
-<p>Kernel Density Estimation</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./In-class_Ex/In-class_Ex03/In-class_Ex03.html">
-<div class="listing-date">
-Jan 22, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="Hands-On Exercise" data-listing-date-sort="1705939200000" data-listing-file-modified-sort="1705913150024" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html"> <p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex03\Hands-on_Ex03c_files\figure-html\unnamed-chunk-5-1.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html">
-<h3 class="no-anchor listing-title">
-Hands-on Exercise 3C
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Hands-On Exercise'); return false;">
-Hands-On Exercise
-</div>
-</div>
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html">
-<div class="listing-description">
-<p>Network Constrained Spatial Point Patterns Analysis</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03c.html">
-<div class="listing-date">
-Jan 23, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="Hands-On Exercise" data-listing-date-sort="1706025600000" data-listing-file-modified-sort="1705982725573" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
-<div class="body">
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
-<h3 class="no-anchor listing-title">
-Hands-on Exercise 4
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Hands-On Exercise'); return false;">
-Hands-On Exercise
-</div>
-</div>
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
-<div class="listing-description">
-<p>Spatial Weights and Applications</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
-<div class="listing-date">
-Jan 24, 2024
-</div>
-<div class="listing-author">
-Wan Shen
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

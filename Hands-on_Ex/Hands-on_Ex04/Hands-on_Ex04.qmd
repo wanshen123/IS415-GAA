@@ -1,0 +1,61 @@
+---
+title: "Hands-on Exercise 4"
+description: " Spatial Weights and Applications"
+execute: 
+  warning: false
+# date: "`r Sys.Date()`"
+date: 01/24/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Hands-On Exercise
+title-block-categories: false
+---
+
+# 1.0 Getting Started
+
+Before we get started, we need to ensure that **spdep**, **sf**, **tmap** and **tidyverse** packages of R are currently installed in your R.
+
+```{r}
+pacman::p_load(sf, spdep, tmap, tidyverse, knitr)
+```
+
+# 2.0 Getting the Data Into R Environment
+
+In this section, you will learn how to bring a geospatial data and its associated attribute table into R environment. The geospatial data is in ESRI shapefile format and the attribute table is in csv fomat.
+
+## 2.1 Import shapefile into r environment
+
+The code chunk below uses [*st_read()*](https://r-spatial.github.io/sf/reference/st_read.html) of **sf** package to import Hunan shapefile into R. The imported shapefile will be **simple features** Object of **sf**.
+
+```{r}
+hunan <- st_read(dsn = "../../data/geospatial", 
+                 layer = "Hunan")
+```
+
+## 2.2 Import csv file into r environment
+
+Next, we will import *Hunan_2012.csv* into R by using *read_csv()* of **readr** package. The output is R dataframe class.
+
+```{r}
+hunan2012 <- read_csv("../../data/aspatial/Hunan_2012.csv")
+```
+
+## 2.3 Performing relational join
+
+The code chunk below will be used to update the attribute table of *hunan*’s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe. This is performed by using *left_join()* of **dplyr** package.
+
+```{r}
+hunan <- left_join(hunan,hunan2012)
+```
+
+```{r}
+#hunan <- select(hunan, 1:4, 7, 15)
+```
+
+# 3.0 Visualising Regional Development Indicator
+
+Now, we are going to prepare a basemap and a choropleth map showing the distribution of GDPPC 2012 by using qtm() of **tmap** package.

@@ -63,33 +63,27 @@ islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019Su
 head(islandMe, n=3)
 ```
 
-```{r}
-#| eval: false 
-#| echo: false 
-write_rds(roadMe, "../../data/TakeHome/TakeHome_01/rds/road_df.rds")
-write_rds(islandMe, "../../data/TakeHome/TakeHome_01/rds/island_df.rds")
-```
-
-```{r}
-road_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/road_df.rds")
-island_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/island_df.rds")
-```
-
 ## 2.2 Data Pre-Processing
 
 ```{r}
-road_df <- road_df[!(is.na(road_df$name)), ]
-island_df <- island_df[!(is.na(island_df$geometry)), ]
+#| eval: false
+road_df <- roadMe[!(is.na(roadMe$name)), ]
+island_df <- islandMe[!(is.na(islandMe$geometry)), ]
+```
+
+```{r}
+#| eval: false 
+merged_data <- bind_rows(grab0, grab1, grab2, grab3, grab4, grab5, grab6, grab7, grab8, grab9)
 ```
 
 ```{r}
 #| eval: false
-grab0_df$pingtimestamp <- as_datetime(grab0_df$pingtimestamp)
+merged_data$pingtimestamp <- as_datetime(merged_data$pingtimestamp)
 ```
 
 ```{r}
 #| eval: false
-origin0_df <- grab0_df %>% 
+origin_df <- merged_data %>% 
   group_by(trj_id) %>%
   arrange(pingtimestamp) %>%
   filter(row_number()==1) %>%
@@ -98,17 +92,45 @@ origin0_df <- grab0_df %>%
                         abbr=TRUE),
          start_hr = factor(hour(pingtimestamp)),
          day = factor(mday(pingtimestamp)))
-origin0_df
+origin_df
+```
+
+```{r}
+#| eval: false
+destination_df <- merged_data %>% 
+  group_by(trj_id) %>%
+  arrange(desc(pingtimestamp)) %>%
+  filter(row_number()==1) %>%
+  mutate(weekday = wday(pingtimestamp,
+                        label=TRUE,
+                        abbr=TRUE),
+         end_hr = factor(hour(pingtimestamp)),
+         day = factor(mday(pingtimestamp)))
+destination_df
 ```
 
 ```{r}
 #| eval: false 
 #| echo: false 
-write_rds(origin0_df, "../../data/TakeHome/TakeHome_01/rds/grab0.rds")
+write_rds(road_df, "../../data/TakeHome/TakeHome_01/rds/road_df.rds")
+write_rds(island_df, "../../data/TakeHome/TakeHome_01/rds/island_df.rds")
 ```
 
 ```{r}
-grab0_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/grab0.rds")
+road_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/road_df.rds")
+island_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/island_df.rds")
+```
+
+```{r}
+#| eval: false
+#| echo: false
+write_rds(origin_df, "../../data/TakeHome/TakeHome_01/rds/origin_df.rds")
+write_rds(destination_df, "../../data/TakeHome/TakeHome_01/rds/destination_df.rds")
+```
+
+```{r}
+origin_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/origin_df.rds")
+destination_df <- read_rds("../../data/TakeHome/TakeHome_01/rds/destination_df.rds")
 ```
 
 ::: callout-note
@@ -153,11 +175,11 @@ island_sf <- st_transform(island_df, crs = 3414)
 ```
 
 ```{r}
-grab0_sf <- st_as_sf(grab0_df, 
+listings_sf <- st_as_sf(origin_df, 
                        coords = c("rawlng", "rawlat"),
                        crs=4326) %>%
   st_transform(crs = 3414)
-glimpse(grab0_sf)
+glimpse(listings_sf)
 ```
 
 ```{r}
@@ -183,7 +205,7 @@ Grab Taxi Location Points
 
 ```{r}
 tmap_mode("plot")
-tm_shape(grab0_sf) +
+tm_shape(listings_sf) +
   tm_dots()
 ```
 
@@ -192,7 +214,7 @@ Master Plan 2019 Planning Subzone Boundary with Grab Taxi Location Points
 ```{r}
 tm_shape(island_sf) +
   tm_polygons() +
-tm_shape(grab0_sf) +
+tm_shape(listings_sf) +
   tm_dots()
 ```
 
@@ -214,7 +236,7 @@ The code chunk below uses as_Spatial() of sf package to convert the three geospa
 ```{r}
 #| eval: false
 island <- as_Spatial(island_sf)
-grab0_as <- as_Spatial(grab0_sf)
+listings <- as_Spatial(listings_sf)
 road <- as_Spatial(roads_in_singapore)
 ```
 
@@ -223,13 +245,13 @@ road <- as_Spatial(roads_in_singapore)
 #| echo: false
 write_rds(road, "../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
 write_rds(island, "../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
-write_rds(grab0_as, "../../data/TakeHome/TakeHome_01/rds/as_grab0_df.rds")
+write_rds(listings_as, "../../data/TakeHome/TakeHome_01/rds/as_listings_df.rds")
 ```
 
 ```{r}
 road_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
 island_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
-grab0_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_grab0_df.rds")
+listings_as <- read_rds("../../data/TakeHome/TakeHome_01/rds/as_listings_df.rds")
 ```
 
 ```{r}
@@ -241,7 +263,7 @@ road_as
 ```
 
 ```{r}
-grab0_as
+listings_as
 ```
 
 ## 3.2 Converting the Spatial\* class into generic sp format
@@ -256,7 +278,6 @@ The codes chunk below converts the Spatial\* classes into generic sp objects.
 #| eval: false
 island_sp <- as(island_as, "SpatialPolygons")
 road_sp <- as(road_as, "SpatialPoints")
-grab0_sp <- as(grab0_as, "Spatial")
 ```
 
 ```{r}
@@ -264,13 +285,11 @@ grab0_sp <- as(grab0_as, "Spatial")
 #| echo: false
 write_rds(road_sp, "../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
 write_rds(island_sp, "../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
-write_rds(grab0_sp, "../../data/TakeHome/TakeHome_01/rds/sp_grab0_df.rds")
 ```
 
 ```{r}
 road_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_road_df.rds")
 island_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_island_df.rds")
-grab0_sp <- read_rds("../../data/TakeHome/TakeHome_01/rds/sp_grab0_df.rds")
 ```
 
 ```{r}
@@ -279,10 +298,6 @@ island_sp
 
 ```{r}
 road_sp
-```
-
-```{r}
-grab0_sp
 ```
 
 ## 3.3 Converting the generic sp format into spatstat’s ppp format
@@ -304,15 +319,15 @@ summary(road_ppp)
 ```
 
 ```{r}
-grab0_ppp <- as(grab0_sp, "ppp")
+listings_ppp <- as.ppp(listings_as)
 ```
 
 ```{r}
-#plot(grab0_ppp)
+#plot(listings_ppp)
 ```
 
 ```{r}
-summary(grab0_ppp)
+summary(listings_ppp)
 ```
 
 ```{r}
@@ -334,7 +349,7 @@ Plot the newly derived islandSG_ppp as shown below.
 
 ```{r}
 islandSG_ppp_road = road_ppp[sg_owin]
-plot(islandSG_ppp_road)
+#plot(islandSG_ppp_road)
 ```
 
 ```{r}
@@ -379,6 +394,13 @@ tm_shape(road_as) +
           size=0.05)
 ```
 
+```{r}
+tmap_mode('plot')
+tm_shape(listings_as) +
+  tm_dots(alpha=0.4, 
+          size=0.05)
+```
+
 ::: callout-note
 The solution is use jittering, which will add a small perturbation to the duplicate points so that they do not occupy the exact same space. The code chunk below implements the jittering approach.
 :::
@@ -395,12 +417,17 @@ any(duplicated(road_ppp_jit))
 ```
 
 ```{r}
-#islandSG_ppp_grab0 = grab0_ppp[sg_owin]
-#plot(islandSG_ppp_grab0)
+islandSG_ppp_road = road_ppp_jit[sg_owin]
+plot(islandSG_ppp_road)
 ```
 
 ```{r}
-#summary(islandSG_ppp_grab0)
+islandSG_ppp_grab = listings_ppp[sg_owin]
+#plot(islandSG_ppp_grab)
+```
+
+```{r}
+glimpse(summary(islandSG_ppp_grab))
 ```
 
 # 4.0 Kernel Density Estimation
@@ -416,10 +443,10 @@ The code chunk below computes a kernel density by using the following configurat
 -   The intensity estimate is corrected for edge effect bias by using method described by Jones (1993) and Diggle (2010, equation 18.9). The default is *FALSE*.
 
 ```{r}
-#kde_grab0_bw <- density(grab0_ppp,
-#                              sigma=bw.diggle,
-#                              edge=TRUE,
-#                            kernel="gaussian") 
+kde_grab_bw <- density(listings_ppp,
+                              sigma=bw.diggle,
+                              edge=TRUE,
+                            kernel="gaussian") 
 ```
 
 ```{r}
@@ -430,17 +457,35 @@ kde_roadSG_bw <- density(road_ppp,
 ```
 
 ```{r}
+plot(kde_grab_bw)
+```
+
+```{r}
+bw1 <- bw.diggle(listings_ppp)
+bw1
+```
+
+```{r}
 plot(kde_roadSG_bw)
 ```
 
 ```{r}
-bw <- bw.diggle(road_ppp)
-bw
+bw2 <- bw.diggle(road_ppp)
+bw2
 ```
 
 ## 4.2 Rescalling KDE values
 
 In the code chunk below, rescale() is used to covert the unit of measurement from meter to kilometer.
+
+```{r}
+grab_ppp.km <- rescale(listings_ppp, 1000, "km")
+```
+
+```{r}
+kde_grab.bw <- density(grab_ppp.km, sigma=bw.diggle, edge=TRUE, kernel="gaussian")
+plot(kde_grab.bw)
+```
 
 ```{r}
 road_ppp.km <- rescale(road_ppp, 1000, "km")
@@ -456,6 +501,24 @@ plot(kde_roadSG.bw)
 Beside bw.diggle(), there are three other **spatstat** functions can be used to determine the bandwidth, they are: bw.CvL(), bw.scott(), and bw.ppl().
 
 Let us take a look at the bandwidth return by these automatic bandwidth calculation methods by using the code chunk below.
+
+```{r}
+bw.scott(grab_ppp.km)
+```
+
+```{r}
+bw.diggle(grab_ppp.km)
+```
+
+```{r}
+kde_grab.scott <- density(grab_ppp.km, 
+                               sigma=bw.scott, 
+                               edge=TRUE,
+                               kernel="gaussian")
+par(mfrow=c(1,2))
+plot(kde_grab.bw, main = "bw.diggle")
+plot(kde_grab.scott, main = "bw.scott")
+```
 
 ```{r}
 bw.scott(road_ppp.km)
@@ -478,6 +541,11 @@ plot(kde_roadSG.scott, main = "bw.scott")
 ## 4.4 Converting KDE output into grid object
 
 ```{r}
+gridded_kde_grab_bw <- as.SpatialGridDataFrame.im(kde_grab.bw)
+spplot(gridded_kde_grab_bw)
+```
+
+```{r}
 gridded_kde_roadSG_bw <- as.SpatialGridDataFrame.im(kde_roadSG.bw)
 spplot(gridded_kde_roadSG_bw)
 ```
@@ -487,12 +555,20 @@ spplot(gridded_kde_roadSG_bw)
 Next, we will convert the gridded kernal density objects into RasterLayer object by using *raster()* of **raster** package.
 
 ```{r}
+kde_kde_grab_bw_raster <- raster(gridded_kde_grab_bw)
+```
+
+```{r}
 kde_kde_roadSG_bw_raster <- raster(gridded_kde_roadSG_bw)
 ```
 
 ::: callout-note
 Let us take a look at the properties of kde_roadSG_bw_raster RasterLayer.
 :::
+
+```{r}
+kde_kde_grab_bw_raster
+```
 
 ```{r}
 kde_kde_roadSG_bw_raster
@@ -507,6 +583,11 @@ Notice that the crs property is NA.
 ::: callout-note
 The code chunk below will be used to include the CRS information on kde_roadSG_bw_raster RasterLayer.
 :::
+
+```{r}
+projection(kde_kde_grab_bw_raster) <- CRS("+init=EPSG:3414")
+kde_kde_grab_bw_raster
+```
 
 ```{r}
 projection(kde_kde_roadSG_bw_raster) <- CRS("+init=EPSG:3414")
@@ -524,6 +605,12 @@ Finally, we will display the raster in cartographic quality map using tmap packa
 :::
 
 ```{r}
+tm_shape(kde_kde_grab_bw_raster) + 
+  tm_raster("v") +
+  tm_layout(legend.position = c("right", "bottom"), frame = FALSE)
+```
+
+```{r}
 tm_shape(kde_kde_roadSG_bw_raster) + 
   tm_raster("v") +
   tm_layout(legend.position = c("right", "bottom"), frame = FALSE)
@@ -535,6 +622,14 @@ Using appropriate tmap functions, display the kernel density layers on openstree
 
 ```{r}
 osm_layer <- qtm(basemaps = "OpenStreetMap", zoom = 12)
+```
+
+```{r}
+tmap_mode("plot")
+tm_shape(kde_kde_grab_bw_raster) +
+  tm_raster(style = "cont", palette = "plasma") +
+  tm_layout(legend.show = TRUE, legend.text.color = "white") +
+  osm_layer
 ```
 
 ```{r}

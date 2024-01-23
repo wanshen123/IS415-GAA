@@ -138,7 +138,3 @@ plot(tm, main = "TAMPINES")
 plot(ck, main = "CHOA CHU KANG")
 plot(jw, main = "JURONG WEST")
 ```
-
-```{r}
-
-```

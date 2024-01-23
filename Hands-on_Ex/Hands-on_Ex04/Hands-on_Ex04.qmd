@@ -49,13 +49,19 @@ hunan2012 <- read_csv("../../data/aspatial/Hunan_2012.csv")
 The code chunk below will be used to update the attribute table of *hunan*’s SpatialPolygonsDataFrame with the attribute fields of *hunan2012* dataframe. This is performed by using *left_join()* of **dplyr** package.
 
 ```{r}
-hunan <- left_join(hunan,hunan2012)
-```
-
-```{r}
-#hunan <- select(hunan, 1:4, 7, 15)
+hunan <- left_join(hunan,hunan2012)%>%
+  select(1:4, 7, 15)
 ```
 
 # 3.0 Visualising Regional Development Indicator
 
 Now, we are going to prepare a basemap and a choropleth map showing the distribution of GDPPC 2012 by using qtm() of **tmap** package.
+
+```{r}
+basemap <- tm_shape(hunan) +
+  tm_polygons() +
+  tm_text("NAME_3", size=0.5)
+
+gdppc <- qtm(hunan, "GDPPC")
+tmap_arrange(basemap, gdppc, asp=1, ncol=2)
+```

@@ -532,7 +532,7 @@ plot(density(childcare_tm_ppp.km,
              sigma=bw.diggle, 
              edge=TRUE, 
              kernel="gaussian"),
-     main="Tempines")
+     main="Tampines")
 plot(density(childcare_ck_ppp.km, 
              sigma=bw.diggle, 
              edge=TRUE, 
@@ -542,7 +542,7 @@ plot(density(childcare_jw_ppp.km,
              sigma=bw.diggle, 
              edge=TRUE, 
              kernel="gaussian"),
-     main="JUrong West")
+     main="Jurong West")
 ```
 
 ### 5.5.6 Computing fixed bandwidth KDE
@@ -555,12 +555,12 @@ plot(density(childcare_ck_ppp.km,
              sigma=0.25, 
              edge=TRUE, 
              kernel="gaussian"),
-     main="Chou Chu Kang")
+     main="Choa Chu Kang")
 plot(density(childcare_jw_ppp.km, 
              sigma=0.25, 
              edge=TRUE, 
              kernel="gaussian"),
-     main="JUrong West")
+     main="Jurong West")
 plot(density(childcare_pg_ppp.km, 
              sigma=0.25, 
              edge=TRUE, 

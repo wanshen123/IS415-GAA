@@ -814,20 +814,25 @@ lixels_pung$density <- lixels_pung$density*1000
 ```
 
 ::: {.panel-tabset .nav-pills}
-```{r}
+
 ## Choa Chu Kang
+
+```{r}
 tmap_mode('plot')
 tm_shape(lixels_cck)+
   tm_lines(col="density")+
 tm_shape(origin_cck)+
   tm_dots()
 ```
-```{r}
+
 ## Punggol
+
+```{r}
 tmap_mode('plot')
 tm_shape(lixels_pung)+
   tm_lines(col="density")+
 tm_shape(origin_pung)+
   tm_dots()
 ```
+
 :::

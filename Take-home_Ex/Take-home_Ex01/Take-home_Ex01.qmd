@@ -58,7 +58,6 @@ head(roadMe, n=3)
 ```
 
 ```{r}
-#| eval: false 
 islandMe <- st_read(dsn="../../data/TakeHome/TakeHome_01/geospatial", layer="MPSZ-2019")
 head(islandMe, n=3)
 ```
@@ -183,10 +182,6 @@ glimpse(listings_sf)
 ```
 
 ```{r}
-#island_sf <- st_zm(island_sf)
-```
-
-```{r}
 sf_df <- st_as_sf(road_sf, wkt = "geometry")
 roads_in_singapore <- st_intersection(sf_df, island_sf)
 ```
@@ -216,13 +211,6 @@ tm_shape(island_sf) +
   tm_polygons() +
 tm_shape(listings_sf) +
   tm_dots()
-```
-
-```{r}
-#tm_shape(island_sf) +
-#  tm_polygons() +
-#tm_shape(roads_in_singapore) +
-#  tm_dots()
 ```
 
 # 3.0 Geospatial Data wrangling
@@ -323,10 +311,6 @@ listings_ppp <- as.ppp(listings_as)
 ```
 
 ```{r}
-#plot(listings_ppp)
-```
-
-```{r}
 summary(listings_ppp)
 ```
 
@@ -349,7 +333,6 @@ Plot the newly derived islandSG_ppp as shown below.
 
 ```{r}
 islandSG_ppp_road = road_ppp[sg_owin]
-#plot(islandSG_ppp_road)
 ```
 
 ```{r}
@@ -423,7 +406,6 @@ plot(islandSG_ppp_road)
 
 ```{r}
 islandSG_ppp_grab = listings_ppp[sg_owin]
-#plot(islandSG_ppp_grab)
 ```
 
 ```{r}
@@ -644,49 +626,150 @@ tm_shape(kde_kde_roadSG_bw_raster) +
 
 In this section, we will perform NetKDE analysis by using appropriate functions provided in **spNetwork** package.
 
-## 6.1 Preparing the lixels objects
+## 6.1 Extracting study area
+
+```{r}
+pung <- islandMe %>%
+  filter(PLN_AREA_N == "PUNGGOL")
+pung <- pung%>%
+  st_union()
+pung <- st_make_valid(pung)
+length(which(st_is_valid(pung) == FALSE))
+```
+
+```{r}
+tamp <- islandMe %>%
+  filter(PLN_AREA_N == "TAMPINES")
+tamp <- tamp%>%
+  st_union()
+tamp <- st_make_valid(tamp)
+length(which(st_is_valid(tamp) == FALSE))
+```
+
+```{r}
+cck <- islandMe %>%
+  filter(PLN_AREA_N == "CHOA CHU KANG")
+cck <- cck%>%
+  st_union()
+cck <- st_make_valid(cck)
+length(which(st_is_valid(cck) == FALSE))
+```
+
+```{r}
+jw <- islandMe %>%
+  filter(PLN_AREA_N == "JURONG WEST")
+jw <- jw%>%
+  st_union()
+jw <- st_make_valid(jw)
+length(which(st_is_valid(jw) == FALSE))
+```
+
+```{r}
+pung <- st_transform(pung, crs = 3414)
+tamp <- st_transform(tamp, crs = 3414)
+cck <- st_transform(cck, crs = 3414)
+jw <- st_transform(jw, crs = 3414)
+```
+
+```{r}
+pung_roads <- st_intersection(roads_in_singapore, pung)
+tamp_roads <- st_intersection(roads_in_singapore, tamp)
+cck_roads <- st_intersection(roads_in_singapore, cck)
+jw_roads <- st_intersection(roads_in_singapore, jw)
+```
+
+```{r}
+par(mfrow=c(2,2))
+plot(pung, main = "Punggol")
+plot(tamp, main = "Tampines")
+plot(cck, main = "Choa Chu Kang")
+plot(jw, main = "Jurong West")
+```
+
+```{r}
+tmap_mode('plot')
+tmap_arrange(tm_shape(pung_roads) +
+               tm_lines(col = "red") +
+               tm_layout(title = "Punggol", title.size = 0.8),
+             tm_shape(tamp_roads) +
+               tm_lines(col = "blue") +
+               tm_layout(title = "Tampines", title.size = 0.8), 
+             tm_shape(cck_roads) +
+               tm_lines(col = "green") +
+               tm_layout(title = "Choa Chu Kang", title.size = 0.8),
+             tm_shape(jw_roads) +
+               tm_lines(col = "orange") +
+               tm_layout(title = "Jurong West", title.size = 0.8),
+             asp=2, ncol=2)
+```
+
+```{r}
+pung_roads <- st_cast(pung_roads, "LINESTRING")
+tamp_roads <- st_cast(tamp_roads, "LINESTRING")
+cck_roads <- st_cast(cck_roads, "LINESTRING")
+jw_roads <- st_cast(jw_roads, "LINESTRING")
+```
+
+## 6.2 Preparing the lixels objects
 
 Before computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.
 
 ```{r}
-#pg = island_sf[island_sf$PLN_AREA_N == "PUNGGOL",]
-lixels <- lixelize_lines(island_df, 
-                         750, 
-                         mindist = 375)
+lixels_pung <- lixelize_lines(pung_roads, 
+                         700, 
+                         mindist = 350)
+lixels_tamp <- lixelize_lines(tamp_roads, 
+                         700, 
+                         mindist = 350)
+lixels_cck <- lixelize_lines(cck_roads, 
+                         700, 
+                         mindist = 350)
+lixels_jw <- lixelize_lines(jw_roads, 
+                         700, 
+                         mindist = 350)
 ```
 
-## 6.2 Generating line centre points
+## 6.3 Generating line centre points
 
 Next, lines_center() of **spNetwork** will be used to generate a SpatialPointsDataFrame (i.e. samples) with line centre points as shown in the code chunk below.
 
 ```{r}
-samples <- lines_center(lixels)
+samples_pung <- lines_center(lixels_pung)
+samples_tamp <- lines_center(lixels_tamp)
+samples_cck <- lines_center(lixels_cck)
+samples_jw <- lines_center(lixels_jw)
+```
+
+```{r}
+origin_pung = st_intersection(listings_sf, pung)
+origin_tamp = st_intersection(listings_sf, tamp)
+origin_cck = st_intersection(listings_sf, cck)
+origin_jw = st_intersection(listings_sf, jw)
+```
+
+```{r}
+tmap_mode('view')
+tm_basemap("OpenStreetMap") +
+tm_shape(cck_roads) +
+  tm_lines(col = "green") +
+  tm_shape(origin_cck) + 
+  tm_dots()
+tmap_mode('plot')
 ```
 
 The points are located at center of the line based on the length of the line.
 
-## 6.3 Performing NetKDE
+## 6.4 Performing NetKDE
 
 We are ready to compute the NetKDE by using the code chunk below.
 
 ```{r}
-#| eval: false
-lines_sf <- st_cast(island_sf, "MULTILINESTRING")
-lines_sf <- st_cast(lines_sf, "LINESTRING")
-test_sf <- st_cast(listings_sf, "LINESTRING")
-#pg <- st_cast(pg, "MULTILINESTRING")
-#pg <- st_cast(pg, "LINESTRING")
-#roads_in_singapore <- st_cast(roads_in_singapore, "LINESTRING")
-```
-
-```{r}
-#| eval: false
-densities <- nkde(island_df, 
-                  events = test_sf,
-                  w = rep(1,nrow(test_sf)),
-                  samples = samples,
-                  kernel_name = "quartic", #Impt
-                  bw = 300, #Impt
+densities_cck <- nkde(cck_roads, 
+                  events = origin_cck,
+                  w = rep(1,nrow(origin_cck)),
+                  samples = samples_cck,
+                  kernel_name = "quartic",
+                  bw = 300, 
                   div= "bw", 
                   method = "simple", 
                   digits = 1, 
@@ -699,23 +782,28 @@ densities <- nkde(island_df,
 ```
 
 ```{r}
-#| eval: false
-samples$density <- densities
-lixels$density <- densities
-```
-
-```{r}
-#| eval: false
+samples_cck$density <- densities_cck
+lixels_cck$density <- densities_cck
 # rescaling to help the mapping
-samples$density <- samples$density*1000
-lixels$density <- lixels$density*1000
+samples_cck$density <- samples_cck$density*1000
+lixels_cck$density <- lixels_cck$density*1000
 ```
 
+::: {.panel-tabset}
 ```{r}
-#| eval: false
+## Choa Chu Kang
 tmap_mode('plot')
-tm_shape(lixels)+
+tm_shape(lixels_cck)+
   tm_lines(col="density")+
-tm_shape(roads_in_singapore)+
+tm_shape(origin_cck)+
   tm_dots()
 ```
+```{r}
+## Punggol
+#tmap_mode('plot')
+#tm_shape(lixels_pung)+
+#  tm_lines(col="density")+
+#tm_shape(origin_pung)+
+#  tm_dots()
+```
+:::

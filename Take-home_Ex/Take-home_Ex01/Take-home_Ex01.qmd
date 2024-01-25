@@ -669,7 +669,50 @@ The points are located at center of the line based on the length of the line.
 We are ready to compute the NetKDE by using the code chunk below.
 
 ```{r}
+#| eval: false
 lines_sf <- st_cast(island_sf, "MULTILINESTRING")
 lines_sf <- st_cast(lines_sf, "LINESTRING")
 test_sf <- st_cast(listings_sf, "LINESTRING")
+roads_in_singapore <- st_cast(roads_in_singapore, "LINESTRING")
+```
+
+```{r}
+#| eval: false
+densities <- nkde(roads_in_singapore, 
+                  events = childcare,
+                  w = rep(1,nrow(childcare)),
+                  samples = samples,
+                  kernel_name = "quartic", #Impt
+                  bw = 300, #Impt
+                  div= "bw", 
+                  method = "simple", 
+                  digits = 1, 
+                  tol = 1,
+                  grid_shape = c(1,1), 
+                  max_depth = 8,
+                  agg = 5, #we aggregate events within a 5m radius (faster calculation)
+                  sparse = TRUE,
+                  verbose = FALSE)
+```
+
+```{r}
+#| eval: false
+samples$density <- densities
+lixels$density <- densities
+```
+
+```{r}
+#| eval: false
+# rescaling to help the mapping
+samples$density <- samples$density*1000
+lixels$density <- lixels$density*1000
+```
+
+```{r}
+#| eval: false
+tmap_mode('plot')
+tm_shape(lixels)+
+  tm_lines(col="density")+
+tm_shape(roads_in_singapore)+
+  tm_dots()
 ```

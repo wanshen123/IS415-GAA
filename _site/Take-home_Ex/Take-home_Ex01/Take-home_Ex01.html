@@ -1353,7 +1353,41 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>lines_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(island_sf, <span class="st">"MULTILINESTRING"</span>)</span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>lines_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(lines_sf, <span class="st">"LINESTRING"</span>)</span>
-<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>test_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(listings_sf, <span class="st">"LINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>test_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(listings_sf, <span class="st">"LINESTRING"</span>)</span>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>roads_in_singapore <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(roads_in_singapore, <span class="st">"LINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">nkde</span>(roads_in_singapore, </span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">events =</span> childcare,</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">w =</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(childcare)),</span>
+<span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples,</span>
+<span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">kernel_name =</span> <span class="st">"quartic"</span>, <span class="co">#Impt</span></span>
+<span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">bw =</span> <span class="dv">300</span>, <span class="co">#Impt</span></span>
+<span id="cb113-7"><a href="#cb113-7" aria-hidden="true" tabindex="-1"></a>                  <span class="at">div=</span> <span class="st">"bw"</span>, </span>
+<span id="cb113-8"><a href="#cb113-8" aria-hidden="true" tabindex="-1"></a>                  <span class="at">method =</span> <span class="st">"simple"</span>, </span>
+<span id="cb113-9"><a href="#cb113-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">digits =</span> <span class="dv">1</span>, </span>
+<span id="cb113-10"><a href="#cb113-10" aria-hidden="true" tabindex="-1"></a>                  <span class="at">tol =</span> <span class="dv">1</span>,</span>
+<span id="cb113-11"><a href="#cb113-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">grid_shape =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), </span>
+<span id="cb113-12"><a href="#cb113-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">max_depth =</span> <span class="dv">8</span>,</span>
+<span id="cb113-13"><a href="#cb113-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">agg =</span> <span class="dv">5</span>, <span class="co">#we aggregate events within a 5m radius (faster calculation)</span></span>
+<span id="cb113-14"><a href="#cb113-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">sparse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb113-15"><a href="#cb113-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>samples<span class="sc">$</span>density <span class="ot">&lt;-</span> densities</span>
+<span id="cb114-2"><a href="#cb114-2" aria-hidden="true" tabindex="-1"></a>lixels<span class="sc">$</span>density <span class="ot">&lt;-</span> densities</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb115"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb115-1"><a href="#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rescaling to help the mapping</span></span>
+<span id="cb115-2"><a href="#cb115-2" aria-hidden="true" tabindex="-1"></a>samples<span class="sc">$</span>density <span class="ot">&lt;-</span> samples<span class="sc">$</span>density<span class="sc">*</span><span class="dv">1000</span></span>
+<span id="cb115-3"><a href="#cb115-3" aria-hidden="true" tabindex="-1"></a>lixels<span class="sc">$</span>density <span class="ot">&lt;-</span> lixels<span class="sc">$</span>density<span class="sc">*</span><span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">'plot'</span>)</span>
+<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(lixels)<span class="sc">+</span></span>
+<span id="cb116-3"><a href="#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_lines</span>(<span class="at">col=</span><span class="st">"density"</span>)<span class="sc">+</span></span>
+<span id="cb116-4"><a href="#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(roads_in_singapore)<span class="sc">+</span></span>
+<span id="cb116-5"><a href="#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

@@ -307,7 +307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(roadMe, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>islandMe <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml"</span>)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>islandMe <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn=</span><span class="st">"../../data/TakeHome/TakeHome_01/geospatial"</span>, <span class="at">layer=</span><span class="st">"MPSZ-2019"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(islandMe, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -405,10 +405,10 @@ GEOGCRS["WGS 84",
     PRIMEM["Greenwich",0,
         ANGLEUNIT["degree",0.0174532925199433]],
     CS[ellipsoidal,2],
-        AXIS["geodetic latitude (Lat)",north,
+        AXIS["latitude",north,
             ORDER[1],
             ANGLEUNIT["degree",0.0174532925199433]],
-        AXIS["geodetic longitude (Lon)",east,
+        AXIS["longitude",east,
             ORDER[2],
             ANGLEUNIT["degree",0.0174532925199433]],
     ID["EPSG",4326]]</code></pre>
@@ -454,20 +454,21 @@ Note
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>tibble2 <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(island_df)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>tibble2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 332 × 3
-   Name   Description                                                   geometry
-   &lt;chr&gt;  &lt;chr&gt;                                               &lt;MULTIPOLYGON [°]&gt;
- 1 kml_1  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8145 1.282387 0…
- 2 kml_2  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8221 1.280494 0…
- 3 kml_3  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8438 1.285079 0…
- 4 kml_4  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8496 1.284119 0…
- 5 kml_5  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8525 1.286166 0…
- 6 kml_6  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8486 1.282317 0…
- 7 kml_7  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8311 1.287163 0…
- 8 kml_8  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8589 1.278739 0…
- 9 kml_9  "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8283 1.287235 0…
-10 kml_10 "&lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='… Z (((103.8552 1.28322 0,…
-# ℹ 322 more rows</code></pre>
+<pre><code># A tibble: 332 × 7
+   SUBZONE_N               SUBZONE_C PLN_AREA_N     PLN_AREA_C REGION_N REGION_C
+   &lt;chr&gt;                   &lt;chr&gt;     &lt;chr&gt;          &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;   
+ 1 MARINA EAST             MESZ01    MARINA EAST    ME         CENTRAL… CR      
+ 2 INSTITUTION HILL        RVSZ05    RIVER VALLEY   RV         CENTRAL… CR      
+ 3 ROBERTSON QUAY          SRSZ01    SINGAPORE RIV… SR         CENTRAL… CR      
+ 4 JURONG ISLAND AND BUKOM WISZ01    WESTERN ISLAN… WI         WEST RE… WR      
+ 5 FORT CANNING            MUSZ02    MUSEUM         MU         CENTRAL… CR      
+ 6 MARINA EAST (MP)        MPSZ05    MARINE PARADE  MP         CENTRAL… CR      
+ 7 SUDONG                  WISZ03    WESTERN ISLAN… WI         WEST RE… WR      
+ 8 SEMAKAU                 WISZ02    WESTERN ISLAN… WI         WEST RE… WR      
+ 9 SOUTHERN GROUP          SISZ02    SOUTHERN ISLA… SI         CENTRAL… CR      
+10 SENTOSA                 SISZ01    SOUTHERN ISLA… SI         CENTRAL… CR      
+# ℹ 322 more rows
+# ℹ 1 more variable: geometry &lt;MULTIPOLYGON [°]&gt;</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -511,7 +512,7 @@ $ geometry      &lt;POINT [m]&gt; POINT (20933.84 40231.63), POINT (31257.84 304
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>island_sf <span class="ot">&lt;-</span> <span class="fu">st_zm</span>(island_sf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#island_sf &lt;- st_zm(island_sf)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sf_df <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(road_sf, <span class="at">wkt =</span> <span class="st">"geometry"</span>)</span>
@@ -597,10 +598,10 @@ Note
 features    : 332 
 extent      : 2667.538, 56396.44, 15748.72, 50256.33  (xmin, xmax, ymin, ymax)
 crs         : +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-variables   : 2
-names       :   Name,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Description 
-min values  :  kml_1, &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_NO&lt;/th&gt; &lt;td&gt;1&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;SUBZONE_N&lt;/th&gt; &lt;td&gt;ANAK BUKIT&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_C&lt;/th&gt; &lt;td&gt;BTSZ01&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;CA_IND&lt;/th&gt; &lt;td&gt;N&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;PLN_AREA_N&lt;/th&gt; &lt;td&gt;BUKIT TIMAH&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;PLN_AREA_C&lt;/th&gt; &lt;td&gt;BT&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;REGION_N&lt;/th&gt; &lt;td&gt;CENTRAL REGION&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;REGION_C&lt;/th&gt; &lt;td&gt;CR&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;INC_CRC&lt;/th&gt; &lt;td&gt;4BAD8B2C9CEBF3F2&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;FMEL_UPD_D&lt;/th&gt; &lt;td&gt;20191223152313&lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;/center&gt; 
-max values  : kml_99,       &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_NO&lt;/th&gt; &lt;td&gt;9&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;SUBZONE_N&lt;/th&gt; &lt;td&gt;YISHUN WEST&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_C&lt;/th&gt; &lt;td&gt;YSSZ09&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;CA_IND&lt;/th&gt; &lt;td&gt;N&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;PLN_AREA_N&lt;/th&gt; &lt;td&gt;YISHUN&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;PLN_AREA_C&lt;/th&gt; &lt;td&gt;YS&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;REGION_N&lt;/th&gt; &lt;td&gt;NORTH REGION&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;REGION_C&lt;/th&gt; &lt;td&gt;NR&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;INC_CRC&lt;/th&gt; &lt;td&gt;95C11920195B86C7&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;FMEL_UPD_D&lt;/th&gt; &lt;td&gt;20191223152313&lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;/center&gt; </code></pre>
+variables   : 6
+names       : SUBZONE_N, SUBZONE_C, PLN_AREA_N, PLN_AREA_C,       REGION_N, REGION_C 
+min values  : ADMIRALTY,    AMSZ01, ANG MO KIO,         AM, CENTRAL REGION,       CR 
+max values  :    YUNNAN,    YSSZ09,     YISHUN,         YS,    WEST REGION,       WR </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -610,10 +611,10 @@ max values  : kml_99,       &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan=
 features    : 83463 
 extent      : 3620.434, 55604.55, 23099.51, 50154.22  (xmin, xmax, ymin, ymax)
 crs         : +proj=tmerc +lat_0=1.36666666666667 +lon_0=103.833333333333 +k=1 +x_0=28001.642 +y_0=38744.572 +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
-variables   : 12
-names       :     osm_id, code,   fclass,                                       name, ref, oneway, maxspeed, layer, bridge, tunnel,   Name,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Description 
-min values  : 1000098060, 5111, cycleway, 105 Henderson Crescent Lobby Drive-Through,   1,      B,        0,    -2,      F,      F,  kml_1, &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_NO&lt;/th&gt; &lt;td&gt;1&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;SUBZONE_N&lt;/th&gt; &lt;td&gt;ANAK BUKIT&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_C&lt;/th&gt; &lt;td&gt;BTSZ01&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;CA_IND&lt;/th&gt; &lt;td&gt;N&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;PLN_AREA_N&lt;/th&gt; &lt;td&gt;BUKIT TIMAH&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;PLN_AREA_C&lt;/th&gt; &lt;td&gt;BT&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;REGION_N&lt;/th&gt; &lt;td&gt;CENTRAL REGION&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;REGION_C&lt;/th&gt; &lt;td&gt;CR&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;INC_CRC&lt;/th&gt; &lt;td&gt;4BAD8B2C9CEBF3F2&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;FMEL_UPD_D&lt;/th&gt; &lt;td&gt;20191223152313&lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;/center&gt; 
-max values  :  999921410, 5199,  unknown,                           Zubir Said Drive, TPE,      T,       90,     5,      T,      T, kml_99,       &lt;center&gt;&lt;table&gt;&lt;tr&gt;&lt;th colspan='2' align='center'&gt;&lt;em&gt;Attributes&lt;/em&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_NO&lt;/th&gt; &lt;td&gt;9&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;SUBZONE_N&lt;/th&gt; &lt;td&gt;YISHUN WEST&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;SUBZONE_C&lt;/th&gt; &lt;td&gt;YSSZ09&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;CA_IND&lt;/th&gt; &lt;td&gt;N&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;PLN_AREA_N&lt;/th&gt; &lt;td&gt;YISHUN&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;PLN_AREA_C&lt;/th&gt; &lt;td&gt;YS&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;REGION_N&lt;/th&gt; &lt;td&gt;NORTH REGION&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;REGION_C&lt;/th&gt; &lt;td&gt;NR&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor="#E3E3F3"&gt; &lt;th&gt;INC_CRC&lt;/th&gt; &lt;td&gt;95C11920195B86C7&lt;/td&gt; &lt;/tr&gt;&lt;tr bgcolor=""&gt; &lt;th&gt;FMEL_UPD_D&lt;/th&gt; &lt;td&gt;20191223152313&lt;/td&gt; &lt;/tr&gt;&lt;/table&gt;&lt;/center&gt; </code></pre>
+variables   : 16
+names       :     osm_id, code,   fclass,                                       name, ref, oneway, maxspeed, layer, bridge, tunnel, SUBZONE_N, SUBZONE_C, PLN_AREA_N, PLN_AREA_C,       REGION_N, ... 
+min values  : 1000098060, 5111, cycleway, 105 Henderson Crescent Lobby Drive-Through,   1,      B,        0,    -2,      F,      F, ADMIRALTY,    AMSZ01, ANG MO KIO,         AM, CENTRAL REGION, ... 
+max values  :  999921410, 5199,  unknown,                           Zubir Said Drive, TPE,      T,       90,     5,      T,      T,    YUNNAN,    YSSZ09,     YISHUN,         YS,    WEST REGION, ... </code></pre>
 </div>
 </div>
 <div class="cell">
@@ -783,8 +784,8 @@ Window area = 1131920000 square units</code></pre>
   ..- attr(*, "class")= chr "unitname"
  $ areafraction: num 0.423
  $ npoly       : int 387
- $ areas       : num [1:387] 442298 411723 587223 39438 188767 ...
- $ nvertices   : int [1:387] 85 38 227 35 96 59 47 31 17 54 ...
+ $ areas       : num [1:387] 1.84e+06 3.93e+05 5.07e+05 3.29e+07 -3.79e-02 ...
+ $ nvertices   : int [1:387] 299 165 239 1265 3 487 264 65 47 22 ...
  $ nhole       : int 13
  - attr(*, "class")= chr "summary.owin"</code></pre>
 </div>
@@ -815,7 +816,7 @@ Note
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 6
  $ is.marked  : logi FALSE
- $ n          : int 285725
+ $ n          : int 285700
  $ window     :List of 10
   ..$ xrange      : num [1:2] 2668 56396
   ..$ yrange      : num [1:2] 15749 50256
@@ -828,12 +829,12 @@ Note
   .. ..- attr(*, "class")= chr "unitname"
   ..$ areafraction: num 0.423
   ..$ npoly       : int 387
-  ..$ areas       : num [1:387] 442298 411723 587223 39438 188767 ...
-  ..$ nvertices   : int [1:387] 85 38 227 35 96 59 47 31 17 54 ...
+  ..$ areas       : num [1:387] 1.84e+06 3.93e+05 5.07e+05 3.29e+07 -3.79e-02 ...
+  ..$ nvertices   : int [1:387] 299 165 239 1265 3 487 264 65 47 22 ...
   ..$ nhole       : int 13
   ..- attr(*, "class")= chr "summary.owin"
  $ intensity  : num 0.000364
- $ nduplicated: int 93387
+ $ nduplicated: int 93372
  $ rounding   : num 3
  - attr(*, "class")= chr "summary.ppp"</code></pre>
 </div>
@@ -880,7 +881,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">multiplicity</span>(islandSG_ppp_road) <span class="sc">&gt;</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 165819</code></pre>
+<pre><code>[1] 165793</code></pre>
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -969,8 +970,8 @@ Note
   .. ..- attr(*, "class")= chr "unitname"
   ..$ areafraction: num 0.423
   ..$ npoly       : int 387
-  ..$ areas       : num [1:387] 442298 411723 587223 39438 188767 ...
-  ..$ nvertices   : int [1:387] 85 38 227 35 96 59 47 31 17 54 ...
+  ..$ areas       : num [1:387] 1.84e+06 3.93e+05 5.07e+05 3.29e+07 -3.79e-02 ...
+  ..$ nvertices   : int [1:387] 299 165 239 1265 3 487 264 65 47 22 ...
   ..$ nhole       : int 13
   ..- attr(*, "class")= chr "summary.owin"
  $ intensity     : num 3.57e-05
@@ -1334,9 +1335,10 @@ Note
 <h2 class="anchored" data-anchor-id="preparing-the-lixels-objects">6.1 Preparing the lixels objects</h2>
 <p>Before computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>lixels <span class="ot">&lt;-</span> <span class="fu">lixelize_lines</span>(island_sf, </span>
-<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">750</span>, </span>
-<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mindist =</span> <span class="dv">375</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pg = island_sf[island_sf$PLN_AREA_N == "PUNGGOL",]</span></span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>lixels <span class="ot">&lt;-</span> <span class="fu">lixelize_lines</span>(island_df, </span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">750</span>, </span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">mindist =</span> <span class="dv">375</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generating-line-centre-points" class="level2">
@@ -1354,12 +1356,14 @@ Note
 <div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>lines_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(island_sf, <span class="st">"MULTILINESTRING"</span>)</span>
 <span id="cb112-2"><a href="#cb112-2" aria-hidden="true" tabindex="-1"></a>lines_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(lines_sf, <span class="st">"LINESTRING"</span>)</span>
 <span id="cb112-3"><a href="#cb112-3" aria-hidden="true" tabindex="-1"></a>test_sf <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(listings_sf, <span class="st">"LINESTRING"</span>)</span>
-<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a>roads_in_singapore <span class="ot">&lt;-</span> <span class="fu">st_cast</span>(roads_in_singapore, <span class="st">"LINESTRING"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb112-4"><a href="#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="co">#pg &lt;- st_cast(pg, "MULTILINESTRING")</span></span>
+<span id="cb112-5"><a href="#cb112-5" aria-hidden="true" tabindex="-1"></a><span class="co">#pg &lt;- st_cast(pg, "LINESTRING")</span></span>
+<span id="cb112-6"><a href="#cb112-6" aria-hidden="true" tabindex="-1"></a><span class="co">#roads_in_singapore &lt;- st_cast(roads_in_singapore, "LINESTRING")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">nkde</span>(roads_in_singapore, </span>
-<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">events =</span> childcare,</span>
-<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">w =</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(childcare)),</span>
+<div class="sourceCode cell-code" id="cb113"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true" tabindex="-1"></a>densities <span class="ot">&lt;-</span> <span class="fu">nkde</span>(island_df, </span>
+<span id="cb113-2"><a href="#cb113-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">events =</span> test_sf,</span>
+<span id="cb113-3"><a href="#cb113-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">w =</span> <span class="fu">rep</span>(<span class="dv">1</span>,<span class="fu">nrow</span>(test_sf)),</span>
 <span id="cb113-4"><a href="#cb113-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">samples =</span> samples,</span>
 <span id="cb113-5"><a href="#cb113-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">kernel_name =</span> <span class="st">"quartic"</span>, <span class="co">#Impt</span></span>
 <span id="cb113-6"><a href="#cb113-6" aria-hidden="true" tabindex="-1"></a>                  <span class="at">bw =</span> <span class="dv">300</span>, <span class="co">#Impt</span></span>

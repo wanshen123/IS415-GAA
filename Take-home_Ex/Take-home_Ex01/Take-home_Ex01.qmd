@@ -59,7 +59,7 @@ head(roadMe, n=3)
 
 ```{r}
 #| eval: false 
-islandMe <- st_read("../../data/TakeHome/TakeHome_01/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml")
+islandMe <- st_read(dsn="../../data/TakeHome/TakeHome_01/geospatial", layer="MPSZ-2019")
 head(islandMe, n=3)
 ```
 
@@ -183,7 +183,7 @@ glimpse(listings_sf)
 ```
 
 ```{r}
-island_sf <- st_zm(island_sf)
+#island_sf <- st_zm(island_sf)
 ```
 
 ```{r}
@@ -245,7 +245,7 @@ road <- as_Spatial(roads_in_singapore)
 #| echo: false
 write_rds(road, "../../data/TakeHome/TakeHome_01/rds/as_road_df.rds")
 write_rds(island, "../../data/TakeHome/TakeHome_01/rds/as_island_df.rds")
-write_rds(listings_as, "../../data/TakeHome/TakeHome_01/rds/as_listings_df.rds")
+write_rds(listings, "../../data/TakeHome/TakeHome_01/rds/as_listings_df.rds")
 ```
 
 ```{r}
@@ -649,7 +649,8 @@ In this section, we will perform NetKDE analysis by using appropriate functions 
 Before computing NetKDE, the SpatialLines object need to be cut into lixels with a specified minimal distance. This task can be performed by using with lixelize_lines() of spNetwork as shown in the code chunk below.
 
 ```{r}
-lixels <- lixelize_lines(island_sf, 
+#pg = island_sf[island_sf$PLN_AREA_N == "PUNGGOL",]
+lixels <- lixelize_lines(island_df, 
                          750, 
                          mindist = 375)
 ```
@@ -673,14 +674,16 @@ We are ready to compute the NetKDE by using the code chunk below.
 lines_sf <- st_cast(island_sf, "MULTILINESTRING")
 lines_sf <- st_cast(lines_sf, "LINESTRING")
 test_sf <- st_cast(listings_sf, "LINESTRING")
-roads_in_singapore <- st_cast(roads_in_singapore, "LINESTRING")
+#pg <- st_cast(pg, "MULTILINESTRING")
+#pg <- st_cast(pg, "LINESTRING")
+#roads_in_singapore <- st_cast(roads_in_singapore, "LINESTRING")
 ```
 
 ```{r}
 #| eval: false
-densities <- nkde(roads_in_singapore, 
-                  events = childcare,
-                  w = rep(1,nrow(childcare)),
+densities <- nkde(island_df, 
+                  events = test_sf,
+                  w = rep(1,nrow(test_sf)),
                   samples = samples,
                   kernel_name = "quartic", #Impt
                   bw = 300, #Impt

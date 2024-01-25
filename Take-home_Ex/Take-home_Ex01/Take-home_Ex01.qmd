@@ -16,7 +16,7 @@ title-block-banner: true
 categories:
   - Take-Home Exercise
 title-block-categories: false
-#format: 
+format: html 
   #html: 
     #code-fold: true
     #code-summary: "Show the code"
@@ -782,14 +782,38 @@ densities_cck <- nkde(cck_roads,
 ```
 
 ```{r}
+densities_pung <- nkde(pung_roads, 
+                  events = origin_pung,
+                  w = rep(1,nrow(origin_pung)),
+                  samples = samples_pung,
+                  kernel_name = "quartic",
+                  bw = 300, 
+                  div= "bw", 
+                  method = "simple", 
+                  digits = 1, 
+                  tol = 1,
+                  grid_shape = c(1,1), 
+                  max_depth = 8,
+                  agg = 5, #we aggregate events within a 5m radius (faster calculation)
+                  sparse = TRUE,
+                  verbose = FALSE)
+```
+
+```{r}
+#| echo: false
 samples_cck$density <- densities_cck
 lixels_cck$density <- densities_cck
 # rescaling to help the mapping
 samples_cck$density <- samples_cck$density*1000
 lixels_cck$density <- lixels_cck$density*1000
+samples_pung$density <- densities_pung
+lixels_pung$density <- densities_pung
+# rescaling to help the mapping
+samples_pung$density <- samples_pung$density*1000
+lixels_pung$density <- lixels_pung$density*1000
 ```
 
-::: {.panel-tabset}
+::: {.panel-tabset .nav-pills}
 ```{r}
 ## Choa Chu Kang
 tmap_mode('plot')
@@ -800,10 +824,10 @@ tm_shape(origin_cck)+
 ```
 ```{r}
 ## Punggol
-#tmap_mode('plot')
-#tm_shape(lixels_pung)+
-#  tm_lines(col="density")+
-#tm_shape(origin_pung)+
-#  tm_dots()
+tmap_mode('plot')
+tm_shape(lixels_pung)+
+  tm_lines(col="density")+
+tm_shape(origin_pung)+
+  tm_dots()
 ```
 :::

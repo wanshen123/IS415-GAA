@@ -274,7 +274,7 @@ Plotting target planning areas
 
 ```{r}
 par(mfrow=c(2,2))
-plot(pg, main = "Ponggol")
+plot(pg, main = "Punggol")
 plot(tm, main = "Tampines")
 plot(ck, main = "Choa Chu Kang")
 plot(jw, main = "Jurong West")

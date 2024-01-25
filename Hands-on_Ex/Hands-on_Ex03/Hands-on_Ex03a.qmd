@@ -115,7 +115,7 @@ sg <- as_Spatial(sg_sf)
 ```
 
 ::: callout-note
-DIY: Using appropriate function, display the information of these three Spatial* classes as shown below.
+DIY: Using appropriate function, display the information of these three Spatial\* classes as shown below.
 :::
 
 ```{r}
@@ -442,7 +442,7 @@ tm_shape(kde_childcareSG_bw_raster) +
 
 ## 5.5 Comparing Spatial Point Patterns using KDE
 
-In this section, you will learn how to compare KDE of childcare at Ponggol, Tampines, Chua Chu Kang and Jurong West planning areas.
+In this section, you will learn how to compare KDE of childcare at Punggol, Tampines, Chua Chu Kang and Jurong West planning areas.
 
 ### 5.5.1 Extracting study area
 
@@ -459,7 +459,7 @@ Plotting target planning areas
 
 ```{r}
 par(mfrow=c(2,2))
-plot(pg, main = "Ponggol")
+plot(pg, main = "Punggol")
 plot(tm, main = "Tampines")
 plot(ck, main = "Choa Chu Kang")
 plot(jw, main = "Jurong West")

@@ -1,6 +1,5 @@
 ---
 title: "Take-home Exercise 1"
-#subtitle: "Geospatial Data Wrangling with R"
 description: "Application of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore"
 execute: 
   warning: false
@@ -17,9 +16,6 @@ categories:
   - Take-Home Exercise
 title-block-categories: false
 format: html 
-  #html: 
-    #code-fold: true
-    #code-summary: "Show the code"
 ---
 
 # 1.0 Getting Started
@@ -64,21 +60,29 @@ head(islandMe, n=3)
 
 ## 2.2 Data Pre-Processing
 
+Remove rows with missing values
+
 ```{r}
 #| eval: false
 road_df <- roadMe[!(is.na(roadMe$name)), ]
 island_df <- islandMe[!(is.na(islandMe$geometry)), ]
 ```
 
+Combine all grab data into one 
+
 ```{r}
 #| eval: false 
 merged_data <- bind_rows(grab0, grab1, grab2, grab3, grab4, grab5, grab6, grab7, grab8, grab9)
 ```
 
+Formatting **pingtimestamp** into date & time 
+
 ```{r}
 #| eval: false
 merged_data$pingtimestamp <- as_datetime(merged_data$pingtimestamp)
 ```
+
+Retrieve all origin locations data
 
 ```{r}
 #| eval: false
@@ -93,6 +97,8 @@ origin_df <- merged_data %>%
          day = factor(mday(pingtimestamp)))
 origin_df
 ```
+
+Retrieve all destination locations data
 
 ```{r}
 #| eval: false
@@ -180,6 +186,8 @@ listings_sf <- st_as_sf(origin_df,
   st_transform(crs = 3414)
 glimpse(listings_sf)
 ```
+
+Retrieve all roads within Singapore only
 
 ```{r}
 sf_df <- st_as_sf(road_sf, wkt = "geometry")
@@ -628,13 +636,14 @@ In this section, we will perform NetKDE analysis by using appropriate functions 
 
 ## 6.1 Extracting study area
 
+The code chunk below will be used to extract the target planning areas.
+
 ```{r}
 pung <- islandMe %>%
   filter(PLN_AREA_N == "PUNGGOL")
 pung <- pung%>%
   st_union()
 pung <- st_make_valid(pung)
-length(which(st_is_valid(pung) == FALSE))
 ```
 
 ```{r}
@@ -643,7 +652,6 @@ tamp <- islandMe %>%
 tamp <- tamp%>%
   st_union()
 tamp <- st_make_valid(tamp)
-length(which(st_is_valid(tamp) == FALSE))
 ```
 
 ```{r}
@@ -652,7 +660,6 @@ cck <- islandMe %>%
 cck <- cck%>%
   st_union()
 cck <- st_make_valid(cck)
-length(which(st_is_valid(cck) == FALSE))
 ```
 
 ```{r}
@@ -661,7 +668,6 @@ jw <- islandMe %>%
 jw <- jw%>%
   st_union()
 jw <- st_make_valid(jw)
-length(which(st_is_valid(jw) == FALSE))
 ```
 
 ```{r}
@@ -671,12 +677,16 @@ cck <- st_transform(cck, crs = 3414)
 jw <- st_transform(jw, crs = 3414)
 ```
 
+Retrieving roads within target planning areas
+
 ```{r}
 pung_roads <- st_intersection(roads_in_singapore, pung)
 tamp_roads <- st_intersection(roads_in_singapore, tamp)
 cck_roads <- st_intersection(roads_in_singapore, cck)
 jw_roads <- st_intersection(roads_in_singapore, jw)
 ```
+
+Plotting target planning areas
 
 ```{r}
 par(mfrow=c(2,2))
@@ -685,6 +695,8 @@ plot(tamp, main = "Tampines")
 plot(cck, main = "Choa Chu Kang")
 plot(jw, main = "Jurong West")
 ```
+
+The code chunk below is used to plot the roads of these four study areas.
 
 ```{r}
 tmap_mode('plot')
@@ -702,6 +714,8 @@ tmap_arrange(tm_shape(pung_roads) +
                tm_layout(title = "Jurong West", title.size = 0.8),
              asp=2, ncol=2)
 ```
+
+Converting them to **linestring** format
 
 ```{r}
 pung_roads <- st_cast(pung_roads, "LINESTRING")
@@ -889,6 +903,12 @@ densities_jw <- nkde(jw_roads,
 
 :::
 
+Before we can visualise the NetKDE values, the code chunk below will be used to insert the computed density values (i.e. densities) into samples and lixels objects as density field. 
+
+::: callout-note
+Since svy21 projection system is in meter, the computed density values are very small i.e. 0.0000005. The code chunk below is used to resale the density values from number of events per meter to number of events per kilometer.
+:::
+
 ::: {.panel-tabset .nav-pills}
 
 ## Punggol
@@ -932,6 +952,8 @@ lixels_jw$density <- lixels_jw$density*1000
 ```
 
 :::
+
+The code below uses appropriate functions of tmap package to prepare interactive and high cartographic quality map visualisation.
 
 ::: {.panel-tabset .nav-pills}
 

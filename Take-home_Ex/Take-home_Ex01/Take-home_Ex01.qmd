@@ -747,6 +747,34 @@ origin_cck = st_intersection(listings_sf, cck)
 origin_jw = st_intersection(listings_sf, jw)
 ```
 
+::: {.panel-tabset .nav-pills}
+
+## Punggol
+
+```{r}
+tmap_mode('view')
+tm_basemap("OpenStreetMap") +
+tm_shape(pung_roads) +
+  tm_lines(col = "red") +
+  tm_shape(origin_pung) + 
+  tm_dots()
+tmap_mode('plot')
+```
+
+## Tampines
+
+```{r}
+tmap_mode('view')
+tm_basemap("OpenStreetMap") +
+tm_shape(tamp_roads) +
+  tm_lines(col = "blue") +
+  tm_shape(origin_tamp) + 
+  tm_dots()
+tmap_mode('plot')
+```
+
+## Choa Chu Kang
+
 ```{r}
 tmap_mode('view')
 tm_basemap("OpenStreetMap") +
@@ -757,29 +785,29 @@ tm_shape(cck_roads) +
 tmap_mode('plot')
 ```
 
+## Jurong West
+
+```{r}
+tmap_mode('view')
+tm_basemap("OpenStreetMap") +
+tm_shape(jw_roads) +
+  tm_lines(col = "orange") +
+  tm_shape(origin_jw) + 
+  tm_dots()
+tmap_mode('plot')
+```
+
+:::
+
 The points are located at center of the line based on the length of the line.
 
 ## 6.4 Performing NetKDE
 
 We are ready to compute the NetKDE by using the code chunk below.
 
-```{r}
-densities_cck <- nkde(cck_roads, 
-                  events = origin_cck,
-                  w = rep(1,nrow(origin_cck)),
-                  samples = samples_cck,
-                  kernel_name = "quartic",
-                  bw = 300, 
-                  div= "bw", 
-                  method = "simple", 
-                  digits = 1, 
-                  tol = 1,
-                  grid_shape = c(1,1), 
-                  max_depth = 8,
-                  agg = 5, #we aggregate events within a 5m radius (faster calculation)
-                  sparse = TRUE,
-                  verbose = FALSE)
-```
+::: {.panel-tabset .nav-pills}
+
+## Punggol
 
 ```{r}
 densities_pung <- nkde(pung_roads, 
@@ -799,13 +827,73 @@ densities_pung <- nkde(pung_roads,
                   verbose = FALSE)
 ```
 
+## Tampines
+
 ```{r}
-#| echo: false
-samples_cck$density <- densities_cck
-lixels_cck$density <- densities_cck
-# rescaling to help the mapping
-samples_cck$density <- samples_cck$density*1000
-lixels_cck$density <- lixels_cck$density*1000
+densities_tamp <- nkde(tamp_roads, 
+                  events = origin_tamp,
+                  w = rep(1,nrow(origin_tamp)),
+                  samples = samples_tamp,
+                  kernel_name = "quartic",
+                  bw = 300, 
+                  div= "bw", 
+                  method = "simple", 
+                  digits = 1, 
+                  tol = 1,
+                  grid_shape = c(1,1), 
+                  max_depth = 8,
+                  agg = 5, #we aggregate events within a 5m radius (faster calculation)
+                  sparse = TRUE,
+                  verbose = FALSE)
+```
+
+## Choa Chu Kang
+
+```{r}
+densities_cck <- nkde(cck_roads, 
+                  events = origin_cck,
+                  w = rep(1,nrow(origin_cck)),
+                  samples = samples_cck,
+                  kernel_name = "quartic",
+                  bw = 300, 
+                  div= "bw", 
+                  method = "simple", 
+                  digits = 1, 
+                  tol = 1,
+                  grid_shape = c(1,1), 
+                  max_depth = 8,
+                  agg = 5, #we aggregate events within a 5m radius (faster calculation)
+                  sparse = TRUE,
+                  verbose = FALSE)
+```
+
+## Jurong West
+
+```{r}
+densities_jw <- nkde(jw_roads, 
+                  events = origin_jw,
+                  w = rep(1,nrow(origin_jw)),
+                  samples = samples_jw,
+                  kernel_name = "quartic",
+                  bw = 300, 
+                  div= "bw", 
+                  method = "simple", 
+                  digits = 1, 
+                  tol = 1,
+                  grid_shape = c(1,1), 
+                  max_depth = 8,
+                  agg = 5, #we aggregate events within a 5m radius (faster calculation)
+                  sparse = TRUE,
+                  verbose = FALSE)
+```
+
+:::
+
+::: {.panel-tabset .nav-pills}
+
+## Punggol
+
+```{r}
 samples_pung$density <- densities_pung
 lixels_pung$density <- densities_pung
 # rescaling to help the mapping
@@ -813,7 +901,59 @@ samples_pung$density <- samples_pung$density*1000
 lixels_pung$density <- lixels_pung$density*1000
 ```
 
+## Tampines
+
+```{r}
+samples_tamp$density <- densities_tamp
+lixels_tamp$density <- densities_tamp
+# rescaling to help the mapping
+samples_tamp$density <- samples_tamp$density*1000
+lixels_tamp$density <- lixels_tamp$density*1000
+```
+
+## Choa Chu Kang
+
+```{r}
+samples_cck$density <- densities_cck
+lixels_cck$density <- densities_cck
+# rescaling to help the mapping
+samples_cck$density <- samples_cck$density*1000
+lixels_cck$density <- lixels_cck$density*1000
+```
+
+## Jurong West
+
+```{r}
+samples_jw$density <- densities_jw
+lixels_jw$density <- densities_jw
+# rescaling to help the mapping
+samples_jw$density <- samples_jw$density*1000
+lixels_jw$density <- lixels_jw$density*1000
+```
+
+:::
+
 ::: {.panel-tabset .nav-pills}
+
+## Punggol
+
+```{r}
+tmap_mode('plot')
+tm_shape(lixels_pung)+
+  tm_lines(col="density")+
+tm_shape(origin_pung)+
+  tm_dots()
+```
+
+## Tampines
+
+```{r}
+tmap_mode('plot')
+tm_shape(lixels_tamp)+
+  tm_lines(col="density")+
+tm_shape(origin_tamp)+
+  tm_dots()
+```
 
 ## Choa Chu Kang
 
@@ -825,13 +965,13 @@ tm_shape(origin_cck)+
   tm_dots()
 ```
 
-## Punggol
+## Jurong West
 
 ```{r}
 tmap_mode('plot')
-tm_shape(lixels_pung)+
+tm_shape(lixels_jw)+
   tm_lines(col="density")+
-tm_shape(origin_pung)+
+tm_shape(origin_jw)+
   tm_dots()
 ```
 

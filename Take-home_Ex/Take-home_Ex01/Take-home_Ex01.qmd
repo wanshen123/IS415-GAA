@@ -20,8 +20,32 @@ format: html
 
 # 1.0 Getting Started
 
+**Background**
+
+In this study, we examine the spatial and temporal spread of Grab ride-hailing services in Singapore, utilizing the extensive dataset offered by Grab, known as Grab Posisi. As a prominent provider of shared taxi services in Southeast Asia, Grab's dataset provides valuable insights into human mobility. Our research concentrates on employing Spatial Point Pattern Analyses (KDE/NKDE) to uncover underlying patterns within this dataset.
+
+**Packages Used:**
+
+-   [**sf**](https://cran.r-project.org/web/packages/sf/index.html): For importing, managing, and processing geospatial data.
+
+-   [**tidyverse**](https://www.tidyverse.org/): Collection of packages for data science tasks.
+
+-   [**tmap**](https://cran.r-project.org/web/packages/tmap/index.html): For creating thematic maps, such as choropleth and bubble maps.
+
+-   [**spatstat**](https://spatstat.org/): For point pattern analysis.
+
+-   [**raster**](https://cran.r-project.org/web/packages/raster/): Reads, writes, manipulates, analyses and models gridded spatial data.
+
+-   [**maptools**](https://cran.r-project.org/web/packages/maptools/index.html): A set of tools for manipulating geographic data.
+
+-   [**classInt**](https://cran.r-project.org/web/packages/classInt/index.html): Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.
+
+-   [**spNetwork**](https://cran.r-project.org/web/packages/spNetwork/index.html): Perform spatial analysis on network.
+
+-   [**viridis**](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html): Make plots that are pretty, better represent your data and easier to read by those with colorblindness.
+
 ```{r}
-pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat, spNetwork, classInt, viridis)
+pacman::p_load(sf, tidyverse, tmap, maptools, raster, spatstat, spNetwork, classInt, viridis)
 ```
 
 # 2.0 Spatial Data Wrangling
@@ -68,14 +92,14 @@ road_df <- roadMe[!(is.na(roadMe$name)), ]
 island_df <- islandMe[!(is.na(islandMe$geometry)), ]
 ```
 
-Combine all grab data into one 
+Combine all grab data into one
 
 ```{r}
 #| eval: false 
 merged_data <- bind_rows(grab0, grab1, grab2, grab3, grab4, grab5, grab6, grab7, grab8, grab9)
 ```
 
-Formatting **pingtimestamp** into date & time 
+Formatting **pingtimestamp** into date & time
 
 ```{r}
 #| eval: false
@@ -756,7 +780,6 @@ origin_jw = st_intersection(listings_sf, jw)
 To visualise the geospatial data with high cartographic quality and interactive manner, the mapping function of **tmap** package can be used as shown in the code chunk below.
 
 ::: {.panel-tabset .nav-pills}
-
 ## Punggol
 
 ```{r}
@@ -804,17 +827,15 @@ tm_shape(jw_roads) +
   tm_dots()
 tmap_mode('plot')
 ```
-
 :::
 
-The points are located at center of the line based on the length of the line. 
+The points are located at center of the line based on the length of the line.
 
 ## 6.4 Performing NetKDE
 
 We are ready to compute the NetKDE by using the code chunk below.
 
 ::: {.panel-tabset .nav-pills}
-
 ## Punggol
 
 ```{r}
@@ -894,17 +915,15 @@ densities_jw <- nkde(jw_roads,
                   sparse = TRUE,
                   verbose = FALSE)
 ```
-
 :::
 
-Before we can visualise the NetKDE values, the code chunk below will be used to insert the computed density values (i.e. densities) into samples and lixels objects as density field. 
+Before we can visualise the NetKDE values, the code chunk below will be used to insert the computed density values (i.e. densities) into samples and lixels objects as density field.
 
 ::: callout-note
 Since svy21 projection system is in meter, the computed density values are very small i.e. 0.0000005. The code chunk below is used to resale the density values from number of events per meter to number of events per kilometer.
 :::
 
 ::: {.panel-tabset .nav-pills}
-
 ## Punggol
 
 ```{r}
@@ -944,13 +963,11 @@ lixels_jw$density <- densities_jw
 samples_jw$density <- samples_jw$density*1000
 lixels_jw$density <- lixels_jw$density*1000
 ```
-
 :::
 
 The code below uses appropriate functions of tmap package to prepare interactive and high cartographic quality map visualisation.
 
 ::: {.panel-tabset .nav-pills}
-
 ## Punggol
 
 ```{r}
@@ -990,7 +1007,6 @@ tm_shape(lixels_jw)+
 tm_shape(origin_jw)+
   tm_dots()
 ```
-
 :::
 
 The interactive map above effectively reveals road segments (darker color) with relatively higher density of Grab taxi location points than road segments with relatively lower density of Grab taxi location points (lighter color).

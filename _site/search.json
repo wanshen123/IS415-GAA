@@ -4,7 +4,7 @@
     "href": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html",
     "title": "Take-home Exercise 1",
     "section": "",
-    "text": "pacman::p_load(sf, tidyverse, tmap, arrow, lubridate, maptools, raster, spatstat, spNetwork, classInt, viridis)"
+    "text": "Background\nIn this study, we examine the spatial and temporal spread of Grab ride-hailing services in Singapore, utilizing the extensive dataset offered by Grab, known as Grab Posisi. As a prominent provider of shared taxi services in Southeast Asia, Grab’s dataset provides valuable insights into human mobility. Our research concentrates on employing Spatial Point Pattern Analyses (KDE/NKDE) to uncover underlying patterns within this dataset.\nPackages Used:\n\nsf: For importing, managing, and processing geospatial data.\ntidyverse: Collection of packages for data science tasks.\ntmap: For creating thematic maps, such as choropleth and bubble maps.\nspatstat: For point pattern analysis.\nraster: Reads, writes, manipulates, analyses and models gridded spatial data.\nmaptools: A set of tools for manipulating geographic data.\nclassInt: Selected commonly used methods for choosing univariate class intervals for mapping or other graphics purposes.\nspNetwork: Perform spatial analysis on network.\nviridis: Make plots that are pretty, better represent your data and easier to read by those with colorblindness.\n\n\npacman::p_load(sf, tidyverse, tmap, maptools, raster, spatstat, spNetwork, classInt, viridis)"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html#importing-the-spatial-data",

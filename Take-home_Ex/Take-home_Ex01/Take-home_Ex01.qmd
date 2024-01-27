@@ -153,24 +153,6 @@ crs_info2
 ```
 
 ::: callout-note
-Preparing the following geospatial data layer in sf tibble data.frames.
-:::
-
-Road layer within Singapore excluding outer islands.
-
-```{r}
-tibble1 <- as_tibble(road_df)
-tibble1
-```
-
-Singapore boundary layer excluding outer islands
-
-```{r}
-tibble2 <- as_tibble(island_df)
-tibble2
-```
-
-::: callout-note
 Changing the referencing system to Singapore national projected coordinate system.
 :::
 
@@ -194,11 +176,27 @@ sf_df <- st_as_sf(road_sf, wkt = "geometry")
 roads_in_singapore <- st_intersection(sf_df, island_sf)
 ```
 
+::: callout-note
+Preparing the following geospatial data layer in sf tibble data.frames.
+:::
+
+Road layer within Singapore excluding outer islands.
+
+```{r}
+tibble1 <- as_tibble(roads_in_singapore)
+tibble1
+```
+
+Singapore boundary layer excluding outer islands
+
+```{r}
+tibble2 <- as_tibble(island_df)
+tibble2
+```
+
 ## 2.3 Mapping the geospatial data sets
 
-::: callout-note
 After checking the referencing system of each geospatial data data frame, it is also useful for us to plot a map to show their spatial patterns.
-:::
 
 ```{r}
 roads_in_singapore <- st_transform(roads_in_singapore, crs = 3414)
@@ -225,9 +223,7 @@ tm_shape(listings_sf) +
 
 ## 3.1 Converting sf data frames to sp’s Spatial\* class
 
-::: callout-note
 The code chunk below uses as_Spatial() of sf package to convert the three geospatial data from simple feature data frame to sp’s Spatial\* class.
-:::
 
 ```{r}
 #| eval: false
@@ -264,11 +260,9 @@ listings_as
 
 ## 3.2 Converting the Spatial\* class into generic sp format
 
-::: callout-note
 Since spatstat requires the analytical data in ppp object form. There is no direct way to convert a Spatial\* classes into ppp object. We need to convert the Spatial classes\* into Spatial object first.
 
 The codes chunk below converts the Spatial\* classes into generic sp objects.
-:::
 
 ```{r}
 #| eval: false
@@ -298,9 +292,7 @@ road_sp
 
 ## 3.3 Converting the generic sp format into spatstat’s ppp format
 
-::: callout-note
 Now, we will use as.ppp() function of spatstat to convert the spatial data into spatstat’s ppp object format.
-:::
 
 ```{r}
 road_ppp <- as(road_sp, "ppp")
@@ -322,6 +314,12 @@ listings_ppp <- as.ppp(listings_as)
 summary(listings_ppp)
 ```
 
+## 3.4 Creating owin object
+
+When analysing spatial point patterns, it is a good practice to confine the analysis with a geographical area like Singapore boundary. In spatstat, an object called owin is specially designed to represent this polygonal region.
+
+The code chunk below is used to covert sg SpatialPolygon object into owin object of spatstat.
+
 ```{r}
 sg_owin <- as(island_sp, "owin")
 plot(sg_owin)
@@ -331,13 +329,9 @@ plot(sg_owin)
 glimpse(summary(sg_owin))
 ```
 
-## 3.4 Combining point events object and owin object
+## 3.5 Combining point events object and owin object
 
 In this last step of geospatial data wrangling, we will extract road events that are located within Singapore by using the code chunk below.
-
-::: callout-note
-Plot the newly derived islandSG_ppp as shown below.
-:::
 
 ```{r}
 islandSG_ppp_road = road_ppp[sg_owin]
@@ -347,7 +341,7 @@ islandSG_ppp_road = road_ppp[sg_owin]
 glimpse(summary(islandSG_ppp_road))
 ```
 
-## 3.5 Handling duplicated points
+## 3.6 Handling duplicated points
 
 We can check the duplication in a **ppp** object by using the code chunk below.
 
@@ -373,7 +367,7 @@ sum(multiplicity(islandSG_ppp_road) > 1)
 ```
 
 ::: callout-note
-The output shows that there are 165061 duplicated point events.
+The output shows that there are 165793 duplicated point events.
 
 To view the locations of these duplicate point events, we will plot **road_as** data by using the c
 :::
@@ -530,6 +524,8 @@ plot(kde_roadSG.scott, main = "bw.scott")
 
 ## 4.4 Converting KDE output into grid object
 
+Now we convert it so that it is suitable for mapping purposes.
+
 ```{r}
 gridded_kde_grab_bw <- as.SpatialGridDataFrame.im(kde_grab.bw)
 spplot(gridded_kde_grab_bw)
@@ -570,9 +566,7 @@ Notice that the crs property is NA.
 
 ## 4.6 Assigning projection systems
 
-::: callout-note
 The code chunk below will be used to include the CRS information on kde_roadSG_bw_raster RasterLayer.
-:::
 
 ```{r}
 projection(kde_kde_grab_bw_raster) <- CRS("+init=EPSG:3414")
@@ -590,9 +584,7 @@ Notice that the crs property is completed.
 
 # 5.0 Visualising the output in tmap
 
-::: callout-note
 Finally, we will display the raster in cartographic quality map using tmap package.
-:::
 
 ```{r}
 tm_shape(kde_kde_grab_bw_raster) + 
@@ -636,7 +628,7 @@ In this section, we will perform NetKDE analysis by using appropriate functions 
 
 ## 6.1 Extracting study area
 
-The code chunk below will be used to extract the target planning areas.
+The code chunk below will be used to extract the target planning areas at Punggol, Tampines, Chua Chu Kang and Jurong West.
 
 ```{r}
 pung <- islandMe %>%
@@ -761,6 +753,8 @@ origin_cck = st_intersection(listings_sf, cck)
 origin_jw = st_intersection(listings_sf, jw)
 ```
 
+To visualise the geospatial data with high cartographic quality and interactive manner, the mapping function of **tmap** package can be used as shown in the code chunk below.
+
 ::: {.panel-tabset .nav-pills}
 
 ## Punggol
@@ -813,7 +807,7 @@ tmap_mode('plot')
 
 :::
 
-The points are located at center of the line based on the length of the line.
+The points are located at center of the line based on the length of the line. 
 
 ## 6.4 Performing NetKDE
 
@@ -998,3 +992,5 @@ tm_shape(origin_jw)+
 ```
 
 :::
+
+The interactive map above effectively reveals road segments (darker color) with relatively higher density of Grab taxi location points than road segments with relatively lower density of Grab taxi location points (lighter color).

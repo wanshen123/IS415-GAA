@@ -1012,3 +1012,10 @@ tm_shape(origin_jw)+
 :::
 
 The interactive map above effectively reveals road segments (darker color) with relatively higher density of Grab taxi location points than road segments with relatively lower density of Grab taxi location points (lighter color).
+
+
+# 7.0 Conclusions
+
+In conclusion, the Grab Posisi data has enabled us to analyze the distribution of pick-up points in Singapore. The majority of these points are evenly spread across the four locations, as previously demonstrated. It's evident that most pick-up points are situated near main roads, likely for the convenience of drivers, allowing them to easily navigate or proceed towards their destination. With this understanding, Grab could potentially consider implementing more competitive pricing for pick-ups near main roads compared to those in residential areas, which may enhance its competitiveness against rivals like Gojek.
+
+Therefore, there are numerous insights to be gleaned from the available data, each subject to individual interpretation. Other factors may also contribute to the prevalence of pick-up points near main roads, for instance, the data pertains to 2019 when the Grab app might have restricted users from freely selecting pick-up locations, automatically opting for the nearest road instead. Consequently, the full extent of the reasons behind the observed data remains unclear. That's why it is essential to gather additional data moving forward, as it can aid us in generating more comprehensive insights.

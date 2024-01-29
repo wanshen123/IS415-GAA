@@ -44,8 +44,10 @@ In this study, we examine the spatial and temporal spread of Grab ride-hailing s
 
 -   [**viridis**](https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html): Make plots that are pretty, better represent your data and easier to read by those with colorblindness.
 
+-   [**arrow**](https://arrow.apache.org/docs/r/): Work with parquet files and to load the GrabPosisi dataset.
+
 ```{r}
-pacman::p_load(sf, tidyverse, tmap, maptools, raster, spatstat, spNetwork, classInt, viridis)
+pacman::p_load(sf, tidyverse, tmap, maptools, raster, spatstat, spNetwork, classInt, viridis, arrow)
 ```
 
 # 2.0 Spatial Data Wrangling

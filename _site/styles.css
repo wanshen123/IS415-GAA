@@ -52,7 +52,3 @@
 #listing-listing > div.list.quarto-listing-default > div > div.body > a > h3:hover {
   color: green;
 }
-
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-  background-color: beige;
-}

@@ -94,8 +94,3 @@ gwstat <- gwss(data = hunan_sp,
                adaptive = TRUE,
                longlat = T)
 ```
-
-```{r}
-w_sum_gdppc <- qtm(gwstat, "w_sum GDPPC")
-
-```

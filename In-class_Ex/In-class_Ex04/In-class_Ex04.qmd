@@ -94,7 +94,3 @@ gwstat <- gwss(data = hunan_sp,
                adaptive = TRUE,
                longlat = T)
 ```
-
-```{r}
-
-```

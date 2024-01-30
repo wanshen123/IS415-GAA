@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 5a"
+title: "Hands-on Exercise 5A"
 description: "Global Measures of Spatial Autocorrelation"
 execute: 
   warning: false

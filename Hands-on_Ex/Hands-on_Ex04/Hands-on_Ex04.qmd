@@ -1,6 +1,6 @@
 ---
 title: "Hands-on Exercise 4"
-description: " Spatial Weights and Applications"
+description: "Spatial Weights and Applications"
 execute: 
   warning: false
 # date: "`r Sys.Date()`"

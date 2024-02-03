@@ -179,13 +179,17 @@ crs_info2
 ```
 
 ::: callout-note
-Changing the referencing system to Singapore national projected coordinate system.
+Changing the referencing system to Singapore national projected coordinate system for both Road and Island data.
 :::
 
 ```{r}
 road_sf <- st_transform(road_df, crs = 3414)
 island_sf <- st_transform(island_df, crs = 3414)
 ```
+
+::: callout-note
+Changing the referencing system to Singapore national projected coordinate system for Grab data and assigning it to variable listings_sf. 
+:::
 
 ```{r}
 listings_sf <- st_as_sf(origin_df, 
@@ -395,8 +399,10 @@ sum(multiplicity(islandSG_ppp_road) > 1)
 ::: callout-note
 The output shows that there are 165793 duplicated point events.
 
-To view the locations of these duplicate point events, we will plot **road_as** data by using the c
+To view the locations of these duplicate point events, we will plot both data.
 :::
+
+Road data plot
 
 ```{r}
 tmap_mode('plot')
@@ -404,6 +410,8 @@ tm_shape(road_as) +
   tm_dots(alpha=0.4, 
           size=0.05)
 ```
+
+Grab data plot
 
 ```{r}
 tmap_mode('plot')
@@ -466,6 +474,8 @@ kde_roadSG_bw <- density(road_ppp,
                             kernel="gaussian") 
 ```
 
+Grab data KDE plot
+
 ```{r}
 plot(kde_grab_bw)
 ```
@@ -474,6 +484,8 @@ plot(kde_grab_bw)
 bw1 <- bw.diggle(listings_ppp)
 bw1
 ```
+
+Road data KDE plot
 
 ```{r}
 plot(kde_roadSG_bw)
@@ -492,6 +504,8 @@ In the code chunk below, rescale() is used to covert the unit of measurement fro
 grab_ppp.km <- rescale(listings_ppp, 1000, "km")
 ```
 
+Grab data rescaled KDE plot
+
 ```{r}
 kde_grab.bw <- density(grab_ppp.km, sigma=bw.diggle, edge=TRUE, kernel="gaussian")
 plot(kde_grab.bw)
@@ -500,6 +514,8 @@ plot(kde_grab.bw)
 ```{r}
 road_ppp.km <- rescale(road_ppp, 1000, "km")
 ```
+
+Road data rescaled KDE plot
 
 ```{r}
 kde_roadSG.bw <- density(road_ppp.km, sigma=bw.diggle, edge=TRUE, kernel="gaussian")
@@ -520,6 +536,8 @@ bw.scott(grab_ppp.km)
 bw.diggle(grab_ppp.km)
 ```
 
+Grab data diggle & scott bandwidth plot
+
 ```{r}
 kde_grab.scott <- density(grab_ppp.km, 
                                sigma=bw.scott, 
@@ -538,6 +556,8 @@ bw.scott(road_ppp.km)
 bw.diggle(road_ppp.km)
 ```
 
+Road data diggle & scott bandwidth plot
+
 ```{r}
 kde_roadSG.scott <- density(road_ppp.km, 
                                sigma=bw.scott, 
@@ -552,10 +572,14 @@ plot(kde_roadSG.scott, main = "bw.scott")
 
 Now we convert it so that it is suitable for mapping purposes.
 
+Grab data grid object plot
+
 ```{r}
 gridded_kde_grab_bw <- as.SpatialGridDataFrame.im(kde_grab.bw)
 spplot(gridded_kde_grab_bw)
 ```
+
+Road data grid object plot
 
 ```{r}
 gridded_kde_roadSG_bw <- as.SpatialGridDataFrame.im(kde_roadSG.bw)
@@ -574,25 +598,25 @@ kde_kde_grab_bw_raster <- raster(gridded_kde_grab_bw)
 kde_kde_roadSG_bw_raster <- raster(gridded_kde_roadSG_bw)
 ```
 
-::: callout-note
-Let us take a look at the properties of kde_roadSG_bw_raster RasterLayer.
-:::
+Let us take a look at the properties of **Grab** data RasterLayer.
 
 ```{r}
 kde_kde_grab_bw_raster
 ```
+
+Let us take a look at the properties of **Road** data RasterLayer.
 
 ```{r}
 kde_kde_roadSG_bw_raster
 ```
 
 ::: callout-note
-Notice that the crs property is NA.
+Notice that both the crs property is NA.
 :::
 
 ## 4.6 Assigning projection systems
 
-The code chunk below will be used to include the CRS information on kde_roadSG_bw_raster RasterLayer.
+The code chunk below will be used to include the CRS information on both data RasterLayer.
 
 ```{r}
 projection(kde_kde_grab_bw_raster) <- CRS("+init=EPSG:3414")
@@ -612,11 +636,15 @@ Notice that the crs property is completed.
 
 Finally, we will display the raster in cartographic quality map using tmap package.
 
+Grab data raster cartographic quality map 
+
 ```{r}
 tm_shape(kde_kde_grab_bw_raster) + 
   tm_raster("v") +
   tm_layout(legend.position = c("right", "bottom"), frame = FALSE)
 ```
+
+Road data raster cartographic quality map 
 
 ```{r}
 tm_shape(kde_kde_roadSG_bw_raster) + 
@@ -632,6 +660,8 @@ Using appropriate tmap functions, display the kernel density layers on openstree
 osm_layer <- qtm(basemaps = "OpenStreetMap", zoom = 12)
 ```
 
+Grab data raster kernel density layers on openstreetmap
+
 ```{r}
 tmap_mode("plot")
 tm_shape(kde_kde_grab_bw_raster) +
@@ -639,6 +669,8 @@ tm_shape(kde_kde_grab_bw_raster) +
   tm_layout(legend.show = TRUE, legend.text.color = "white") +
   osm_layer
 ```
+
+Road data raster kernel density layers on openstreetmap
 
 ```{r}
 tmap_mode("plot")

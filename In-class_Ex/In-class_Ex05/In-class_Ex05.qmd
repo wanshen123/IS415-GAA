@@ -1,0 +1,151 @@
+---
+title: "In-class Exercise 5"
+description: "Global Measures of Spatial Autocorrelation"
+execute: 
+  warning: false
+  eval: true
+  echo: true
+# date: "`r Sys.Date()`"
+date: 02/05/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - In-Class Exercise
+title-block-categories: false
+---
+
+# 1.0 Getting started
+
+## 1.1 Installing and Loading the R Packages
+
+Four R packages will be used for this in-class exercise, they are: sf, sfdep, tmap and tidyverse.
+
+```{r}
+pacman::p_load(sf, sfdep, tmap, tidyverse)
+```
+
+# 2.0 The Data
+
+For the purpose of this in-class exercise, the Hunan data sets will be used. There are two data sets in this use case, they are:
+
+-   Hunan, a geospatial data set in ESRI shapefile format, and
+
+-   Hunan_2012, an attribute data set in csv format.
+
+## 2.1 Importing geospatial data
+
+```{r}
+hunan <- st_read(dsn = "../../data/geospatial", 
+                 layer = "Hunan")
+```
+
+## 2.1 Importing attribute table
+
+```{r}
+hunan2012 <- read_csv("../../data/aspatial/Hunan_2012.csv")
+```
+
+## 2.2 Combining both data frame by using left join
+
+```{r}
+hunan_GDPPC <- left_join(hunan,hunan2012) %>%
+  select(1:4, 7, 15)
+```
+
+## 2.3 Plotting a choropleth map
+
+```{r}
+tmap_mode("plot")
+tm_shape(hunan_GDPPC) +
+  tm_fill("GDPPC",
+          style = "quantile",
+          palette = "Blues",
+          title = "GDPPC") +
+  tm_layout(main.title = "Distribution of GDP per capita by county, Hunan Province",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45,
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type="8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha = 0.2)
+```
+
+# 3.0 Global Measures of Spatial Association
+
+## 3.1 Deriving contiguity weights: Queen's method
+
+::: callout-note
+.before means column is placed at column 1
+:::
+```{r}
+wm_q <- hunan_GDPPC %>%
+  mutate(nb = st_contiguity(geometry, queen=TRUE),
+         wt = st_weights(nb,
+                         style = "W"),
+         .before = 1)
+```
+
+```{r}
+wm_q
+```
+
+## 3.2 Computing Global Moran's I
+
+In the code chunk below, global_moran() function is used to compute the Moran's I value. Different from sdep package, the output is a tibble data.frame.
+
+```{r}
+moranI <- global_moran(wm_q$GDPPC,
+                       wm_q$nb,
+                       wm_q$wt)
+glimpse(moranI)
+```
+
+## 3.3 Performing Global Moran's I test
+
+```{r}
+
+```
+
+## 3.4 Performing Global Moran's I permutation test
+
+In practice, monte carlo simulation should be used to perform the statistical test. For **sfdep**, it is supported by global_moran_perm().
+
+It is always a good practice to use set.seed() before performing simulation. This is to ensure that the computation is reproducible.
+
+```{r}
+set.seed(1234)
+```
+
+Next, global_moran_parm() is used to perform Monte Carlo simulation.
+
+```{r}
+global_moran_perm(wm_q$GDPPC,
+                  wm_q$nb,
+                  wm_q$wt,
+                  nsim = 99)
+```
+
+The statistical report above show that the p-value is smaller than alpha value of 0.05. Hence, we have enough statistical evidence to reject the null hypothesis that the spatial distribution of GDP per capital are resemble random distribution (i.e. independent from spatial). Because the Moran's I statistics is greater than 0. We can infer that the spatial distribution shows sign of clustering.
+
+::: callout-note
+# Reminder
+The numbers of simulation is always equal to nsim + 1. This mean in nsim = 99, This mean 100 simulation will be performed.
+:::
+
+# 4.0 Computing local Moran's I
+
+```{r}
+
+```
+
+# 5.0 Hot Spot and Cold Spot Area Analysis (HCSA)
+
+# 6.0 Computing local Gi* statistics
+
+# 7.0 Visualising hot spot and cold spot areas

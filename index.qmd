@@ -17,6 +17,7 @@ listing:
     - "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05a.qmd"
     - "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.qmd"
     - "In-class_Ex/In-class_Ex05/*.qmd"
+    - "Take-home_Ex/Take-home_Ex02/*.qmd"
 ---
 
 Welcome to **IS415 Geospatial Analytics and Applications.**

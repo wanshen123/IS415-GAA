@@ -1,0 +1,20 @@
+---
+title: "Take-home Exercise 2"
+description: ""
+execute: 
+  warning: false
+  eval: true
+  echo: true
+# freeze: true
+# date: "`r Sys.Date()`"
+date: 02/09/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Take-Home Exercise
+title-block-categories: false
+format: html 
+---

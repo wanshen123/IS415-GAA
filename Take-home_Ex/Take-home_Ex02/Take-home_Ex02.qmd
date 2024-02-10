@@ -22,6 +22,7 @@ format: html
 # 1.0 Getting Started
 
 **Background**
+
 In this study, our focus will be on investigating whether the distribution of dengue fever outbreaks in Tainan City, Taiwan, is independent of spatial and temporal factors. If the outbreak exhibits spatial and spatio-temporal dependencies, our goal is to pinpoint clusters, outliers, and emerging hot spot/cold spot areas within the region.
 
 **Packages Used:**
@@ -156,10 +157,26 @@ grouped_data <- filtered_dengue %>%
   summarise(count = n())
 ```
 
+:::callout-note
+Missing values means that the dengue cases are not part of the selected counties.
+:::
+
+Removing missing values
+
+```{r}
+grouped_data <- grouped_data[!(grouped_data$居住村里 == "None"), ]
+```
+
 Combining both data frame by using left join
 
 ```{r}
 joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME" = "居住鄉鎮", "VILLNAME" = "居住村里"))
+```
+
+To fill missing values (NA) with 0
+
+```{r}
+joined_data$count[is.na(joined_data$count)] <- 0
 ```
 
 Keep only specific columns after joining
@@ -167,6 +184,24 @@ Keep only specific columns after joining
 ```{r}
 #tainan_GDPPC <- tainan_GDPPC %>%
   #select(1, 3, 5)
+```
+
+```{r}
+#| eval: false
+crs_value <- st_crs(3824) 
+st_crs(points_sf) <- crs_value
+```
+
+```{r}
+#| eval: false
+points_within_polygons <- st_join(points_sf, polygons_sf)
+```
+
+```{r}
+#| eval: false
+grouped_test <- points_within_polygons %>%
+  group_by(居住鄉鎮, 居住村里, 內政部居住鄉鎮代碼) %>%
+  summarise(count = n())
 ```
 
 ## 2.4 Plotting a choropleth map

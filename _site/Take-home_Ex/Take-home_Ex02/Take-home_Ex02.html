@@ -466,7 +466,7 @@ Note
 <p>Grouping Town and Village based on number of dengue cases</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TOWNNAME, VILLNAME) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(VILLNAME) <span class="sc">%&gt;%</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Removing missing values</p>
@@ -475,7 +475,7 @@ Note
 </div>
 <p>Combining both data frame by using left join</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, grouped_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"TOWNNAME"</span>, <span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, grouped_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Keep only specific columns after joining</p>
 <div class="cell">
@@ -617,11 +617,11 @@ First 10 features:
 10 67000350018     臺南市   安南區   溪心里    Xixin Vil.        D      67000
    TOWNID TOWNCODE NOTE count                       geometry
 1     D06 67000350 &lt;NA&gt;     2 POLYGON ((120.1176 23.08387...
-2     D32 67000270 &lt;NA&gt;    19 POLYGON ((120.2304 22.93544...
+2     D32 67000270 &lt;NA&gt;    33 POLYGON ((120.2304 22.93544...
 3     D08 67000370 &lt;NA&gt;   111 POLYGON ((120.2012 22.99966...
 4     D02 67000330 &lt;NA&gt;    29 POLYGON ((120.1985 22.98147...
-5     D06 67000350 &lt;NA&gt;     1 POLYGON ((120.1292 23.06512...
-6     D06 67000350 &lt;NA&gt;    10 POLYGON ((120.1246 23.06904...
+5     D06 67000350 &lt;NA&gt;     6 POLYGON ((120.1292 23.06512...
+6     D06 67000350 &lt;NA&gt;    13 POLYGON ((120.1246 23.06904...
 7     D08 67000370 &lt;NA&gt;    37 POLYGON ((120.2094 22.98452...
 8     D06 67000350 &lt;NA&gt;    48 POLYGON ((120.175 23.02218,...
 9     D06 67000350 &lt;NA&gt;   108 POLYGON ((120.1866 23.02766...
@@ -639,8 +639,8 @@ First 10 features:
 <span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(moranI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of 2
- $ I: num 0.419
- $ K: num 5.59</code></pre>
+ $ I: num 0.397
+ $ K: num 4.83</code></pre>
 </div>
 </div>
 </section>
@@ -658,11 +658,11 @@ First 10 features:
 data:  x  
 weights: listw    
 
-Moran I statistic standard deviate = 11.525, p-value &lt; 2.2e-16
+Moran I statistic standard deviate = 10.902, p-value &lt; 2.2e-16
 alternative hypothesis: greater
 sample estimates:
 Moran I statistic       Expectation          Variance 
-      0.419082922      -0.003891051       0.001347009 </code></pre>
+      0.396838835      -0.003891051       0.001351108 </code></pre>
 </div>
 </div>
 </section>
@@ -687,7 +687,7 @@ data:  x
 weights: listw  
 number of simulations + 1: 100 
 
-statistic = 0.41908, observed rank = 100, p-value &lt; 2.2e-16
+statistic = 0.39684, observed rank = 100, p-value &lt; 2.2e-16
 alternative hypothesis: two.sided</code></pre>
 </div>
 </div>
@@ -816,16 +816,16 @@ Geodetic CRS:  TWD97
 # A tibble: 258 × 22
    gi_star    e_gi   var_gi p_value   p_sim p_folded_sim skewness kurtosis nb   
      &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;nb&gt; 
- 1 -1.95   0.00286  2.33e-6 -1.69   0.0919          0.02     0.01   0.844  &lt;int&gt;
- 2 -1.64   0.00356  1.70e-6 -1.64   0.101           0.08     0.04   0.147  &lt;int&gt;
- 3 -1.43   0.00431  1.37e-6 -1.86   0.0627          0.08     0.04   0.207  &lt;int&gt;
- 4 -0.241  0.00367  1.83e-6 -0.0947 0.925           0.96     0.48   0.424  &lt;int&gt;
- 5 -2.23   0.00329  2.58e-6 -1.91   0.0559          0.02     0.01   0.757  &lt;int&gt;
- 6 -2.86   0.00335  1.41e-6 -2.67   0.00767         0.02     0.01   0.325  &lt;int&gt;
- 7 -0.850  0.00324  2.05e-6 -0.529  0.597           0.64     0.32   0.617  &lt;int&gt;
- 8  0.0894 0.00392  1.32e-6  0.0484 0.961           0.86     0.43   0.432  &lt;int&gt;
- 9  1.85   0.00411  1.66e-6  1.97   0.0493          0.04     0.02   0.0197 &lt;int&gt;
-10 -0.970  0.00381  1.69e-6 -0.978  0.328           0.36     0.18   0.194  &lt;int&gt;
+ 1  -1.93  0.00289  2.10e-6  -1.70  0.0886          0.04     0.02    0.743 &lt;int&gt;
+ 2  -0.803 0.00371  1.65e-6  -0.778 0.436           0.48     0.24    0.138 &lt;int&gt;
+ 3  -1.60  0.00424  1.27e-6  -2.00  0.0452          0.06     0.03    0.249 &lt;int&gt;
+ 4  -0.371 0.00360  1.60e-6  -0.175 0.861           0.94     0.47    0.289 &lt;int&gt;
+ 5  -2.06  0.00334  2.60e-6  -1.71  0.0873          0.02     0.01    0.743 &lt;int&gt;
+ 6  -2.88  0.00338  1.36e-6  -2.68  0.00745         0.02     0.01    0.208 &lt;int&gt;
+ 7  -0.908 0.00324  1.79e-6  -0.606 0.544           0.56     0.28    0.456 &lt;int&gt;
+ 8  -0.162 0.00387  1.18e-6  -0.152 0.879           0.98     0.49    0.355 &lt;int&gt;
+ 9   1.59  0.00402  1.63e-6   1.70  0.0887          0.1      0.05    0.275 &lt;int&gt;
+10  -1.13  0.00380  1.72e-6  -1.10  0.270           0.28     0.14    0.372 &lt;int&gt;
 # ℹ 248 more rows
 # ℹ 13 more variables: wts &lt;list&gt;, VILLCODE &lt;chr&gt;, COUNTYNAME &lt;chr&gt;,
 #   TOWNNAME &lt;chr&gt;, VILLNAME &lt;chr&gt;, VILLENG &lt;chr&gt;, COUNTYID &lt;chr&gt;,
@@ -921,7 +921,7 @@ Geodetic CRS:  TWD97
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>dengue_st <span class="ot">&lt;-</span> <span class="fu">spacetime</span>(test, filtered_tainan,</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.loc_col =</span> <span class="st">"TOWNNAME"</span>,</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.loc_col =</span> <span class="st">"VILLNAME"</span>,</span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.time_col =</span> <span class="st">"發病日"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Next, <code>is_spacetime_cube()</code> of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.</p>

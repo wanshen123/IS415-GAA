@@ -155,7 +155,7 @@ Grouping Town and Village based on number of dengue cases
 
 ```{r}
 grouped_data <- filtered_dengue %>%
-  group_by(TOWNNAME, VILLNAME) %>%
+  group_by(VILLNAME) %>%
   summarise(count = n())
 ```
 
@@ -168,7 +168,7 @@ grouped_data <- grouped_data[!(grouped_data$VILLNAME == "None"), ]
 Combining both data frame by using left join
 
 ```{r}
-joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME", "VILLNAME"))
+joined_data <- left_join(filtered_tainan, grouped_data, by = c("VILLNAME"))
 ```
 
 Keep only specific columns after joining
@@ -506,7 +506,7 @@ test <- test[!(test$VILLNAME == "None"), ]
 
 ```{r}
 dengue_st <- spacetime(test, filtered_tainan,
-                      .loc_col = "TOWNNAME",
+                      .loc_col = "VILLNAME",
                       .time_col = "發病日")
 ```
 

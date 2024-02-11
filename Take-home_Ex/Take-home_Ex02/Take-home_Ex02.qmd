@@ -157,10 +157,6 @@ grouped_data <- filtered_dengue %>%
   summarise(count = n())
 ```
 
-::: callout-note
-Missing values means that the dengue cases are not part of the selected counties.
-:::
-
 Removing missing values
 
 ```{r}
@@ -220,6 +216,10 @@ tm_shape(joined_data) +
   tm_scale_bar() +
   tm_grid(alpha = 0.2)
 ```
+
+::: callout-note
+Missing values means that the dengue cases are not part of the selected counties.
+:::
 
 To fill missing values (NA) with 0
 
@@ -397,9 +397,9 @@ tm_shape(lisa_sig) +
 
 The HCSA employs spatial weights to pinpoint locations exhibiting statistically significant hot spots and cold spots within a spatially weighted attribute, which are closely situated based on a calculated distance. This analysis clusters features together when similar high (hot) or low (cold) values occur in proximity. The polygon features typically denote administrative boundaries or a customized grid structure.
 
-# 6.0 Computing local Gi* statistics
+# 6.0 Computing local Gi\* statistics
 
-Local_gi() computes the local Gi* statistic to test for spatial autocorrelation in the data. The contiguity relationship matrix (wm_q$nb) and the corresponding spatial weights (wm_q$wt) are used to compute the local Gi* statistic and its associated p-value. This helps to determine if the observed spatial pattern is significantly different from what would be expected under spatial randomness.
+Local_gi() computes the local Gi\* statistic to test for spatial autocorrelation in the data. The contiguity relationship matrix (wm_q$nb) and the corresponding spatial weights (wm_q$wt) are used to compute the local Gi\* statistic and its associated p-value. This helps to determine if the observed spatial pattern is significantly different from what would be expected under spatial randomness.
 
 ```{r}
 wm_idw <- joined_data %>%
@@ -410,7 +410,7 @@ wm_idw <- joined_data %>%
          .before = 1)
 ```
 
-Now we implement the code which calculates the Local Gi* statistic for each observation in the dataset and adds it as a new variable `local_Gi`, allowing for the identification of spatial clusters and outliers.
+Now we implement the code which calculates the Local Gi\* statistic for each observation in the dataset and adds it as a new variable `local_Gi`, allowing for the identification of spatial clusters and outliers.
 
 ```{r}
 HCSA <- wm_idw %>% 
@@ -421,7 +421,7 @@ HCSA <- wm_idw %>%
 HCSA
 ```
 
-## 6.1 Visualising Gi*
+## 6.1 Visualising Gi\*
 
 ```{r}
 tmap_mode("plot")

@@ -298,7 +298,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#visuaising-local-hcsa" id="toc-visuaising-local-hcsa" class="nav-link" data-scroll-target="#visuaising-local-hcsa">6.3 Visuaising local HCSA</a></li>
   </ul></li>
   <li><a href="#visualising-hot-spot-and-cold-spot-areas" id="toc-visualising-hot-spot-and-cold-spot-areas" class="nav-link" data-scroll-target="#visualising-hot-spot-and-cold-spot-areas">7.0 Visualising hot spot and cold spot areas</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">8.0 Conclusion</a></li>
+  <li><a href="#performing-emerging-hotspot-analysis" id="toc-performing-emerging-hotspot-analysis" class="nav-link" data-scroll-target="#performing-emerging-hotspot-analysis">8.0 Performing Emerging Hotspot Analysis</a>
+  <ul class="collapse">
+  <li><a href="#creating-a-time-series-cube" id="toc-creating-a-time-series-cube" class="nav-link" data-scroll-target="#creating-a-time-series-cube">8.1 Creating a Time Series Cube</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">9.0 Conclusion</a></li>
   </ul>
 </nav>
     </div>
@@ -420,7 +424,9 @@ Note
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>filtered_dengue <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">'x-coordinate'</span> <span class="ot">=</span> 最小統計區中心點X,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">'y-coordinate'</span> <span class="ot">=</span> 最小統計區中心點Y,</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">'COUNTYNAME'</span> <span class="ot">=</span> 居住縣市)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">'COUNTYNAME'</span> <span class="ot">=</span> 居住縣市,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">'VILLNAME'</span> <span class="ot">=</span> 居住村里,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>         <span class="st">'TOWNNAME'</span> <span class="ot">=</span> 居住鄉鎮)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Check the current class of the column</p>
 <div class="cell">
@@ -460,16 +466,16 @@ Note
 <p>Grouping Town and Village based on number of dengue cases</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(居住鄉鎮, 居住村里) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TOWNNAME, VILLNAME) <span class="sc">%&gt;%</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Removing missing values</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> grouped_data[<span class="sc">!</span>(grouped_data<span class="sc">$</span>居住村里 <span class="sc">==</span> <span class="st">"None"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> grouped_data[<span class="sc">!</span>(grouped_data<span class="sc">$</span>VILLNAME <span class="sc">==</span> <span class="st">"None"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Combining both data frame by using left join</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, grouped_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"TOWNNAME"</span> <span class="ot">=</span> <span class="st">"居住鄉鎮"</span>, <span class="st">"VILLNAME"</span> <span class="ot">=</span> <span class="st">"居住村里"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, grouped_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"TOWNNAME"</span>, <span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Keep only specific columns after joining</p>
 <div class="cell">
@@ -899,8 +905,36 @@ Geodetic CRS:  TWD97
 </div>
 <p>Figure above reveals that there is one hot spot area and two cold spot areas. Interestingly, the hot spot areas coincide with the High-high cluster identifies by using local Moran’s I method in the earlier sub-section. This is a strong indication that the hot spot areas are not random and are statistically significant.</p>
 </section>
+<section id="performing-emerging-hotspot-analysis" class="level1">
+<h1>8.0 Performing Emerging Hotspot Analysis</h1>
+<p>Emerging hot spot analysis is a method used to identify areas that are experiencing significant changes in the spatial distribution of a phenomenon. This analysis is particularly useful for identifying areas that are becoming hot spots or cold spots over time.</p>
+<section id="creating-a-time-series-cube" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-time-series-cube">8.1 Creating a Time Series Cube</h2>
+<p>A time series cube is a data structure that contains a series of spatial data layers, each representing the spatial distribution of a phenomenon at a specific point in time. In this case, we will create a time series cube containing the number of dengue fever cases in Tainan City, Taiwan, for each week of the year 2023.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(發病日, TOWNNAME, VILLNAME) <span class="sc">%&gt;%</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test[<span class="sc">!</span>(test<span class="sc">$</span>VILLNAME <span class="sc">==</span> <span class="st">"None"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>dengue_st <span class="ot">&lt;-</span> <span class="fu">spacetime</span>(test, filtered_tainan,</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.loc_col =</span> <span class="st">"TOWNNAME"</span>,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.time_col =</span> <span class="st">"發病日"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, <code>is_spacetime_cube()</code> of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">is_spacetime_cube</span>(dengue_st)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] FALSE</code></pre>
+</div>
+</div>
+</section>
+</section>
 <section id="conclusion" class="level1">
-<h1>8.0 Conclusion</h1>
+<h1>9.0 Conclusion</h1>
 <p>In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan.</p>
 
 

@@ -113,7 +113,9 @@ Translate to English
 filtered_dengue <- filtered_dengue %>%
   rename('x-coordinate' = 最小統計區中心點X,
          'y-coordinate' = 最小統計區中心點Y,
-         'COUNTYNAME' = 居住縣市)
+         'COUNTYNAME' = 居住縣市,
+         'VILLNAME' = 居住村里,
+         'TOWNNAME' = 居住鄉鎮)
 ```
 
 Check the current class of the column
@@ -153,20 +155,20 @@ Grouping Town and Village based on number of dengue cases
 
 ```{r}
 grouped_data <- filtered_dengue %>%
-  group_by(居住鄉鎮, 居住村里) %>%
+  group_by(TOWNNAME, VILLNAME) %>%
   summarise(count = n())
 ```
 
 Removing missing values
 
 ```{r}
-grouped_data <- grouped_data[!(grouped_data$居住村里 == "None"), ]
+grouped_data <- grouped_data[!(grouped_data$VILLNAME == "None"), ]
 ```
 
 Combining both data frame by using left join
 
 ```{r}
-joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME" = "居住鄉鎮", "VILLNAME" = "居住村里"))
+joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME", "VILLNAME"))
 ```
 
 Keep only specific columns after joining
@@ -484,6 +486,36 @@ tm_shape(HCSA_sig) +
 
 Figure above reveals that there is one hot spot area and two cold spot areas. Interestingly, the hot spot areas coincide with the High-high cluster identifies by using local Moran’s I method in the earlier sub-section. This is a strong indication that the hot spot areas are not random and are statistically significant.
 
-# 8.0 Conclusion
+# 8.0 Performing Emerging Hotspot Analysis
+
+Emerging hot spot analysis is a method used to identify areas that are experiencing significant changes in the spatial distribution of a phenomenon. This analysis is particularly useful for identifying areas that are becoming hot spots or cold spots over time.
+
+## 8.1 Creating a Time Series Cube
+
+A time series cube is a data structure that contains a series of spatial data layers, each representing the spatial distribution of a phenomenon at a specific point in time. In this case, we will create a time series cube containing the number of dengue fever cases in Tainan City, Taiwan, for each week of the year 2023.
+
+```{r}
+test <- filtered_dengue %>%
+  group_by(發病日, TOWNNAME, VILLNAME) %>%
+  summarise(count = n())
+```
+
+```{r}
+test <- test[!(test$VILLNAME == "None"), ]
+```
+
+```{r}
+dengue_st <- spacetime(test, filtered_tainan,
+                      .loc_col = "TOWNNAME",
+                      .time_col = "發病日")
+```
+
+Next, `is_spacetime_cube()` of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.
+
+```{r}
+is_spacetime_cube(dengue_st)
+```
+
+# 9.0 Conclusion
 
 In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan.

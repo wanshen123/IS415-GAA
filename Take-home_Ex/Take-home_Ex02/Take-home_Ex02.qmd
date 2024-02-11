@@ -496,12 +496,16 @@ A time series cube is a data structure that contains a series of spatial data la
 
 ```{r}
 test <- filtered_dengue %>%
-  group_by(發病日, TOWNNAME, VILLNAME) %>%
+  group_by(發病日, VILLNAME) %>%
   summarise(count = n())
 ```
 
 ```{r}
 test <- test[!(test$VILLNAME == "None"), ]
+```
+
+```{r}
+test_join <- left_join(filtered_tainan, test, by = c("VILLNAME"))
 ```
 
 ```{r}
@@ -513,6 +517,7 @@ dengue_st <- spacetime(test, filtered_tainan,
 Next, `is_spacetime_cube()` of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.
 
 ```{r}
+spt_complete <- complete_spacetime_cube(dengue_st)
 is_spacetime_cube(dengue_st)
 ```
 

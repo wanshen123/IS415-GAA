@@ -67,7 +67,7 @@ filtered_tainan <- tainan[tainan$TOWNID %in% c("D01", "D02", "D04", "D06", "D07"
 
 ### 2.2.2 Dengue fever cases confined to epidemiology week 31-50, 2023
 
-:::callout-note
+::: callout-note
 Convert date column to Date format if it's not already
 :::
 
@@ -83,7 +83,7 @@ dengueDaily$week_number_onsetDay <- as.numeric(format(dengueDaily$發病日, "%V
 #dengueDaily$week_number_reportDay <- as.numeric(format(dengueDaily$通報日, "%V"))
 ```
 
-Define the start (31) and end (50) weeks of your range 
+Define the start (31) and end (50) weeks of your range
 
 ```{r}
 onset_start_week <- 31
@@ -105,7 +105,7 @@ filtered_dengue <- dengueDaily[dengueDaily$week_number_onsetDay >= onset_start_w
 #filtered_reportDengue <- dengueDaily[dengueDaily$week_number_reportDay >= report_start_week & dengueDaily$week_number_reportDay <= report_end_week & year(dengueDaily$通報日) == year, ]
 ```
 
-## 2.3 Data Cleaning 
+## 2.3 Data Cleaning
 
 Translate to English
 
@@ -157,7 +157,7 @@ grouped_data <- filtered_dengue %>%
   summarise(count = n())
 ```
 
-:::callout-note
+::: callout-note
 Missing values means that the dengue cases are not part of the selected counties.
 :::
 
@@ -247,3 +247,243 @@ tm_shape(joined_data) +
   tm_scale_bar() +
   tm_grid(alpha = 0.2)
 ```
+
+# 3.0 Global Spatial Autocorrelation Analysis
+
+## 3.1 Deriving contiguity weights: Queen’s method
+
+We compute spatial contiguity relationships among geometries stored in a data frame, calculates spatial weights based on these relationships, and adds the resulting variables to the data frame.
+
+```{r}
+wm_q <- joined_data %>%
+  mutate(nb = st_contiguity(geometry, queen=TRUE),
+         wt = st_weights(nb,
+                         style = "W"),
+         .before = 1)
+```
+
+Examining the contents of the spatial weights matrix
+
+```{r}
+wm_q
+```
+
+## 3.2 Computing Global Moran’s I
+
+We compute the global Moran’s I statistic to test for spatial autocorrelation in the data.
+
+```{r}
+moranI <- global_moran(wm_q$count,
+                       wm_q$nb,
+                       wm_q$wt)
+glimpse(moranI)
+```
+
+## 3.3 Performing Global Moran’s I test
+
+Global_moran_test() performs the Moran's I test, which assesses whether there is spatial autocorrelation in the variable represented by wm_q$count. The contiguity relationship matrix (wm_q$nb) and the corresponding spatial weights (wm_q\$wt) are used to compute Moran's I statistic and its associated p-value. This helps to determine if the observed spatial pattern is significantly different from what would be expected under spatial randomness.
+
+```{r}
+global_moran_test(wm_q$count,
+                       wm_q$nb,
+                       wm_q$wt)
+```
+
+## 3.4 Performing Global Moran’s I permutation test
+
+In practical applications, it's advisable to utilize Monte Carlo simulation when conducting statistical tests. For the **sfdep** package, this functionality is facilitated through the [`globel_moran_perm()`](https://sfdep.josiahparry.com/reference/global_moran_perm.html) function.
+
+To maintain reproducibility in the simulation process, it's recommended to employ `set.seed()` before conducting the simulation. This ensures that the computational results are consistent and reproducible across different runs.
+
+```{r}
+set.seed(1234)
+```
+
+Next, `global_moran_perm()` is used to perform Monte Carlo simulation.
+
+```{r}
+global_moran_perm(wm_q$count,
+                  wm_q$nb,
+                  wm_q$wt,
+                  nsim = 99)
+```
+
+The statistical report above show that the p-value is smaller than alpha value of 0.05. Hence, we have enough statistical evidence to reject the null hypothesis that the spatial distribution of dengue cases per counties resemble random distribution (i.e. independent from spatial). Because the Moran’s I statistics is greater than 0. We can infer that the spatial distribution shows sign of clustering.
+
+# 4.0 Local Spatial Autocorrelation Analysis
+
+## 4.1 Computing local Moran’s I
+
+Local_moran() computes the local Moran's I statistic to test for spatial autocorrelation in the data. The contiguity relationship matrix (wm_q$nb) and the corresponding spatial weights (wm_q$wt) are used to compute the local Moran's I statistic and its associated p-value. This helps to determine if the observed spatial pattern is significantly different from what would be expected under spatial randomness.
+
+```{r}
+lisa <- wm_q %>% 
+  mutate(local_moran = local_moran(
+    count, nb, wt, nsim = 99),
+         .before = 1) %>%
+  unnest(local_moran)
+```
+
+## 4.2 Visualising local Moran’s I
+
+In this code chunk below, tmap functions are used prepare a choropleth map by using value in the ii field.
+
+```{r}
+tmap_mode("plot")
+tm_shape(lisa) +
+  tm_fill("ii") + 
+  tm_borders(alpha = 0.5) +
+  tm_view(set.zoom.limits = c(6,8)) +
+  tm_layout(main.title = "local Moran's I of GDPPC",
+            main.title.size = 0.8)
+```
+
+## 4.3 Visualising p-value of local Moran’s I
+
+In the code chunk below, tmap functions are used prepare a choropleth map by using value in the p_ii_sim field.
+
+```{r}
+tmap_mode("plot")
+tm_shape(lisa) +
+  tm_fill("p_ii_sim") + 
+  tm_borders(alpha = 0.5) +
+   tm_layout(main.title = "p-value of local Moran's I",
+            main.title.size = 0.8)
+```
+
+## 4.4 Visuaising local Moran’s I and p-value
+
+For effective comparison, it will be better for us to plot both maps next to each other as shown below.
+
+```{r}
+tmap_mode("plot")
+map1 <- tm_shape(lisa) +
+  tm_fill("ii") + 
+  tm_borders(alpha = 0.5) +
+  tm_view(set.zoom.limits = c(6,8)) +
+  tm_layout(main.title = "local Moran's I of GDPPC",
+            main.title.size = 0.8)
+
+map2 <- tm_shape(lisa) +
+  tm_fill("p_ii",
+          breaks = c(0, 0.001, 0.01, 0.05, 1),
+              labels = c("0.001", "0.01", "0.05", "Not sig")) + 
+  tm_borders(alpha = 0.5) +
+  tm_layout(main.title = "p-value of local Moran's I",
+            main.title.size = 0.8)
+
+tmap_arrange(map1, map2, ncol = 2)
+```
+
+## 4.5 Visualising LISA map
+
+The LISA map is a categorical representation revealing both outliers and clusters within a dataset. It identifies two kinds of outliers: High-Low and Low-High. Similarly, it highlights two types of clusters: High-High and Low-Low. Essentially, the LISA map is derived by integrating local Moran's I values of geographical regions along with their corresponding p-values.
+
+Within the lisa sf data frame, three fields encompass the LISA categories: mean, median, and pysal. Typically, the mean classification is preferred, as illustrated in the following code snippet.
+
+```{r}
+lisa_sig <- lisa  %>%
+  filter(p_ii < 0.05)
+tmap_mode("plot")
+tm_shape(lisa) +
+  tm_polygons() +
+  tm_borders(alpha = 0.5) +
+tm_shape(lisa_sig) +
+  tm_fill("mean") + 
+  tm_borders(alpha = 0.4)
+```
+
+# 5.0 Hot Spot and Cold Spot Area Analysis (HCSA)
+
+The HCSA employs spatial weights to pinpoint locations exhibiting statistically significant hot spots and cold spots within a spatially weighted attribute, which are closely situated based on a calculated distance. This analysis clusters features together when similar high (hot) or low (cold) values occur in proximity. The polygon features typically denote administrative boundaries or a customized grid structure.
+
+# 6.0 Computing local Gi* statistics
+
+Local_gi() computes the local Gi* statistic to test for spatial autocorrelation in the data. The contiguity relationship matrix (wm_q$nb) and the corresponding spatial weights (wm_q$wt) are used to compute the local Gi* statistic and its associated p-value. This helps to determine if the observed spatial pattern is significantly different from what would be expected under spatial randomness.
+
+```{r}
+wm_idw <- joined_data %>%
+  mutate(nb = st_contiguity(geometry),
+         wts = st_inverse_distance(nb, geometry,
+                                   scale = 1,
+                                   alpha = 1),
+         .before = 1)
+```
+
+Now we implement the code which calculates the Local Gi* statistic for each observation in the dataset and adds it as a new variable `local_Gi`, allowing for the identification of spatial clusters and outliers.
+
+```{r}
+HCSA <- wm_idw %>% 
+  mutate(local_Gi = local_gstar_perm(
+    count, nb, wt, nsim = 99),
+         .before = 1) %>%
+  unnest(local_Gi)
+HCSA
+```
+
+## 6.1 Visualising Gi*
+
+```{r}
+tmap_mode("plot")
+tm_shape(HCSA) +
+  tm_fill("gi_star") + 
+  tm_borders(alpha = 0.5) +
+  tm_view(set.zoom.limits = c(6,8))
+```
+
+## 6.2 Visualising p-value of HCSA
+
+```{r}
+tmap_mode("plot")
+tm_shape(HCSA) +
+  tm_fill("p_sim") + 
+  tm_borders(alpha = 0.5)
+```
+
+## 6.3 Visuaising local HCSA
+
+For effective comparison, it will be better for us to plot both maps next to each other as shown below.
+
+```{r}
+tmap_mode("plot")
+map1 <- tm_shape(HCSA) +
+  tm_fill("gi_star") + 
+  tm_borders(alpha = 0.5) +
+  tm_view(set.zoom.limits = c(6,8)) +
+  tm_layout(main.title = "Gi* of GDPPC",
+            main.title.size = 0.8)
+
+map2 <- tm_shape(HCSA) +
+  tm_fill("p_value",
+          breaks = c(0, 0.001, 0.01, 0.05, 1),
+              labels = c("0.001", "0.01", "0.05", "Not sig")) + 
+  tm_borders(alpha = 0.5) +
+  tm_layout(main.title = "p-value of Gi*",
+            main.title.size = 0.8)
+
+tmap_arrange(map1, map2, ncol = 2)
+```
+
+# 7.0 Visualising hot spot and cold spot areas
+
+The HCSA map is a categorical representation revealing both hot spots and cold spots within a dataset. It identifies two kinds of outliers: High-High and Low-Low. Essentially, the HCSA map is derived by integrating `local Gi*` values of geographical regions along with their corresponding p-values.
+
+Now, we are ready to plot the significant (i.e. p-values less than 0.05) hot spot and cold spot areas by using appropriate tmap functions as shown below.
+
+```{r}
+HCSA_sig <- HCSA  %>%
+  filter(p_sim < 0.05)
+tmap_mode("plot")
+tm_shape(HCSA) +
+  tm_polygons() +
+  tm_borders(alpha = 0.5) +
+tm_shape(HCSA_sig) +
+  tm_fill("gi_star") + 
+  tm_borders(alpha = 0.4)
+```
+
+Figure above reveals that there is one hot spot area and two cold spot areas. Interestingly, the hot spot areas coincide with the High-high cluster identifies by using local Moran’s I method in the earlier sub-section. This is a strong indication that the hot spot areas are not random and are statistically significant.
+
+# 8.0 Conclusion
+
+In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan.

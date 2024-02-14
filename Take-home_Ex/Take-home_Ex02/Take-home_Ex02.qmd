@@ -145,18 +145,19 @@ Remove NA values from all columns
 filtered_dengue <- na.omit(filtered_dengue)
 ```
 
-Convert to an sf object with POINT geometry
-
 ```{r}
+#| eval: false
+#| echo: false
+# Convert to an sf object with POINT geometry
 #filtered_dengue <- st_as_sf(filtered_dengue, coords = c('x-coordinate', 'y-coordinate'), crs = st_crs(filtered_tainan))
 ```
 
-Grouping Town and Village based on number of dengue cases
+Grouping village based on number of dengue cases
 
 ```{r}
 grouped_data <- filtered_dengue %>%
-  group_by(VILLNAME) %>%
-  summarise(count = n())
+  group_by(VILLNAME, week_number_onsetDay) %>%
+  summarise(dengueCases = sum(確定病例數))
 ```
 
 Removing missing values
@@ -171,26 +172,30 @@ Combining both data frame by using left join
 joined_data <- left_join(filtered_tainan, grouped_data, by = c("VILLNAME"))
 ```
 
-Keep only specific columns after joining
-
 ```{r}
+#| eval: false
+#| echo: false
+# Keep only specific columns after joining
 #tainan_GDPPC <- tainan_GDPPC %>%
   #select(1, 3, 5)
 ```
 
 ```{r}
 #| eval: false
+#| echo: false
 crs_value <- st_crs(3824) 
 st_crs(points_sf) <- crs_value
 ```
 
 ```{r}
 #| eval: false
+#| echo: false
 points_within_polygons <- st_join(points_sf, polygons_sf)
 ```
 
 ```{r}
 #| eval: false
+#| echo: false
 grouped_test <- points_within_polygons %>%
   group_by(居住鄉鎮, 居住村里, 內政部居住鄉鎮代碼) %>%
   summarise(count = n())
@@ -203,7 +208,7 @@ Before removing missing values
 ```{r}
 tmap_mode("plot")
 tm_shape(joined_data) +
-  tm_fill("count",
+  tm_fill("dengueCases",
           style = "quantile",
           palette = "Blues",
           title = "Dengue Cases") +
@@ -226,19 +231,25 @@ Missing values means that the dengue cases are not part of the selected counties
 To fill missing values (NA) with 0
 
 ```{r}
-joined_data$count[is.na(joined_data$count)] <- 0
+joined_data$dengueCases[is.na(joined_data$dengueCases)] <- 0
 ```
 
 After removing missing values
 
+::: {.panel-tabset .nav-pills}
+
+## August
+
 ```{r}
+august <- joined_data %>%
+  filter(week_number_onsetDay >= 31 & week_number_onsetDay <= 35)
 tmap_mode("plot")
-tm_shape(joined_data) +
-  tm_fill("count",
+tm_shape(august) +
+  tm_fill("dengueCases",
           style = "quantile",
           palette = "Blues",
           title = "Dengue Cases") +
-  tm_layout(main.title = "Distribution of Dengue Cases",
+  tm_layout(main.title = "August 2023 Distribution of Dengue Cases",
             main.title.position = "center",
             main.title.size = 1.2,
             legend.height = 0.45,
@@ -250,11 +261,118 @@ tm_shape(joined_data) +
   tm_grid(alpha = 0.2)
 ```
 
+## September
+
+```{r}
+september <- joined_data %>%
+  filter(week_number_onsetDay >= 36 & week_number_onsetDay <= 39)
+tmap_mode("plot")
+tm_shape(september) +
+  tm_fill("dengueCases",
+          style = "quantile",
+          palette = "Blues",
+          title = "Dengue Cases") +
+  tm_layout(main.title = "September 2023 Distribution of Dengue Cases",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45,
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type = "8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha = 0.2)
+```
+
+## October
+
+```{r}
+october <- joined_data %>%
+  filter(week_number_onsetDay >= 40 & week_number_onsetDay <= 44)
+tmap_mode("plot")
+tm_shape(october) +
+  tm_fill("dengueCases",
+          style = "quantile",
+          palette = "Blues",
+          title = "Dengue Cases") +
+  tm_layout(main.title = "October 2023 Distribution of Dengue Cases",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45,
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type = "8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha = 0.2)
+```
+
+## November
+
+```{r}
+november <- joined_data %>%
+  filter(week_number_onsetDay >= 45 & week_number_onsetDay <= 48)
+tmap_mode("plot")
+tm_shape(november) +
+  tm_fill("dengueCases",
+          style = "quantile",
+          palette = "Blues",
+          title = "Dengue Cases") +
+  tm_layout(main.title = "November 2023 Distribution of Dengue Cases",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45,
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type = "8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha = 0.2)
+```
+
+## December
+
+```{r}
+december <- joined_data %>%
+  filter(week_number_onsetDay >= 49 & week_number_onsetDay <= 50)
+tmap_mode("plot")
+tm_shape(december) +
+  tm_fill("dengueCases",
+          style = "quantile",
+          palette = "Blues",
+          title = "Dengue Cases") +
+  tm_layout(main.title = "December 2023 Distribution of Dengue Cases",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45,
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type = "8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha = 0.2)
+```
+
+:::
+
+::: callout-note
+Areas that are white in colour are those that have no dengue cases.
+:::
+
 # 3.0 Global Spatial Autocorrelation Analysis
 
 ## 3.1 Deriving contiguity weights: Queen’s method
 
 We compute spatial contiguity relationships among geometries stored in a data frame, calculates spatial weights based on these relationships, and adds the resulting variables to the data frame.
+
+```{r}
+grouped_data <- filtered_dengue %>%
+  group_by(VILLNAME) %>%
+  summarise(dengueCases = sum(確定病例數))
+grouped_data <- grouped_data[!(grouped_data$VILLNAME == "None"), ]
+joined_data <- left_join(filtered_tainan, grouped_data, by = c("VILLNAME"))
+joined_data$dengueCases[is.na(joined_data$dengueCases)] <- 0
+```
 
 ```{r}
 wm_q <- joined_data %>%
@@ -267,7 +385,7 @@ wm_q <- joined_data %>%
 Examining the contents of the spatial weights matrix
 
 ```{r}
-wm_q
+glimpse(wm_q)
 ```
 
 ## 3.2 Computing Global Moran’s I
@@ -275,7 +393,7 @@ wm_q
 We compute the global Moran’s I statistic to test for spatial autocorrelation in the data.
 
 ```{r}
-moranI <- global_moran(wm_q$count,
+moranI <- global_moran(wm_q$dengueCases,
                        wm_q$nb,
                        wm_q$wt)
 glimpse(moranI)
@@ -286,7 +404,7 @@ glimpse(moranI)
 Global_moran_test() performs the Moran's I test, which assesses whether there is spatial autocorrelation in the variable represented by wm_q$count. The contiguity relationship matrix (wm_q$nb) and the corresponding spatial weights (wm_q\$wt) are used to compute Moran's I statistic and its associated p-value. This helps to determine if the observed spatial pattern is significantly different from what would be expected under spatial randomness.
 
 ```{r}
-global_moran_test(wm_q$count,
+global_moran_test(wm_q$dengueCases,
                        wm_q$nb,
                        wm_q$wt)
 ```
@@ -304,7 +422,7 @@ set.seed(1234)
 Next, `global_moran_perm()` is used to perform Monte Carlo simulation.
 
 ```{r}
-global_moran_perm(wm_q$count,
+global_moran_perm(wm_q$dengueCases,
                   wm_q$nb,
                   wm_q$wt,
                   nsim = 99)
@@ -321,7 +439,7 @@ Local_moran() computes the local Moran's I statistic to test for spatial autocor
 ```{r}
 lisa <- wm_q %>% 
   mutate(local_moran = local_moran(
-    count, nb, wt, nsim = 99),
+    dengueCases, nb, wt, nsim = 99),
          .before = 1) %>%
   unnest(local_moran)
 ```
@@ -336,7 +454,7 @@ tm_shape(lisa) +
   tm_fill("ii") + 
   tm_borders(alpha = 0.5) +
   tm_view(set.zoom.limits = c(6,8)) +
-  tm_layout(main.title = "local Moran's I of GDPPC",
+  tm_layout(main.title = "local Moran's I of Dengue Cases",
             main.title.size = 0.8)
 ```
 
@@ -363,7 +481,7 @@ map1 <- tm_shape(lisa) +
   tm_fill("ii") + 
   tm_borders(alpha = 0.5) +
   tm_view(set.zoom.limits = c(6,8)) +
-  tm_layout(main.title = "local Moran's I of GDPPC",
+  tm_layout(main.title = "local Moran's I of Dengue Cases",
             main.title.size = 0.8)
 
 map2 <- tm_shape(lisa) +
@@ -417,7 +535,7 @@ Now we implement the code which calculates the Local Gi\* statistic for each obs
 ```{r}
 HCSA <- wm_idw %>% 
   mutate(local_Gi = local_gstar_perm(
-    count, nb, wt, nsim = 99),
+    dengueCases, nb, wt, nsim = 99),
          .before = 1) %>%
   unnest(local_Gi)
 HCSA
@@ -497,7 +615,7 @@ A time series cube is a data structure that contains a series of spatial data la
 ```{r}
 test <- filtered_dengue %>%
   group_by(發病日, VILLNAME) %>%
-  summarise(count = n())
+  summarise(count = sum(確定病例數))
 ```
 
 ```{r}
@@ -509,8 +627,19 @@ test_join <- left_join(filtered_tainan, test, by = c("VILLNAME"))
 ```
 
 ```{r}
-dengue_st <- spacetime(test, filtered_tainan,
-                      .loc_col = "VILLNAME",
+test_join <- test_join[!(test_join$count == "NA"), ]
+```
+
+```{r}
+#| eval: false
+#| echo: false
+#test_join <- test_join %>%
+  #select(1:9,11,12)
+```
+
+```{r}
+dengue_st <- spacetime(test_join, filtered_tainan,
+                      .loc_col = "VILLCODE",
                       .time_col = "發病日")
 ```
 
@@ -518,7 +647,29 @@ Next, `is_spacetime_cube()` of sfdep package will be used to verify if dengue_st
 
 ```{r}
 spt_complete <- complete_spacetime_cube(dengue_st)
-is_spacetime_cube(dengue_st)
+is_spacetime_cube(spt_complete)
+```
+
+## 8.2 Computing Gi*
+
+Next, we will compute the local Gi* statistics.
+
+### 8.2.1 Deriving the spatial weights
+
+The code chunk below will be used to identify neighbors and to derive an inverse distance weights.
+
+```{r}
+#| eval: false
+#| echo: false
+dengue_nb <- spt_complete %>%
+  activate("geometry") %>%
+  mutate(nb = include_self(st_contiguity(geometry)),
+         wt = st_inverse_distance(nb, geometry,
+                                  scale = 1,
+                                  alpha = 1),
+         .before = 1) %>%
+  set_nbs("nb") %>%
+  set_wts("wt")
 ```
 
 # 9.0 Conclusion

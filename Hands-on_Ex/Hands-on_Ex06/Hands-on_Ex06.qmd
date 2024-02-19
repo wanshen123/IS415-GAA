@@ -256,7 +256,7 @@ shan_sf <- read_rds("../../data/rds/shan_sf.rds")
 
 To have a quick look at the distribution of Radio penetration rate of Shan State at township level, a choropleth map will be prepared.
 
-The code chunks below are used to prepare the choroplethby using the *qtm()* function of **tmap** package.
+The code chunks below are used to prepare the choropleth by using the *qtm()* function of **tmap** package.
 
 ```{r}
 qtm(shan_sf, "RADIO_PR")
@@ -283,9 +283,9 @@ tmap_arrange(TT_HOUSEHOLDS.map, RADIO.map,
              asp=NA, ncol=2)
 ```
 
-Notice that the choropleth maps above clearly show that townships with relatively larger number ot households are also showing relatively higher number of radio ownership.
+Notice that the choropleth maps above clearly show that townships with relatively larger number of households are also showing relatively higher number of radio ownership.
 
-Now let us plot the choropleth maps showing the dsitribution of total number of households and Radio penetration rate by using the code chunk below.
+Now let us plot the choropleth maps showing the distribution of total number of households and Radio penetration rate by using the code chunk below.
 
 ```{r}
 tm_shape(shan_sf) +
@@ -333,7 +333,7 @@ head(cluster_vars,10)
 
 Notice that the final clustering variables list does not include variable INTERNET_PR because it is highly correlated with variable COMPUTER_PR.
 
-Next, we need to change the rows by township name instead of row number by using the code chunk below
+Next, we need to change the rows by township name instead of row number by using the code chunk below.
 
 ```{r}
 row.names(cluster_vars) <- cluster_vars$"TS.x"
@@ -351,7 +351,7 @@ head(shan_ict, 10)
 
 ## 5.2 Data Standardisation
 
-In general, multiple variables will be used in cluster analysis. It is not unusual their values range are different. In order to avoid the cluster analysis result is baised to clustering variables with large values, it is useful to standardise the input variables before performing cluster analysis.
+In general, multiple variables will be used in cluster analysis. It is not unusual their values range are different. In order to avoid the cluster analysis result is biased to clustering variables with large values, it is useful to standardize the input variables before performing cluster analysis.
 
 ## 5.3 Min-Max standardisation
 
@@ -362,26 +362,26 @@ shan_ict.std <- normalize(shan_ict)
 summary(shan_ict.std)
 ```
 
-Notice that the values range of the Min-max standardised clustering variables are 0-1 now.
+Notice that the values range of the Min-max standardized clustering variables are 0-1 now.
 
 ## 5.4 Z-score standardisation
 
-Z-score standardisation can be performed easily by using [*scale()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) of Base R. The code chunk below will be used to stadardisation the clustering variables by using Z-score method.
+Z-score standardization can be performed easily by using [*scale()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/scale) of Base R. The code chunk below will be used to standardization the clustering variables by using Z-score method.
 
 ```{r}
 shan_ict.z <- scale(shan_ict)
 describe(shan_ict.z)
 ```
 
-Notice the mean and standard deviation of the Z-score standardised clustering variables are 0 and 1 respectively.
+Notice the mean and standard deviation of the Z-score standardized clustering variables are 0 and 1 respectively.
 
 **Note:** [*describe()*](https://www.rdocumentation.org/packages/Hmisc/versions/4.4-0/topics/describe) of [**psych**](https://cran.r-project.org/web/packages/psych/) package is used here instead of *summary()* of Base R because the earlier provides standard deviation.
 
-***Warning: Z-score standardisation method should only be used if we would assume all variables come from some normal distribution.***
+***Warning: Z-score standardization method should only be used if we would assume all variables come from some normal distribution.***
 
 ## 5.5 Visualising the standardised clustering variables
 
-Beside reviewing the summary statistics of the standardised clustering variables, it is also a good practice to visualise their distribution graphical.
+Beside reviewing the summary statistics of the standardized clustering variables, it is also a good practice to visualize their distribution graphical.
 
 The code chunk below plot the scaled Radio_PR field.
 
@@ -456,7 +456,7 @@ The code chunk below is used to compute the proximity matrix using *euclidean* m
 proxmat <- dist(shan_ict, method = 'euclidean')
 ```
 
-The code chunk below can then be used to list the content of proxmat for visual inspection.
+The code chunk below can then be used to list the content of proximate for visual inspection.
 
 ```{r}
 proxmat
@@ -482,9 +482,9 @@ plot(hclust_ward, cex = 0.6)
 
 ## 5.8 Selecting the optimal clustering algorithm
 
-One of the challenge in performing hierarchical clustering is to identify stronger clustering structures. The issue can be solved by using use [*agnes()*](https://www.rdocumentation.org/packages/cluster/versions/2.1.0/topics/agnes) function of [**cluster**](https://cran.r-project.org/web/packages/cluster/) package. It functions like *hclus()*, however, with the *agnes()* function you can also get the agglomerative coefficient, which measures the amount of clustering structure found (values closer to 1 suggest strong clustering structure).
+One of the challenge in performing hierarchical clustering is to identify stronger clustering structures. The issue can be solved by using use [*agnes()*](https://www.rdocumentation.org/packages/cluster/versions/2.1.0/topics/agnes) function of [**cluster**](https://cran.r-project.org/web/packages/cluster/) package. It functions like *hclus()*, however, with the *agnes()* function you can also get the agglomeration coefficient, which measures the amount of clustering structure found (values closer to 1 suggest strong clustering structure).
 
-The code chunk below will be used to compute the agglomerative coefficients of all hierarchical clustering algorithms.
+The code chunk below will be used to compute the agglomeration coefficients of all hierarchical clustering algorithms.
 
 ```{r}
 m <- c( "average", "single", "complete", "ward")
@@ -557,7 +557,7 @@ rect.hclust(hclust_ward,
 
 ## 5.11 Visually-driven hierarchical clustering analysis
 
-In this section, we will learn how to perform visually-driven hiearchical clustering analysis by using [*heatmaply*](https://cran.r-project.org/web/packages/heatmaply/) package.
+In this section, we will learn how to perform visually-driven hierarchical clustering analysis by using [*heatmaply*](https://cran.r-project.org/web/packages/heatmaply/) package.
 
 With **heatmaply**, we are able to build both highly interactive cluster heatmap or static cluster heatmap.
 
@@ -653,6 +653,7 @@ summary(shan.nb)
 We can plot the neighbours list on shan_sp by using the code chunk below. Since we now can plot the community area boundaries as well, we plot this graph on top of the map. The first plot command gives the boundaries. This is followed by the plot of the neighbor list object, with coordinates applied to the original SpatialPolygonDataFrame (Shan state township boundaries) to extract the centroids of the polygons. These are used as the nodes for the graph representation. We also set the color to blue and specify add=TRUE to plot the network on top of the boundaries.
 
 ```{r}
+#| eval: false
 plot(shan_sp, 
      border=grey(.5))
 plot(shan.nb, 
@@ -675,7 +676,7 @@ The code chunk below is used to compute the cost of each edge.
 lcosts <- nbcosts(shan.nb, shan_ict)
 ```
 
-For each observation, this gives the pairwise dissimilarity between its values on the five variables and the values for the neighbouring observation (from the neighbour list). Basically, this is the notion of a generalised weight for a spatial weights matrix.
+For each observation, this gives the pairwise dissimilarity between its values on the five variables and the values for the neighbouring observation (from the neighbour list). Basically, this is the notion of a generalized weight for a spatial weights matrix.
 
 Next, We will incorporate these costs into a weights object in the same way as we did in the calculation of inverse of distance weights. In other words, we convert the neighbour list to a list weights object by specifying the just computed ***lcosts*** as the weights.
 
@@ -748,16 +749,16 @@ The result of the *skater()* is an object of class **skater**. We can examine it
 str(clust6)
 ```
 
-The most interesting component of this list structure is the groups vector containing the labels of the cluster to which each observation belongs (as before, the label itself is arbitary). This is followed by a detailed summary for each of the clusters in the edges.groups list. Sum of squares measures are given as ssto for the total and ssw to show the effect of each of the cuts on the overall criterion.
+The most interesting component of this list structure is the groups vector containing the labels of the cluster to which each observation belongs (as before, the label itself is arbitrary). This is followed by a detailed summary for each of the clusters in the edges.groups list. Sum of squares measures are given as to for the total and to show the effect of each of the cuts on the overall criterion.
 
-We can check the cluster assignment by using the conde chunk below.
+We can check the cluster assignment by using the code chunk below.
 
 ```{r}
 ccs6 <- clust6$groups
 ccs6
 ```
 
-We can find out how many observations are in each cluster by means of the table command. Parenthetially, we can also find this as the dimension of each vector in the lists contained in edges.groups. For example, the first list has node with dimension 12, which is also the number of observations in the first cluster.
+We can find out how many observations are in each cluster by means of the table command. Parenthetically, we can also find this as the dimension of each vector in the lists contained in edges.groups. For example, the first list has node with dimension 12, which is also the number of observations in the first cluster.
 
 ```{r}
 table(ccs6)

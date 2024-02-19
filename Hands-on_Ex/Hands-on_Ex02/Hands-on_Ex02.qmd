@@ -4,6 +4,7 @@ title: "Hands-on Exercise 2"
 description: "Thematic Mapping and GeoVisualisation with R"
 execute: 
   warning: false
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 01/11/2024
 date-format: "D MMM, YYYY" 

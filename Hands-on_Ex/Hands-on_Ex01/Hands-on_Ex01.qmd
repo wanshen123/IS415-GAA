@@ -4,6 +4,7 @@ title: "Hands-on Exercise 1"
 description: "Geospatial Data Wrangling with R"
 execute: 
   warning: false
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 01/07/2024
 date-format: "D MMM, YYYY" 

@@ -1,0 +1,17 @@
+---
+title: "Hands-on Exercise 7"
+description: "Calibrating Hedonic Pricing Model for Private Highrise Property with GWR Method"
+execute: 
+  warning: false
+  freeze: true
+# date: "`r Sys.Date()`"
+date: 02/21/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Hands-On Exercise
+title-block-categories: false
+---

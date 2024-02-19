@@ -158,6 +158,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html" rel="" target="">
  <span class="dropdown-text">Hands-on Exercise 5B</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex07.html" rel="" target="">
+ <span class="dropdown-text">Hands-on Exercise 7</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item dropdown ">
@@ -670,6 +678,19 @@ Note
 <section id="deriving-contiguity-weights-queens-method" class="level2">
 <h2 class="anchored" data-anchor-id="deriving-contiguity-weights-queens-method">3.1 Deriving contiguity weights: Queen’s method</h2>
 <p>We compute spatial contiguity relationships among geometries stored in a data frame, calculates spatial weights based on these relationships, and adds the resulting variables to the data frame.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Resetting the joined_data to the original data frame</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(VILLNAME) <span class="sc">%&gt;%</span></span>

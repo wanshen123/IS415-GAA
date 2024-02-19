@@ -365,6 +365,10 @@ Areas that are white in colour are those that have no dengue cases.
 
 We compute spatial contiguity relationships among geometries stored in a data frame, calculates spatial weights based on these relationships, and adds the resulting variables to the data frame.
 
+:::callout-note
+Resetting the joined_data to the original data frame
+:::
+
 ```{r}
 grouped_data <- filtered_dengue %>%
   group_by(VILLNAME) %>%

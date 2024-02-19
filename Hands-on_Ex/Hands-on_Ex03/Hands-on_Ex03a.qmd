@@ -4,6 +4,7 @@ title: "Hands-on Exercise 3A"
 description: "1st Order Spatial Point Patterns Analysis Methods"
 execute: 
   warning: false
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 01/17/2024
 date-format: "D MMM, YYYY" 

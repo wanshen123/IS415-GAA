@@ -3,6 +3,7 @@ title: "Hands-on Exercise 5A"
 description: "Global Measures of Spatial Autocorrelation"
 execute: 
   warning: false
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 01/30/2024
 date-format: "D MMM, YYYY" 

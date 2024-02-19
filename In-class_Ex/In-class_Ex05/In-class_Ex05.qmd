@@ -5,6 +5,7 @@ execute:
   warning: false
   eval: true
   echo: true
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 02/05/2024
 date-format: "D MMM, YYYY" 

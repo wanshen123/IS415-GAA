@@ -5,6 +5,7 @@ execute:
   warning: false
   eval: true
   echo: true
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 01/22/2024
 date-format: "D MMM, YYYY" 
@@ -62,11 +63,11 @@ st_crs(sg_sf)
 
 ## 3.1 Creating ppp objects: sf method
 
-:::callout-note
+::: callout-note
 From sf to ppp directly.
 :::
 
-```{r} 
+```{r}
 childcare_sp <- as_Spatial(childcare_sf)
 glimpse(childcare_sp)
 ```
@@ -131,7 +132,7 @@ jw <- mpsz_sf %>%
 
 ## 4.1 Plotting target planning areas
 
-```{r fig.width=16, fig.height=10} 
+```{r fig.width=16, fig.height=10}
 par(mfrow=c(2,2))
 plot(pg, main = "PUNGGOL")
 plot(tm, main = "TAMPINES")

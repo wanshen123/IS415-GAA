@@ -59,13 +59,13 @@ head(tainan, 3)
 
 ## 2.2 Data Pre-Processing
 
-### 2.2.1 Retrieve D01, D02, D04, D06, D07, D08, D32 and D39 counties of Tainan City, Taiwan.
+Retrieve D01, D02, D04, D06, D07, D08, D32 and D39 counties of Tainan City, Taiwan.
 
 ```{r}
 filtered_tainan <- tainan[tainan$TOWNID %in% c("D01", "D02", "D04", "D06", "D07", "D08", "D32", "D39"), ]
 ```
 
-### 2.2.2 Dengue fever cases confined to epidemiology week 31-50, 2023
+Dengue fever cases confined to epidemiology week 31-50, 2023
 
 ::: callout-note
 Convert date column to Date format if it's not already
@@ -235,6 +235,27 @@ joined_data$dengueCases[is.na(joined_data$dengueCases)] <- 0
 ```
 
 After removing missing values
+
+```{r}
+tmap_mode("plot")
+tm_shape(joined_data) +
+  tm_fill("dengueCases",
+          style = "quantile",
+          palette = "Blues",
+          title = "Dengue Cases") +
+  tm_layout(main.title = "Distribution of Dengue Cases",
+            main.title.position = "center",
+            main.title.size = 1.2,
+            legend.height = 0.45,
+            legend.width = 0.35,
+            frame = TRUE) +
+  tm_borders(alpha = 0.5) +
+  tm_compass(type = "8star", size = 2) +
+  tm_scale_bar() +
+  tm_grid(alpha = 0.2)
+```
+
+Visualizing the distribution of dengue cases by month
 
 ::: {.panel-tabset .nav-pills}
 
@@ -462,6 +483,10 @@ tm_shape(lisa) +
             main.title.size = 0.8)
 ```
 
+High-high clusters (orange): These areas have a high number of dengue cases and are also neighbors to other areas with a high number of cases. This suggests that there is a spatial cluster of dengue cases in these areas.
+
+Low-high outliers (green): These areas have a low number of dengue cases, but their neighbors have a high number of cases. This may be due to chance, or it may be due to local factors that are protecting these areas from dengue.
+
 ## 4.3 Visualising p-value of local Moran’s I
 
 In the code chunk below, tmap functions are used prepare a choropleth map by using value in the p_ii_sim field.
@@ -474,6 +499,10 @@ tm_shape(lisa) +
    tm_layout(main.title = "p-value of local Moran's I",
             main.title.size = 0.8)
 ```
+
+Darker colors (closer to 0.0): These areas have statistically significant clustering. This means that the value of the attribute being analyzed is similar for neighboring areas. Whether this clustering is high values (high-high clusters) or low values (low-low clusters) depends on the specific data being analyzed.
+
+Lighter colors (closer to 1.0): These areas do not have statistically significant clustering. The values of the attribute being analyzed are not spatially clustered in these areas.
 
 ## 4.4 Visuaising local Moran’s I and p-value
 

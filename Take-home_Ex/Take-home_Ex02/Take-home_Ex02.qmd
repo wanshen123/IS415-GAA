@@ -25,6 +25,10 @@ format: html
 
 In this study, our focus will be on investigating whether the distribution of dengue fever outbreaks in Tainan City, Taiwan, is independent of spatial and temporal factors. If the outbreak exhibits spatial and spatio-temporal dependencies, our goal is to pinpoint clusters, outliers, and emerging hot spot/cold spot areas within the region.
 
+**Objective**
+
+The primary objective of this study is to apply spatial and spatio-temporal analysis methods to discover the distribution of dengue fever in Tainan City, Taiwan. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan.
+
 **Packages Used:**
 
 -   [**sf**](https://cran.r-project.org/web/packages/sf/index.html): For importing, managing, and processing geospatial data.
@@ -63,6 +67,14 @@ Retrieve D01, D02, D04, D06, D07, D08, D32 and D39 counties of Tainan City, Taiw
 
 ```{r}
 filtered_tainan <- tainan[tainan$TOWNID %in% c("D01", "D02", "D04", "D06", "D07", "D08", "D32", "D39"), ]
+```
+
+Visualizing the filtered Tainan map
+
+```{r}
+tmap_mode('plot')
+tm_shape(filtered_tainan) + 
+  tm_polygons("TOWNID") 
 ```
 
 Dengue fever cases confined to epidemiology week 31-50, 2023
@@ -140,11 +152,19 @@ Remove NA values from all columns
 filtered_dengue <- na.omit(filtered_dengue)
 ```
 
+Convert to an sf object with POINT geometry
+
 ```{r}
-#| eval: false
-#| echo: false
-# Convert to an sf object with POINT geometry
-#filtered_dengue <- st_as_sf(filtered_dengue, coords = c('x-coordinate', 'y-coordinate'), crs = st_crs(filtered_tainan))
+filtered_dengue1 <- st_as_sf(filtered_dengue, coords = c('x-coordinate', 'y-coordinate'), crs = st_crs(filtered_tainan))
+```
+
+Visualizing the distribution of dengue cases on the map
+
+```{r}
+tm_shape(filtered_tainan) +
+  tm_polygons("TOWNID") +
+tm_shape(filtered_dengue1) +
+  tm_dots(col = "black")
 ```
 
 Grouping village based on number of dengue cases
@@ -165,14 +185,6 @@ Combining both data frame by using left join
 
 ```{r}
 joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME","VILLNAME"))
-```
-
-```{r}
-#| eval: false
-#| echo: false
-# Keep only specific columns after joining
-#tainan_GDPPC <- tainan_GDPPC %>%
-  #select(1, 3, 5)
 ```
 
 ```{r}
@@ -689,11 +701,11 @@ is_spacetime_cube(spt_complete)
 
 ## 8.2 Computing Gi*
 
-Next, we will compute the local Gi* statistics.
+Next, we will compute the local Gi* statistics. This will help us to identify areas that are experiencing significant changes in the spatial distribution of dengue fever cases over time. 
 
 ### 8.2.1 Deriving the spatial weights
 
-The code chunk below will be used to identify neighbors and to derive an inverse distance weights.
+The code chunk below will be used to identify neighbors and to derive an inverse distance weights. 
 
 ```{r}
 #| eval: false
@@ -711,4 +723,4 @@ dengue_nb <- spt_complete %>%
 
 # 9.0 Conclusion
 
-In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan.
+In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan. The findings of this study will also be useful for future research on the spatial and spatio-temporal distribution of dengue fever in Tainan City, Taiwan. 

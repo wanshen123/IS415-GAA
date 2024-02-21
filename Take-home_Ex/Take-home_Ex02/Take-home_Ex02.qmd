@@ -73,14 +73,12 @@ Convert date column to Date format if it's not already
 
 ```{r}
 dengueDaily$發病日 <- as.Date(dengueDaily$發病日)
-#dengueDaily$通報日 <- as.Date(dengueDaily$通報日)
 ```
 
 Extract week numbers from the date column
 
 ```{r}
 dengueDaily$week_number_onsetDay <- as.numeric(format(dengueDaily$發病日, "%V"))
-#dengueDaily$week_number_reportDay <- as.numeric(format(dengueDaily$通報日, "%V"))
 ```
 
 Define the start (31) and end (50) weeks of your range
@@ -88,8 +86,6 @@ Define the start (31) and end (50) weeks of your range
 ```{r}
 onset_start_week <- 31
 onset_end_week <- 50
-#report_start_week <- 31
-#report_end_week <- 50
 ```
 
 Define the year
@@ -102,7 +98,6 @@ Filter rows based on the week range
 
 ```{r}
 filtered_dengue <- dengueDaily[dengueDaily$week_number_onsetDay >= onset_start_week & dengueDaily$week_number_onsetDay <= onset_end_week & year(dengueDaily$發病日) == year, ]
-#filtered_reportDengue <- dengueDaily[dengueDaily$week_number_reportDay >= report_start_week & dengueDaily$week_number_reportDay <= report_end_week & year(dengueDaily$通報日) == year, ]
 ```
 
 ## 2.3 Data Cleaning
@@ -156,7 +151,7 @@ Grouping village based on number of dengue cases
 
 ```{r}
 grouped_data <- filtered_dengue %>%
-  group_by(VILLNAME, week_number_onsetDay) %>%
+  group_by(TOWNNAME, VILLNAME, week_number_onsetDay) %>%
   summarise(dengueCases = sum(確定病例數))
 ```
 
@@ -169,7 +164,7 @@ grouped_data <- grouped_data[!(grouped_data$VILLNAME == "None"), ]
 Combining both data frame by using left join
 
 ```{r}
-joined_data <- left_join(filtered_tainan, grouped_data, by = c("VILLNAME"))
+joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME","VILLNAME"))
 ```
 
 ```{r}
@@ -647,7 +642,7 @@ A time series cube is a data structure that contains a series of spatial data la
 
 ```{r}
 test <- filtered_dengue %>%
-  group_by(發病日, VILLNAME) %>%
+  group_by(發病日, TOWNNAME, VILLNAME) %>%
   summarise(count = sum(確定病例數))
 ```
 
@@ -656,24 +651,33 @@ test <- test[!(test$VILLNAME == "None"), ]
 ```
 
 ```{r}
-test_join <- left_join(filtered_tainan, test, by = c("VILLNAME"))
-```
-
-```{r}
-test_join <- test_join[!(test_join$count == "NA"), ]
+test_join <- left_join(filtered_tainan, test, by = c("TOWNNAME", "VILLNAME"))
 ```
 
 ```{r}
 #| eval: false
 #| echo: false
-#test_join <- test_join %>%
-  #select(1:9,11,12)
+test_join <- test_join[!(test_join$count == "NA"), ]
+```
+
+```{r}
+test_join <- test_join %>%
+  select(1,11,12)
 ```
 
 ```{r}
 dengue_st <- spacetime(test_join, filtered_tainan,
                       .loc_col = "VILLCODE",
                       .time_col = "發病日")
+```
+
+```{r}
+checkMe <- colSums(is.na(dengue_st))
+print(checkMe)
+```
+
+```{r}
+dengue_st <- dengue_st[!(is.na(dengue_st$count)), ]
 ```
 
 Next, `is_spacetime_cube()` of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.

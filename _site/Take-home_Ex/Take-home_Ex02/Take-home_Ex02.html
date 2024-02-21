@@ -396,20 +396,16 @@ Note
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dengueDaily<span class="sc">$</span>發病日 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dengueDaily<span class="sc">$</span>發病日)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dengueDaily$通報日 &lt;- as.Date(dengueDaily$通報日)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dengueDaily<span class="sc">$</span>發病日 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(dengueDaily<span class="sc">$</span>發病日)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Extract week numbers from the date column</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dengueDaily<span class="sc">$</span>week_number_onsetDay <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(dengueDaily<span class="sc">$</span>發病日, <span class="st">"%V"</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#dengueDaily$week_number_reportDay &lt;- as.numeric(format(dengueDaily$通報日, "%V"))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dengueDaily<span class="sc">$</span>week_number_onsetDay <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">format</span>(dengueDaily<span class="sc">$</span>發病日, <span class="st">"%V"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define the start (31) and end (50) weeks of your range</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>onset_start_week <span class="ot">&lt;-</span> <span class="dv">31</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>onset_end_week <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#report_start_week &lt;- 31</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#report_end_week &lt;- 50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>onset_end_week <span class="ot">&lt;-</span> <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define the year</p>
 <div class="cell">
@@ -417,8 +413,7 @@ Note
 </div>
 <p>Filter rows based on the week range</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>filtered_dengue <span class="ot">&lt;-</span> dengueDaily[dengueDaily<span class="sc">$</span>week_number_onsetDay <span class="sc">&gt;=</span> onset_start_week <span class="sc">&amp;</span> dengueDaily<span class="sc">$</span>week_number_onsetDay <span class="sc">&lt;=</span> onset_end_week <span class="sc">&amp;</span> <span class="fu">year</span>(dengueDaily<span class="sc">$</span>發病日) <span class="sc">==</span> year, ]</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#filtered_reportDengue &lt;- dengueDaily[dengueDaily$week_number_reportDay &gt;= report_start_week &amp; dengueDaily$week_number_reportDay &lt;= report_end_week &amp; year(dengueDaily$通報日) == year, ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>filtered_dengue <span class="ot">&lt;-</span> dengueDaily[dengueDaily<span class="sc">$</span>week_number_onsetDay <span class="sc">&gt;=</span> onset_start_week <span class="sc">&amp;</span> dengueDaily<span class="sc">$</span>week_number_onsetDay <span class="sc">&lt;=</span> onset_end_week <span class="sc">&amp;</span> <span class="fu">year</span>(dengueDaily<span class="sc">$</span>發病日) <span class="sc">==</span> year, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-cleaning" class="level2">
@@ -466,7 +461,7 @@ Note
 <p>Grouping village based on number of dengue cases</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>grouped_data <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(VILLNAME, week_number_onsetDay) <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(TOWNNAME, VILLNAME, week_number_onsetDay) <span class="sc">%&gt;%</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">dengueCases =</span> <span class="fu">sum</span>(確定病例數))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Removing missing values</p>
@@ -475,7 +470,7 @@ Note
 </div>
 <p>Combining both data frame by using left join</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, grouped_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>joined_data <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, grouped_data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"TOWNNAME"</span>,<span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="plotting-a-choropleth-map" class="level2">
@@ -1031,27 +1026,39 @@ Geodetic CRS:  TWD97
 <p>A time series cube is a data structure that contains a series of spatial data layers, each representing the spatial distribution of a phenomenon at a specific point in time. In this case, we will create a time series cube containing the number of dengue fever cases in Tainan City, Taiwan, for each week of the year 2023.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> filtered_dengue <span class="sc">%&gt;%</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(發病日, VILLNAME) <span class="sc">%&gt;%</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(發病日, TOWNNAME, VILLNAME) <span class="sc">%&gt;%</span></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count =</span> <span class="fu">sum</span>(確定病例數))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> test[<span class="sc">!</span>(test<span class="sc">$</span>VILLNAME <span class="sc">==</span> <span class="st">"None"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>test_join <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, test, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>test_join <span class="ot">&lt;-</span> <span class="fu">left_join</span>(filtered_tainan, test, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"TOWNNAME"</span>, <span class="st">"VILLNAME"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>test_join <span class="ot">&lt;-</span> test_join[<span class="sc">!</span>(test_join<span class="sc">$</span>count <span class="sc">==</span> <span class="st">"NA"</span>), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>test_join <span class="ot">&lt;-</span> test_join <span class="sc">%&gt;%</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="dv">1</span>,<span class="dv">11</span>,<span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>dengue_st <span class="ot">&lt;-</span> <span class="fu">spacetime</span>(test_join, filtered_tainan,</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.loc_col =</span> <span class="st">"VILLCODE"</span>,</span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">.time_col =</span> <span class="st">"發病日"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>checkMe <span class="ot">&lt;-</span> <span class="fu">colSums</span>(<span class="fu">is.na</span>(dengue_st))</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(checkMe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>VILLCODE   發病日    count geometry 
+       0       33       33        0 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>dengue_st <span class="ot">&lt;-</span> dengue_st[<span class="sc">!</span>(<span class="fu">is.na</span>(dengue_st<span class="sc">$</span>count)), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Next, <code>is_spacetime_cube()</code> of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>spt_complete <span class="ot">&lt;-</span> <span class="fu">complete_spacetime_cube</span>(dengue_st)</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is_spacetime_cube</span>(spt_complete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>spt_complete <span class="ot">&lt;-</span> <span class="fu">complete_spacetime_cube</span>(dengue_st)</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is_spacetime_cube</span>(spt_complete)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>

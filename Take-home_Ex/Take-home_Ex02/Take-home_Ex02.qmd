@@ -659,6 +659,8 @@ test <- filtered_dengue %>%
 ```
 
 ```{r}
+#| eval: false
+#| echo: false
 test <- test[!(test$VILLNAME == "None"), ]
 ```
 

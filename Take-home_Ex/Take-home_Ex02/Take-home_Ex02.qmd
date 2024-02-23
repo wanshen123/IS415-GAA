@@ -5,7 +5,7 @@ execute:
   warning: false
   eval: true
   echo: true
-# freeze: true
+  freeze: true
 # date: "`r Sys.Date()`"
 date: 02/09/2024
 date-format: "D MMM, YYYY" 
@@ -39,8 +39,10 @@ The primary objective of this study is to apply spatial and spatio-temporal anal
 
 -   [**sfdep**](https://sfdep.josiahparry.com/): Creating an sf and tidyverse friendly interface.
 
+-   [**plotly**](https://plotly.com/r/): For creating interactive plots and maps.
+
 ```{r}
-pacman::p_load(sf, sfdep, tmap, tidyverse)
+pacman::p_load(sf, sfdep, tmap, tidyverse, plotly)
 ```
 
 # 2.0 Spatial Data Wrangling
@@ -187,27 +189,6 @@ Combining both data frame by using left join
 joined_data <- left_join(filtered_tainan, grouped_data, by = c("TOWNNAME","VILLNAME"))
 ```
 
-```{r}
-#| eval: false
-#| echo: false
-crs_value <- st_crs(3824) 
-st_crs(points_sf) <- crs_value
-```
-
-```{r}
-#| eval: false
-#| echo: false
-points_within_polygons <- st_join(points_sf, polygons_sf)
-```
-
-```{r}
-#| eval: false
-#| echo: false
-grouped_test <- points_within_polygons %>%
-  group_by(居住鄉鎮, 居住村里, 內政部居住鄉鎮代碼) %>%
-  summarise(count = n())
-```
-
 ## 2.4 Plotting a choropleth map
 
 Before removing missing values
@@ -265,7 +246,6 @@ tm_shape(joined_data) +
 Visualizing the distribution of dengue cases by month
 
 ::: {.panel-tabset .nav-pills}
-
 ## August
 
 ```{r}
@@ -380,7 +360,6 @@ tm_shape(december) +
   tm_scale_bar() +
   tm_grid(alpha = 0.2)
 ```
-
 :::
 
 ::: callout-note
@@ -393,7 +372,7 @@ Areas that are white in colour are those that have no dengue cases.
 
 We compute spatial contiguity relationships among geometries stored in a data frame, calculates spatial weights based on these relationships, and adds the resulting variables to the data frame.
 
-:::callout-note
+::: callout-note
 Resetting the joined_data to the original data frame
 :::
 
@@ -652,67 +631,86 @@ Emerging hot spot analysis is a method used to identify areas that are experienc
 
 A time series cube is a data structure that contains a series of spatial data layers, each representing the spatial distribution of a phenomenon at a specific point in time. In this case, we will create a time series cube containing the number of dengue fever cases in Tainan City, Taiwan, for each week of the year 2023.
 
+::: callout-note
+We start by resetting the Tainan and Dengue data to its original filtered form.
+:::
+
 ```{r}
-test <- filtered_dengue %>%
-  group_by(發病日, TOWNNAME, VILLNAME) %>%
+filtered_tainan <- tainan[tainan$TOWNID %in% c("D01", "D02", "D04", "D06", "D07", "D08", "D32", "D39"), ]
+filtered_dengue <- dengueDaily[dengueDaily$week_number_onsetDay >= onset_start_week & dengueDaily$week_number_onsetDay <= onset_end_week & year(dengueDaily$發病日) == year, ]
+filtered_dengue <- filtered_dengue %>%
+  rename('x-coordinate' = 最小統計區中心點X,
+         'y-coordinate' = 最小統計區中心點Y,
+         'COUNTYNAME' = 居住縣市,
+         'VILLNAME' = 居住村里,
+         'TOWNNAME' = 居住鄉鎮)
+groupedDengue <- filtered_dengue %>%
+  group_by(week_number_onsetDay, TOWNNAME, VILLNAME) %>%
   summarise(count = sum(確定病例數))
 ```
 
-```{r}
-#| eval: false
-#| echo: false
-test <- test[!(test$VILLNAME == "None"), ]
-```
+We then join the filtered Tainan and Dengue data to create a new data frame containing the number of dengue fever cases in Tainan City for each week of the year 2023.
 
 ```{r}
-test_join <- left_join(filtered_tainan, test, by = c("TOWNNAME", "VILLNAME"))
+joinMe <- left_join(filtered_tainan, groupedDengue, by = c("TOWNNAME", "VILLNAME"))
 ```
 
-```{r}
-#| eval: false
-#| echo: false
-test_join <- test_join[!(test_join$count == "NA"), ]
-```
+We then select only the columns that we need for the time series cube.
 
 ```{r}
-test_join <- test_join %>%
+joinMe <- joinMe %>%
   select(1,11,12)
 ```
 
+We then drop the geometry column from the data frame and create a for loop to fill in missing values for each week of the year 2023.
+
 ```{r}
-dengue_st <- spacetime(test_join, filtered_tainan,
+dengueDrop <- st_drop_geometry(joinMe)
+
+unique_locations <- unique(dengueDrop$VILLCODE)
+
+num_iterations <- 20
+starting_value <- 31
+
+for (i in starting_value:(starting_value + num_iterations - 1)) {
+  missing_time <- i
+  
+  existing_locations <- dengueDrop$VILLCODE[dengueDrop$week_number_onsetDay == missing_time]
+  missing_locations <- setdiff(unique_locations, existing_locations)
+
+  new_rows <- data.frame(VILLCODE = missing_locations, week_number_onsetDay = missing_time, count = 0)
+  
+  dengueDrop <- rbind(dengueDrop, new_rows)
+}
+
+dengueDrop <- na.omit(dengueDrop)
+```
+
+We then convert the data frame to a tibble and create a time series cube using the spacetime() function.
+
+```{r}
+dengueDrop <- as_tibble(dengueDrop)
+dengue_st <- spacetime(dengueDrop, filtered_tainan,
                       .loc_col = "VILLCODE",
-                      .time_col = "發病日")
-```
-
-```{r}
-checkMe <- colSums(is.na(dengue_st))
-print(checkMe)
-```
-
-```{r}
-dengue_st <- dengue_st[!(is.na(dengue_st$count)), ]
+                      .time_col = "week_number_onsetDay")
 ```
 
 Next, `is_spacetime_cube()` of sfdep package will be used to verify if dengue_st is indeed an space-time cube object.
 
 ```{r}
-spt_complete <- complete_spacetime_cube(dengue_st)
-is_spacetime_cube(spt_complete)
+is_spacetime_cube(dengue_st)
 ```
 
-## 8.2 Computing Gi*
+## 8.2 Computing Gi\*
 
-Next, we will compute the local Gi* statistics. This will help us to identify areas that are experiencing significant changes in the spatial distribution of dengue fever cases over time. 
+Next, we will compute the local Gi\* statistics. This will help us to identify areas that are experiencing significant changes in the spatial distribution of dengue fever cases over time.
 
 ### 8.2.1 Deriving the spatial weights
 
-The code chunk below will be used to identify neighbors and to derive an inverse distance weights. 
+The code chunk below will be used to identify neighbors and to derive an inverse distance weights.
 
 ```{r}
-#| eval: false
-#| echo: false
-dengue_nb <- spt_complete %>%
+dengue_nb <- dengue_st %>%
   activate("geometry") %>%
   mutate(nb = include_self(st_contiguity(geometry)),
          wt = st_inverse_distance(nb, geometry,
@@ -723,6 +721,174 @@ dengue_nb <- spt_complete %>%
   set_wts("wt")
 ```
 
-# 9.0 Conclusion
+Note that this dataset now has neighbors and weights for each time-slice.
 
-In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan. The findings of this study will also be useful for future research on the spatial and spatio-temporal distribution of dengue fever in Tainan City, Taiwan. 
+We can use these new columns to manually calculate the local Gi\* for each location. We can do this by grouping by *Year* and using `local_gstar_perm()` of sfdep package. After which, we `use unnest()` to unnest *gi_star* column of the newly created *gi_starts* data.frame.
+
+```{r}
+gi_stars <- dengue_nb %>% 
+  group_by(week_number_onsetDay) %>% 
+  mutate(gi_star = local_gstar_perm(
+    count, nb, wt)) %>% 
+  tidyr::unnest(gi_star)
+```
+
+# 9.0 Mann-Kendall Test
+
+With these Gi\* measures we can then evaluate each location for a trend using the Mann-Kendall test. The code chunk below uses different VILLCODE to evaluate the trend of dengue fever cases over time.
+
+::: {.panel-tabset .nav-pills}
+## 67000350032
+
+```{r}
+cbg <- gi_stars %>% 
+  ungroup() %>% 
+  filter(VILLCODE == 67000350032) |> 
+  select(VILLCODE, week_number_onsetDay, gi_star)
+
+p <- ggplot(data = cbg, 
+       aes(x = week_number_onsetDay, 
+           y = gi_star)) +
+  geom_line() +
+  theme_light()
+
+ggplotly(p)
+```
+
+## 67000370005
+
+```{r}
+cbg <- gi_stars %>% 
+  ungroup() %>% 
+  filter(VILLCODE == 67000370005) |> 
+  select(VILLCODE, week_number_onsetDay, gi_star)
+
+p <- ggplot(data = cbg, 
+       aes(x = week_number_onsetDay, 
+           y = gi_star)) +
+  geom_line() +
+  theme_light()
+
+ggplotly(p)
+```
+
+## 67000350017
+
+```{r}
+cbg <- gi_stars %>% 
+  ungroup() %>% 
+  filter(VILLCODE == 67000350017) |> 
+  select(VILLCODE, week_number_onsetDay, gi_star)
+
+p <- ggplot(data = cbg, 
+       aes(x = week_number_onsetDay, 
+           y = gi_star)) +
+  geom_line() +
+  theme_light()
+
+ggplotly(p)
+```
+
+## 67000310033
+
+```{r}
+cbg <- gi_stars %>% 
+  ungroup() %>% 
+  filter(VILLCODE == 67000310033) |> 
+  select(VILLCODE, week_number_onsetDay, gi_star)
+
+p <- ggplot(data = cbg, 
+       aes(x = week_number_onsetDay, 
+           y = gi_star)) +
+  geom_line() +
+  theme_light()
+
+ggplotly(p)
+```
+:::
+
+```{r}
+cbg %>%
+  summarise(mk = list(
+    unclass(
+      Kendall::MannKendall(gi_star)))) %>% 
+  tidyr::unnest_wider(mk)
+```
+
+```{r}
+ehsa <- gi_stars %>%
+  group_by(VILLCODE) %>%
+  summarise(mk = list(
+    unclass(
+      Kendall::MannKendall(gi_star)))) %>%
+  tidyr::unnest_wider(mk)
+```
+
+## 9.1 Arrange to show significant emerging hot/cold spots
+
+```{r}
+emerging <- ehsa %>% 
+  arrange(sl, abs(tau)) %>% 
+  slice(1:5)
+```
+
+## 9.2 Performing Emerging Hotspot Analysis
+
+Lastly, we will perform EHSA analysis by using [`emerging_hotspot_analysis()`](https://sfdep.josiahparry.com/reference/emerging_hotspot_analysis.html) of sfdep package. It takes a spacetime object x (i.e. GDPPC_st), and the quoted name of the variable of interest (i.e. GDPPC) for .var argument. The k argument is used to specify the number of time lags which is set to 1 by default. Lastly, nsim map numbers of simulation to be performed.
+
+```{r}
+ehsa <- emerging_hotspot_analysis(
+  x = dengue_st, 
+  .var = "count", 
+  k = 1, 
+  nsim = 99
+)
+```
+
+### 9.2.1 Visualising the distribution of EHSA classes
+
+In the code chunk below, ggplot2 functions ised used to reveal the distribution of EHSA classes as a bar chart.
+
+```{r}
+ggplot(data = ehsa,
+       aes(x = classification)) +
+  geom_bar()
+```
+
+Figure above shows that oscilating hot spots class has the highest numbers of dengue cases.
+
+### 9.2.2 Visualising EHSA
+
+In this section, you will learn how to visualise the geographic distribution EHSA classes. However, before we can do so, we need to join both tainan and ehsa together by using the code chunk below.
+
+```{r}
+tainan_ehsa <- filtered_tainan %>%
+  left_join(ehsa,
+            by = join_by(VILLCODE == location))
+```
+
+Next, tmap functions will be used to plot a categorical choropleth map by using the code chunk below.
+
+```{r}
+ehsa_sig <- tainan_ehsa  %>%
+  filter(p_value < 0.05)
+tmap_mode("plot")
+tm_shape(tainan_ehsa) +
+  tm_polygons() +
+  tm_borders(alpha = 0.5) +
+tm_shape(ehsa_sig) +
+  tm_fill("classification") + 
+  tm_borders(alpha = 0.4)
+```
+
+# 10.0 Conclusion
+
+In this study, we have successfully applied spatial and spatio-temporal analysis methods to discover the distribution of d dengue fever in Tainan City, Taiwan. We have identified clusters, outliers, and emerging hot spot/cold spot areas within the region. The results of the analysis will be useful for public health officials and policymakers to make informed decisions and implement targeted interventions to control the spread of dengue fever in Tainan City, Taiwan.
+
+The reason for the high number of dengue cases in the inner regions of Tainan City, is likely related to the hot and humid summers from August to November. The high temperatures and humidity provide ideal breeding conditions for the mosquito, which is the primary vector for dengue fever. During December, the number of dengue cases decreases, likely due to the cooler temperatures and lower humidity as seen from the distribution of dengue cases by month earlier in the analysis.
+
+Furthermore, our analysis reveals significant shifts in the spatial distribution of dengue fever cases over time in certain areas of Tainan City. These areas, likely emerging hot spots or cold spots, warrant further investigation to uncover the underlying factors driving these changes. By understanding these dynamics, public health officials and policymakers can develop targeted interventions to address the spread of dengue fever in these areas effectively.
+
+# 11.0 References
+
+OpenAI. (2022). ChatGPT \[Computer software\]. Retrieved from <https://openai.com/chatgpt>

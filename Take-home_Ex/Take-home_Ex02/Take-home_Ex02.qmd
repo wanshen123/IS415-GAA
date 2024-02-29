@@ -665,6 +665,7 @@ joinMe <- joinMe %>%
 We then drop the geometry column from the data frame and create a for loop to fill in missing values for each week of the year 2023.
 
 ```{r}
+#| echo: false
 dengueDrop <- st_drop_geometry(joinMe)
 
 unique_locations <- unique(dengueDrop$VILLCODE)

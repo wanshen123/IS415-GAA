@@ -665,7 +665,6 @@ joinMe <- joinMe %>%
 We then drop the geometry column from the data frame and create a for loop to fill in missing values for each week of the year 2023.
 
 ```{r}
-#| echo: false
 dengueDrop <- st_drop_geometry(joinMe)
 
 unique_locations <- unique(dengueDrop$VILLCODE)
@@ -892,4 +891,4 @@ Furthermore, our analysis reveals significant shifts in the spatial distribution
 
 # 11.0 References
 
-OpenAI. (2022). ChatGPT \[Computer software\]. Retrieved from <https://openai.com/chatgpt>
+OpenAI. (2022). ChatGPT \[Computer software\]. Retrieved from <https://openai.com/chatgpt>.

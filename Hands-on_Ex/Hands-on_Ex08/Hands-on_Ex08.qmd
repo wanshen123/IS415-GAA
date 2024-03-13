@@ -205,6 +205,7 @@ test_data_sp
 ## 6.6 Computing adaptive bandwidth for the test data
 
 ```{r}
+#| eval: false
 gwr_bw_test_adaptive <- bw.gwr(resale_price ~ floor_area_sqm +
                   storey_order + remaining_lease_mths +
                   PROX_CBD + PROX_ELDERLYCARE + PROX_HAWKER +
@@ -217,6 +218,15 @@ gwr_bw_test_adaptive <- bw.gwr(resale_price ~ floor_area_sqm +
                   kernel="gaussian",
                   adaptive=TRUE,
                   longlat=FALSE)
+```
+
+```{r}
+#| eval: false
+write_rds(gwr_bw_test_adaptive, "../../data/model/gwr_bw_test_adaptive.rds")
+```
+
+```{r}
+gwr_bw_test_adaptive <- read_rds("../../data/model/gwr_bw_test_adaptive.rds")
 ```
 
 ## 6.7 Computing predicted values of the test data

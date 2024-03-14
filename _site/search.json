@@ -2021,5 +2021,26 @@
     "title": "IS415-Wan Shen",
     "section": "",
     "text": "&lt;!DOCTYPE qgis PUBLIC ‘http://mrcc.com/qgis.dtd’ ‘SYSTEM’&gt;     dataset\n\n\n        0 0     false"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
+    "href": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html",
+    "title": "Take-home Exercise 3",
+    "section": "",
+    "text": "Our project aims to develop a comprehensive application that leverages geospatial analytics to optimize the distribution of recycling bins across Singapore. By analyzing data on population density and existing bin locations, the application will identify spatial patterns, gaps in coverage, and opportunities for improvement in the placement of normal blue recycling bins, incentive bins, and e-waste bins. The application will then provide insights based on the analysis and allow users to interactively explore the data and results."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html#sidebar-panel",
+    "href": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html#sidebar-panel",
+    "title": "Take-home Exercise 3",
+    "section": "4.1 Sidebar Panel",
+    "text": "4.1 Sidebar Panel\n\nData Import: This section will provide a file upload input to allow the user to upload CSV files containing population density and existing bin location data.\nData Preprocessing: After uploading the data files, the user can trigger the data preprocessing step by clicking an action button in this section.\nData Summary: Once the data preprocessing is complete, this section will display a summary output showing the number of records, data types, and basic statistics for the imported and preprocessed datasets.\nSpatial Analysis: This section will provide a selection input (e.g., dropdown, radio buttons) for the user to choose the desired spatial analysis method, such as hotspot analysis, spatial autocorrelation, or density-based clustering.\nKDE Analysis: Similar to the spatial analysis section, this section will offer selection inputs (e.g., checkboxes) for the user to choose the bin types (normal blue recycling bins, incentive bins, or e-waste bins) for which the KDE analysis should be conducted."
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html#main-panel",
+    "href": "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html#main-panel",
+    "title": "Take-home Exercise 3",
+    "section": "4.2 Main Panel",
+    "text": "4.2 Main Panel\n\nAnalysis Results: This area of the main panel will display the outputs of the spatial analysis and KDE analysis. It may include an interactive map output, chart outputs (e.g., bar charts, line charts), and table outputs to visualize the results.\nUser Interaction: Within the main panel, the user will be able to interact with the visualizations presented in the “Analysis Results” section. This section may include:\n\n\nAn interactive map output, allowing the user to zoom, pan, and explore the spatial patterns and bin locations.\n\n\n\n\nFiltering controls to filter the data based on specific criteria (e.g., bin types, hotspot thresholds).\n\n\n\n\nZooming and panning controls for the interactive map.\n\n\n\nThe Shiny application will use reactive programming principles to update the outputs in the main panel based on the user inputs and selections in the sidebar panel. The layout and styling of the UI elements can be further customized using Shiny’s built-in functions and external CSS frameworks."
   }
 ]

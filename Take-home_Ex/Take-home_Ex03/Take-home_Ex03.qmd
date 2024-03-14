@@ -21,4 +21,82 @@ format: html
 
 # 1.0 Introduction
 
-Our project aims to develop a comprehensive application that leverages geospatial analytics to optimize the distribution of recycling bins across Singapore. By analyzing data on waste generation, population density, and existing bin locations, the application will identify spatial patterns, gaps in coverage, and opportunities for improvement in the placement of normal blue recycling bins, incentive bins, and e-waste bins. The application will then provide insights for specific actions, such as relocating bins, increasing the density of certain bin types in high-waste areas, or introducing new bins in areas with low coverage.
+Our project aims to develop a comprehensive application that leverages geospatial analytics to optimize the distribution of recycling bins across Singapore. By analyzing data on population density and existing bin locations, the application will identify spatial patterns, gaps in coverage, and opportunities for improvement in the placement of normal blue recycling bins, incentive bins, and e-waste bins. The application will then provide insights based on the analysis and allow users to interactively explore the data and results.
+
+# 2.0 Objectives
+
+The objectives of this exercise are to prototype the modules for the geospatial analytics application. The modules will be developed using R and Shiny and will include the following components:
+
+1.  Data Import and Preprocessing: Module for importing and preprocessing the data on population density and existing bin locations.
+
+2.  Spatial Analysis: Module for conducting spatial analysis to identify spatial patterns, gaps in coverage, and opportunities for improvement in the placement of recycling bins.
+
+3.  Kernel Density Estimation (KDE) Analysis: Module for conducting KDE analysis to identify areas with high concentrations of population and recommend the placement of recycling bins.
+
+4.  Interactive Visualization: Module for creating interactive visualizations to present the results of the spatial analysis and allow users to explore the data and results.
+
+# 3.0 Storyboard
+
+The following storyboard outlines the user interface and functionality of the project:
+
+1.  Data Import: The user will be able to upload CSV files containing the data on population density and existing bin locations.
+
+2.  Data Preprocessing: The module will clean, transform, and merge the datasets to prepare them for spatial analysis.
+
+3.  Data Summary: The user will be able to view a summary of the imported and preprocessed data, including the number of records, data types, and basic statistics.
+
+4.  Spatial Analysis: The user will be able to select the type of spatial analysis to be conducted, such as hotspot analysis, spatial autocorrelation, or density-based clustering.
+
+5.  Kernel Density Estimation (KDE) Analysis: The user will be able to select the type of KDE analysis to be conducted, such as normal blue recycling bins, incentive bins, or e-waste bins.
+
+6.  Analysis Results: The module will present the results of the spatial analysis using interactive maps, charts, and tables.
+
+7.  User Interaction: The user will be able to interact with the visualizations to explore the spatial patterns, gaps in coverage, and opportunities for improvement in the placement of recycling bins.
+
+# 4.0 UI Design
+
+In Shiny, the user interface is divided into two main panels: the sidebar panel and the main panel.
+
+## 4.1 Sidebar Panel
+
+-   Data Import: This section will provide a file upload input to allow the user to upload CSV files containing population density and existing bin location data.
+
+-   Data Preprocessing: After uploading the data files, the user can trigger the data preprocessing step by clicking an action button in this section.
+
+-   Data Summary: Once the data preprocessing is complete, this section will display a summary output showing the number of records, data types, and basic statistics for the imported and preprocessed datasets.
+
+-   Spatial Analysis: This section will provide a selection input (e.g., dropdown, radio buttons) for the user to choose the desired spatial analysis method, such as hotspot analysis, spatial autocorrelation, or density-based clustering.
+
+-   KDE Analysis: Similar to the spatial analysis section, this section will offer selection inputs (e.g., checkboxes) for the user to choose the bin types (normal blue recycling bins, incentive bins, or e-waste bins) for which the KDE analysis should be conducted.
+
+## 4.2 Main Panel
+
+-   Analysis Results: This area of the main panel will display the outputs of the spatial analysis and KDE analysis. It may include an interactive map output, chart outputs (e.g., bar charts, line charts), and table outputs to visualize the results.
+
+-   User Interaction: Within the main panel, the user will be able to interact with the visualizations presented in the "Analysis Results" section. This section may include:
+
+    <div>
+
+    -   An interactive map output, allowing the user to zoom, pan, and explore the spatial patterns and bin locations.
+
+    </div>
+
+    <div>
+
+    -   Filtering controls to filter the data based on specific criteria (e.g., bin types, hotspot thresholds).
+
+    </div>
+
+    <div>
+
+    -   Zooming and panning controls for the interactive map.
+
+    </div>
+
+The Shiny application will use reactive programming principles to update the outputs in the main panel based on the user inputs and selections in the sidebar panel. The layout and styling of the UI elements can be further customized using Shiny's built-in functions and external CSS frameworks.
+
+![](/img/8j6zct.jpg)
+
+# 5.0 Conclusion
+
+This exercise has outlined the objectives, storyboard, and UI design for the geospatial analytics application. The next steps will involve prototyping the modules using R and Shiny, integrating the modules into a comprehensive application, and conducting user testing to gather feedback and refine the application. The final application will provide valuable insights and recommendations for optimizing the distribution of recycling bins across Singapore, contributing to sustainable waste management and environmental conservation efforts. 

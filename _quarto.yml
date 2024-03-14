@@ -52,8 +52,9 @@ website:
           - text: "Take-home Exercise 1"
             href: "Take-home_Ex/Take-home_Ex01/Take-home_Ex01.html"
           - text: "Take-home Exercise 2"
-            #href: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
             href: "Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html"
+          - text: "Take-home Exercise 3"
+            href: "Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html"
     right:
       - href: "https://github.com/wanshen123/IS415-GAA"
         icon: "bi bi-github"

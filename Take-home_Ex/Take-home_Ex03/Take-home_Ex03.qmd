@@ -1,0 +1,24 @@
+---
+title: "Take-home Exercise 3"
+description: "Prototyping Modules for Geospatial Analytics Shiny Application"
+execute: 
+  warning: false
+  eval: true
+  echo: true
+  freeze: true
+# date: "`r Sys.Date()`"
+date: 03/14/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - Take-Home Exercise
+title-block-categories: false
+format: html 
+---
+
+# 1.0 Introduction
+
+Our project aims to develop a comprehensive application that leverages geospatial analytics to optimize the distribution of recycling bins across Singapore. By analyzing data on waste generation, population density, and existing bin locations, the application will identify spatial patterns, gaps in coverage, and opportunities for improvement in the placement of normal blue recycling bins, incentive bins, and e-waste bins. The application will then provide insights for specific actions, such as relocating bins, increasing the density of certain bin types in high-waste areas, or introducing new bins in areas with low coverage.

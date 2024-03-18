@@ -1,0 +1,241 @@
+---
+title: "In-class Exercise 8"
+description: "Geographically Weighted Predictive Models"
+execute: 
+  warning: false
+  freeze: true
+# date: "`r Sys.Date()`"
+date: 03/18/2024
+date-format: "D MMM, YYYY" 
+author: 
+  - Wan Shen
+sidebar: false
+title-block-banner: true
+categories:
+  - In-Class Exercise
+title-block-categories: false
+---
+
+# 1.0 Getting Started
+
+```{r}
+pacman::p_load(performance ,ggstatsplot, rpart.plot, rpart, gtsummary, tidyverse, tidymodels, SpatialML, GWmodel, sf, spdep, tmap)
+```
+
+# 2.0 Load Data
+
+```{r}
+rs_sf <- read_rds("../../data/rds/HDB_resale.rds")
+```
+
+Next, the code chunk below is used to reveal the properties of *rs_sf* object.
+
+```{r}
+set.seed(1234)
+resale_split <- initial_split(
+  rs_sf,
+  prop = 5/10,)
+train_sf <- training(resale_split)
+test_sf <- testing(resale_split)
+
+```
+
+# 3.0 Geographically Weighted Predictive Models
+
+```{r}
+train_df <- train_sf %>%
+  st_drop_geometry() %>%
+  as.data.frame()
+
+test_df <- test_sf %>%
+  st_drop_geometry() %>%
+  as.data.frame()
+```
+
+# 4.0 Computing Correlation Matrix
+
+```{r}
+rs_sf1 <- rs_sf %>%
+  st_drop_geometry()
+ggcorrmat(rs_sf1[, 2:17])
+```
+
+# 5.0 Geographically Weighted Predictive Models
+
+```{r}
+train_df <- train_df %>%
+  select(-c(PROX_CHAS))
+train_sf <- train_sf %>%
+  select(-c(PROX_CHAS))
+test_df <- test_df %>%
+  select(-c(PROX_CHAS))
+test_sf <- test_sf %>%
+  select(-c(PROX_CHAS))
+```
+
+# 6.0 Model Fitting
+
+```{r}
+rs_mlr <- lm(formula = RESALE_PRICE ~
+FLOOR_AREA_SQM + STOREY_ORDER +
+REMAINING_LEASE_MTHS + PROX_CBD +
+PROX_ELDERLYCARE + PROX_HAWKER +
+PROX_MRT + PROX_PARK + PROX_GOOD_PRISCH + PROX_MALL + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+WITHIN_350M_CHILDCARE + WITHIN_350M_BUS +
+WITHIN_1KM_PRISCH, data=train_df)
+```
+
+# 7.0 Model Evaluation
+
+```{r}
+train_sp <- as_Spatial(train_sf)
+train_sp
+```
+
+```{r}
+test_sp <- as_Spatial(test_sf)
+test_sp
+```
+
+```{r}
+coords <- st_coordinates(rs_sf)
+coords_train <- st_coordinates(train_sf)
+coords_test <- st_coordinates(test_sf)
+```
+
+# 8.0 Model Fitting
+
+```{r}
+set.seed(1234)
+rs_rp <- rpart(formula = RESALE_PRICE ~
+FLOOR_AREA_SQM + STOREY_ORDER +
+REMAINING_LEASE_MTHS + PROX_CBD +
+PROX_ELDERLYCARE + PROX_HAWKER +
+PROX_MRT + PROX_PARK + PROX_GOOD_PRISCH + PROX_MALL + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+WITHIN_350M_CHILDCARE + WITHIN_350M_BUS +
+WITHIN_1KM_PRISCH, data=train_df)
+rs_rp
+```
+
+# 9.0 Model Evaluation
+
+```{r}
+rpart.plot(rs_rp)
+```
+
+## 9.1 Calibrating Random Forest Model
+
+```{r}
+set.seed(1234)
+rs_rf <- ranger(formula = RESALE_PRICE ~
+FLOOR_AREA_SQM + STOREY_ORDER +
+REMAINING_LEASE_MTHS + PROX_CBD +
+PROX_ELDERLYCARE + PROX_HAWKER +
+PROX_MRT + PROX_PARK + PROX_GOOD_PRISCH + PROX_MALL + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+WITHIN_350M_CHILDCARE + WITHIN_350M_BUS +
+WITHIN_1KM_PRISCH, data=train_df, importance = "impurity")
+rs_rf
+```
+
+```{r}
+vi <- as.data.frame(rs_rf$variable.importance)
+vi$variable <- rownames(vi)
+vi <- vi %>%
+  rename(vi = "rs_rf$variable.importance")
+```
+
+```{r}
+ggplot(data = vi,
+       aes(x = vi,
+           y = reorder(variable, vi))) +
+  geom_bar(stat="identity")
+```
+
+# 10.0 Model Evaluation
+
+```{r}
+#| eval: false
+set.seed(1234)
+rs_grf <- grf(formula = RESALE_PRICE ~
+FLOOR_AREA_SQM + STOREY_ORDER +
+REMAINING_LEASE_MTHS + PROX_CBD +
+PROX_ELDERLYCARE + PROX_HAWKER +
+PROX_MRT + PROX_PARK + PROX_GOOD_PRISCH + PROX_MALL + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +
+WITHIN_350M_CHILDCARE + WITHIN_350M_BUS +
+WITHIN_1KM_PRISCH, data=train_df, kernel="adaptive", coords= coords_train, bw.min = 25, bw.max = 60, step = 1, nthreads = 16, forest = FALSE, weighted = TRUE)
+```
+
+```{r}
+#| eval: false
+test_df <- cbind(test_sf, coords_test) %>%
+  st_drop_geometry()
+```
+
+```{r}
+#| eval: false
+grf_pred <- predict.grf(rs_grf,
+                        test_df,
+                        x.var.name="X",
+                        y.var.name="Y",
+                        local.w=1,
+                        global.w=0)
+```
+
+```{r}
+#| eval: false
+grf_pred <- read_rds("../../data/models/grf_pred.rds")
+grf_pred_df <- as.data.frame(grf_pred)
+```
+
+```{r}
+#| eval: false
+test_pred <- test_df %>%
+  select(RESALE_PRICE) %>%
+  cbind(grf_pred_df)
+```
+
+```{r}
+#| eval: false
+rf_pred <- predict(rs_rf, test_df)
+```
+
+```{r}
+#| eval: false
+rf_pred_df <- as.data.frame(rf_pred$predictions) %>%
+  rename(rf_pred = "rf_pred$predictions")
+```
+
+```{r}
+#| eval: false
+test_pred <- cbind(test_pred, rf_pred_df)
+```
+
+```{r}
+#| eval: false
+mlr_pred <- predict(rs_mlr, test_df)
+```
+
+```{r}
+#| eval: false
+mlr_pred_df <- as.data.frame(mlr_pred) %>%
+  rename(mlr_pred = "mlr_pred")
+```
+
+```{r}
+#| eval: false
+test_pred <- cbind(test_pred, mlr_pred_df)
+```
+
+```{r}
+#| eval: false
+yardstick::rmse(test_pred, RESALE_PRICE, mlr_pred)
+```
+
+```{r}
+#| eval: false
+mc <- test_pred %>%
+  pivot_longer(cols = c(2:4), 
+               names_to = "models",
+               values_to = "predicted")
+```
+

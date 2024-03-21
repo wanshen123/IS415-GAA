@@ -69,7 +69,7 @@ In Shiny, the user interface is divided into two main panels: the sidebar panel 
 
 -   KDE Analysis: Similar to the spatial analysis section, this section will offer selection inputs (e.g., checkboxes) for the user to choose the bin types (normal blue recycling bins, incentive bins, or e-waste bins) for which the KDE analysis should be conducted. This will be done through the use of Singapore map to show the location of the bins and the density of the bins as shown in the image below.
 
-    ![](/img/Screenshot%202024-03-16%20183802.png)
+    ![](map.png)
 
 ## 4.2 Main Panel
 
@@ -95,9 +95,9 @@ In Shiny, the user interface is divided into two main panels: the sidebar panel 
 
     </div>
 
-The Shiny application will use reactive programming principles to update the outputs in the main panel based on the user inputs and selections in the sidebar panel. The layout and styling of the UI elements can be further customized using Shiny's built-in functions and external CSS frameworks.
+The Shiny application will use reactive programming principles to update the outputs in the main panel based on the user inputs and selections in the sidebar panel. The layout and styling of the UI elements can be further customized using Shiny's built-in functions and external CSS frameworks. However, I lack the expertise to produce additional polished prototype screenshots, as I have not yet received instruction in this area.
 
-![](/img/8jg6yz.jpg)
+![](8jg6yz.jpg){fig-align="center"}
 
 # 5.0 Conclusion
 

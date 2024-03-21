@@ -151,7 +151,7 @@
     "href": "index.html",
     "title": "IS415-Wan Shen",
     "section": "",
-    "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nData Preparation\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nThematic Mapping and GeoVisualisation with R\n\n\n\n\n\n\nJan 11, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 2\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nR for Geospatital Data Science\n\n\n\n\n\n\nJan 15, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n1st Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n2nd Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 19, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore\n\n\n\n\n\n\nJan 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 3\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nKernel Density Estimation\n\n\n\n\n\n\nJan 22, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3C\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nNetwork Constrained Spatial Point Patterns Analysis\n\n\n\n\n\n\nJan 23, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 4\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nSpatial Weights and Applications\n\n\n\n\n\n\nJan 24, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 4\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nWorking with Geographically Weighted Summary Statistics (GWSS)\n\n\n\n\n\n\nJan 29, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 5A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGlobal Measures of Spatial Autocorrelation\n\n\n\n\n\n\nJan 30, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 5B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nLocal Measures of Spatial Autocorrelation\n\n\n\n\n\n\nJan 31, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 5\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nGlobal and Local Measures of Spatial Autocorrelation - sfdep methods\n\n\n\n\n\n\nFeb 5, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 2\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial and Spatio-temporal Analysis Methods to Discover the Distribution of Dengue Fever in Tainan City, Taiwan\n\n\n\n\n\n\nFeb 9, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 6\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nEmerging Hot Spot Analysis: sfdep methods\n\n\n\n\n\n\nFeb 10, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 6\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeographical Segmentation with Spatially Constrained Clustering Techniques\n\n\n\n\n\n\nFeb 20, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 7\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nCalibrating Hedonic Pricing Model for Private Highrise Property with GWR Method\n\n\n\n\n\n\nFeb 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 7\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nGeographical Segmentation with Spatially Constrained Clustering Techniques\n\n\n\n\n\n\nMar 4, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 8\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeographically Weighted Predictive Models\n\n\n\n\n\n\nMar 12, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 3\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nPrototyping Modules for Geospatial Analytics Shiny Application\n\n\n\n\n\n\nMar 14, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 8\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nGeographically Weighted Predictive Models\n\n\n\n\n\n\nMar 18, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
+    "text": "Welcome to IS415 Geospatial Analytics and Applications.\nThis is the course website of IS415 I study this term. You will find my course work on this website.\n\n\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 1\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeospatial Data Wrangling with R\n\n\n\n\n\n\nJan 7, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 1\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nData Preparation\n\n\n\n\n\n\nJan 8, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 2\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nThematic Mapping and GeoVisualisation with R\n\n\n\n\n\n\nJan 11, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 2\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nR for Geospatital Data Science\n\n\n\n\n\n\nJan 15, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n1st Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 17, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\n2nd Order Spatial Point Patterns Analysis Methods\n\n\n\n\n\n\nJan 19, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 1\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial Point Patterns Analysis to discover the geographical distribution of Grab hailing services in Singapore\n\n\n\n\n\n\nJan 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 3\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nKernel Density Estimation\n\n\n\n\n\n\nJan 22, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 3C\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nNetwork Constrained Spatial Point Patterns Analysis\n\n\n\n\n\n\nJan 23, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 4\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nSpatial Weights and Applications\n\n\n\n\n\n\nJan 24, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 4\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nWorking with Geographically Weighted Summary Statistics (GWSS)\n\n\n\n\n\n\nJan 29, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 5A\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGlobal Measures of Spatial Autocorrelation\n\n\n\n\n\n\nJan 30, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 5B\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nLocal Measures of Spatial Autocorrelation\n\n\n\n\n\n\nJan 31, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 5\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nGlobal and Local Measures of Spatial Autocorrelation - sfdep methods\n\n\n\n\n\n\nFeb 5, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 2\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nApplication of Spatial and Spatio-temporal Analysis Methods to Discover the Distribution of Dengue Fever in Tainan City, Taiwan\n\n\n\n\n\n\nFeb 9, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 6\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nEmerging Hot Spot Analysis: sfdep methods\n\n\n\n\n\n\nFeb 10, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 6\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeographical Segmentation with Spatially Constrained Clustering Techniques\n\n\n\n\n\n\nFeb 20, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 7\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nCalibrating Hedonic Pricing Model for Private Highrise Property with GWR Method\n\n\n\n\n\n\nFeb 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 7\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nGeographical Segmentation with Spatially Constrained Clustering Techniques\n\n\n\n\n\n\nMar 4, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 8\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nGeographically Weighted Predictive Models\n\n\n\n\n\n\nMar 12, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nTake-home Exercise 3\n\n\n\n\n\n\n\nTake-Home Exercise\n\n\n\n\nPrototyping Modules for Geospatial Analytics Shiny Application\n\n\n\n\n\n\nMar 14, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nIn-class Exercise 8\n\n\n\n\n\n\n\nIn-Class Exercise\n\n\n\n\nGeographically Weighted Predictive Models\n\n\n\n\n\n\nMar 18, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 9\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nModelling Geographical Accessibility\n\n\n\n\n\n\nMar 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\n  \n\n\n\n\nHands-on Exercise 10\n\n\n\n\n\n\n\nHands-On Exercise\n\n\n\n\nCalibrating Spatial Interaction Models with R\n\n\n\n\n\n\nMar 21, 2024\n\n\nWan Shen\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "In-class_Ex/In-class_Ex06/In-class_Ex06.html",
@@ -2056,5 +2056,257 @@
     "title": "In-class Exercise 8",
     "section": "9.1 Calibrating Random Forest Model",
     "text": "9.1 Calibrating Random Forest Model\n\nset.seed(1234)\nrs_rf &lt;- ranger(formula = RESALE_PRICE ~\nFLOOR_AREA_SQM + STOREY_ORDER +\nREMAINING_LEASE_MTHS + PROX_CBD +\nPROX_ELDERLYCARE + PROX_HAWKER +\nPROX_MRT + PROX_PARK + PROX_GOOD_PRISCH + PROX_MALL + PROX_SUPERMARKET + WITHIN_350M_KINDERGARTEN +\nWITHIN_350M_CHILDCARE + WITHIN_350M_BUS +\nWITHIN_1KM_PRISCH, data=train_df, importance = \"impurity\")\nrs_rf\n\nRanger result\n\nCall:\n ranger(formula = RESALE_PRICE ~ FLOOR_AREA_SQM + STOREY_ORDER +      REMAINING_LEASE_MTHS + PROX_CBD + PROX_ELDERLYCARE + PROX_HAWKER +      PROX_MRT + PROX_PARK + PROX_GOOD_PRISCH + PROX_MALL + PROX_SUPERMARKET +      WITHIN_350M_KINDERGARTEN + WITHIN_350M_CHILDCARE + WITHIN_350M_BUS +      WITHIN_1KM_PRISCH, data = train_df, importance = \"impurity\") \n\nType:                             Regression \nNumber of trees:                  500 \nSample size:                      7950 \nNumber of independent variables:  15 \nMtry:                             3 \nTarget node size:                 5 \nVariable importance mode:         impurity \nSplitrule:                        variance \nOOB prediction error (MSE):       738005688 \nR squared (OOB):                  0.9485198 \n\n\n\nvi &lt;- as.data.frame(rs_rf$variable.importance)\nvi$variable &lt;- rownames(vi)\nvi &lt;- vi %&gt;%\n  rename(vi = \"rs_rf$variable.importance\")\n\n\nggplot(data = vi,\n       aes(x = vi,\n           y = reorder(variable, vi))) +\n  geom_bar(stat=\"identity\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html",
+    "title": "Hands-on Exercise 9",
+    "section": "",
+    "text": "Four data sets will be used in this hands-on exercise, they are:\n\nMP14_SUBZONE_NO_SEA_PL: URA Master Plan 2014 subzone boundary GIS data. This data set is downloaded from data.gov.sg.\nhexagons: A 250m radius hexagons GIS data. This data set was created by using st_make_grid() of sf package. It is in ESRI shapefile format.\nELDERCARE: GIS data showing location of eldercare service. This data is downloaded from data.gov.sg. There are two versions. One in ESRI shapefile format. The other one in Google kml file format. For the purpose of this hands-on exercise, ESRI shapefile format is provided.\nOD_Matrix: a distance matrix in csv format. There are six fields in the data file. They are:\n\norigin_id: the unique id values of the origin (i.e. fid of hexagon data set.),\ndestination_id: the unique id values of the destination (i.e. fid of ELDERCARE data set.),\nentry_cost: the perpendicular distance between the origins and the nearest road),\nnetwork_cost: the actual network distance from the origin and destination,\nexit_cost: the perpendicular distance between the destination and the nearest road), and\ntotal_cost: the summation of entry_cost, network_cost and exit_cost.\n\n\nAll the values of the cost related fields are in metres.\nBefore we getting started, it is important for us to install the necessary R packages and launch them into RStudio environment.\nThe R packages need for this exercise are as follows:\n\nSpatial data handling\n\nsf\n\nModelling geographical accessibility\n\nspatialAcc\n\nAttribute data handling\n\ntidyverse, especially readr and dplyr\n\nthematic mapping\n\ntmap\n\nStaistical graphic\n\nggplot2\n\nStatistical analysis\n\nggstatsplot\n\n\nThe code chunk below installs and launches these R packages into RStudio environment.\n\npacman::p_load(tmap, SpatialAcc, sf, \n               ggstatsplot, reshape2,\n               tidyverse)\n\nNotice that with tidyverse, we do not have to install readr, dplyr and ggplots packages separately. In fact, tidyverse also installs other R packages such as tidyr, stringr, forcats, tibble, purrr and magrittr."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#importing-geospatial-data",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#importing-geospatial-data",
+    "title": "Hands-on Exercise 9",
+    "section": "2.1 Importing geospatial data",
+    "text": "2.1 Importing geospatial data\nThree geospatial data will be imported from the data/geospatial sub-folder. They are MP14_SUBZONE_NO_SEA_PL, hexagons and ELDERCARE.\nThe code chunk below is used to import these three data sets shapefile by using st_read() of sf packages.\n\nmpsz &lt;- st_read(dsn = \"../../data/geospatial\", layer = \"MP14_SUBZONE_NO_SEA_PL\")\n\nReading layer `MP14_SUBZONE_NO_SEA_PL' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial' using driver `ESRI Shapefile'\nSimple feature collection with 323 features and 15 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21\n\nhexagons &lt;- st_read(dsn = \"../../data/geospatial\", layer = \"hexagons\") \n\nReading layer `hexagons' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial' using driver `ESRI Shapefile'\nSimple feature collection with 3125 features and 6 fields\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 21506.33 xmax: 50010.26 ymax: 50256.33\nProjected CRS: SVY21 / Singapore TM\n\neldercare &lt;- st_read(dsn = \"../../data/geospatial\", layer = \"ELDERCARE\") \n\nReading layer `ELDERCARE' from data source \n  `C:\\wanshen123\\IS415-GAA\\data\\geospatial' using driver `ESRI Shapefile'\nSimple feature collection with 120 features and 19 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: 14481.92 ymin: 28218.43 xmax: 41665.14 ymax: 46804.9\nProjected CRS: SVY21 / Singapore TM\n\n\nThe report above shows that the R object used to contain the imported MP14_SUBZONE_WEB_PL shapefile is called mpsz and it is a simple feature object. The geometry type is multipolygon. it is also important to note that mpsz simple feature object does not have EPSG information."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#updating-crs-information",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#updating-crs-information",
+    "title": "Hands-on Exercise 9",
+    "section": "2.2 Updating CRS information",
+    "text": "2.2 Updating CRS information\nThe code chunk below updates the newly imported mpsz with the correct ESPG code (i.e. 3414)\n\nmpsz &lt;- st_transform(mpsz, 3414)\neldercare &lt;- st_transform(eldercare, 3414)\nhexagons &lt;- st_transform(hexagons, 3414)\n\nAfter transforming the projection metadata, you can verify the projection of the newly transformed mpsz_svy21 by using st_crs() of sf package.\nThe code chunk below will be used to varify the newly transformed mpsz_svy21.\n\nst_crs(mpsz)\n\nCoordinate Reference System:\n  User input: EPSG:3414 \n  wkt:\nPROJCRS[\"SVY21 / Singapore TM\",\n    BASEGEOGCRS[\"SVY21\",\n        DATUM[\"SVY21\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4757]],\n    CONVERSION[\"Singapore Transverse Mercator\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",1.36666666666667,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",103.833333333333,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",1,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",28001.642,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",38744.572,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"northing (N)\",north,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"easting (E)\",east,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Cadastre, engineering survey, topographic mapping.\"],\n        AREA[\"Singapore - onshore and offshore.\"],\n        BBOX[1.13,103.59,1.47,104.07]],\n    ID[\"EPSG\",3414]]\n\n\nNotice that the EPSG: is indicated as 3414 now."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#cleaning-and-updating-attribute-fields-of-the-geospatial-data",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#cleaning-and-updating-attribute-fields-of-the-geospatial-data",
+    "title": "Hands-on Exercise 9",
+    "section": "2.3 Cleaning and updating attribute fields of the geospatial data",
+    "text": "2.3 Cleaning and updating attribute fields of the geospatial data\nThere are many redundant fields in the data tables of both eldercare and hexagons. The code chunks below will be used to exclude those redundant fields. At the same time, a new field called demand and a new field called capacity will be added into the data table of hexagons and eldercare sf data frame respectively. Both fields are derive using mutate() of dplyr package.\n\neldercare &lt;- eldercare %&gt;%\n  select(fid, ADDRESSPOS) %&gt;%\n  mutate(capacity = 100)\n\n\nhexagons &lt;- hexagons %&gt;%\n  select(fid) %&gt;%\n  mutate(demand = 100)\n\nNotice that for the purpose of this hands-on exercise, a constant value of 100 is used. In practice, actual demand of the hexagon and capacity of the eldercare centre should be used."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#importing-distance-matrix",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#importing-distance-matrix",
+    "title": "Hands-on Exercise 9",
+    "section": "3.1 Importing Distance Matrix",
+    "text": "3.1 Importing Distance Matrix\nThe code chunk below uses read_cvs() of readr package to import OD_Matrix.csv into RStudio. The imported object is a tibble data.frame called ODMatrix.\n\nODMatrix &lt;- read_csv(\"../../data/aspatial/OD_Matrix.csv\", skip = 0)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#tidying-distance-matrix",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#tidying-distance-matrix",
+    "title": "Hands-on Exercise 9",
+    "section": "3.2 Tidying distance matrix",
+    "text": "3.2 Tidying distance matrix\nThe imported ODMatrix organised the distance matrix columnwise.\nOn the other hands, most of the modelling packages in R is expecting a matrix look similar to the figure below.\nThe rows represent origins (i.e. also know as from field) and the columns represent destination (i.e. also known as to field.)\nThe code chunk below uses spread() of tidyr package is used to transform the O-D matrix from a thin format into a fat format.\n\ndistmat &lt;- ODMatrix %&gt;%\n  select(origin_id, destination_id, total_cost) %&gt;%\n  spread(destination_id, total_cost)%&gt;%\n  select(c(-c('origin_id')))\n\nNote: Since tidyr version 1.0 a new function called pivot_wider() is introduce. You should use pivot_wider() instead of spread()\nCurrently, the distance is measured in metre because SVY21 projected coordinate system is used. The code chunk below will be used to convert the unit f measurement from metre to kilometre.\n\ndistmat_km &lt;- as.matrix(distmat/1000)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#computing-hansens-accessibility",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#computing-hansens-accessibility",
+    "title": "Hands-on Exercise 9",
+    "section": "4.1 Computing Hansen’s accessibility",
+    "text": "4.1 Computing Hansen’s accessibility\nNow, we ready to compute Hansen’s accessibility by using ac() of SpatialAcc package. Before getting started, you are encourage to read the arguments of the function at least once in order to ensure that the required inputs are available.\nThe code chunk below calculates Hansen’s accessibility using ac() of SpatialAcc and data.frame() is used to save the output in a data frame called acc_Handsen.\n\nacc_Hansen &lt;- data.frame(ac(hexagons$demand,\n                            eldercare$capacity,\n                            distmat_km, \n                            #d0 = 50,\n                            power = 2, \n                            family = \"Hansen\"))\n\nThe default field name is very messy, we will rename it to accHansen by using the code chunk below.\n\ncolnames(acc_Hansen) &lt;- \"accHansen\"\n\nNotice that the field name is much more tidier now.\nNext, we will convert the data table into tibble format by using the code chunk below.\n\nacc_Hansen &lt;- tbl_df(acc_Hansen)\n\nLastly, bind_cols() of dplyr will be used to join the acc_Hansen tibble data frame with the hexagons simple feature data frame. The output is called hexagon_Hansen.\n\nhexagon_Hansen &lt;- bind_cols(hexagons, acc_Hansen)\n\nNotice that hexagon_Hansen is a simple feature data frame and not a typical tibble data frame.\nActually, the steps above can be perform by using a single code chunk as shown below.\n\nacc_Hansen &lt;- data.frame(ac(hexagons$demand,\n                            eldercare$capacity,\n                            distmat_km, \n                            #d0 = 50,\n                            power = 0.5, \n                            family = \"Hansen\"))\n\ncolnames(acc_Hansen) &lt;- \"accHansen\"\nacc_Hansen &lt;- tbl_df(acc_Hansen)\nhexagon_Hansen &lt;- bind_cols(hexagons, acc_Hansen)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#visualising-hansens-accessibility",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#visualising-hansens-accessibility",
+    "title": "Hands-on Exercise 9",
+    "section": "4.2 Visualising Hansen’s accessibility",
+    "text": "4.2 Visualising Hansen’s accessibility\n\n4.2.1 Extracting map extend\nFirstly, we will extract the extend of hexagons simple feature data frame by by using st_bbox() of sf package.\n\nmapex &lt;- st_bbox(hexagons)\n\nThe code chunk below uses a collection of mapping fucntions of tmap package to create a high cartographic quality accessibility to eldercare centre in Singapore.\n\ntmap_mode(\"plot\")\ntm_shape(hexagon_Hansen,\n         bbox = mapex) + \n  tm_fill(col = \"accHansen\",\n          n = 10,\n          style = \"quantile\",\n          border.col = \"black\",\n          border.lwd = 1) +\ntm_shape(eldercare) +\n  tm_symbols(size = 0.1) +\n  tm_layout(main.title = \"Accessibility to eldercare: Hansen method\",\n            main.title.position = \"center\",\n            main.title.size = 2,\n            legend.outside = FALSE,\n            legend.height = 0.45, \n            legend.width = 3.0,\n            legend.format = list(digits = 6),\n            legend.position = c(\"right\", \"top\"),\n            frame = TRUE) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_scale_bar(width = 0.15) +\n  tm_grid(lwd = 0.1, alpha = 0.5)\n\n\n\n\n\n\n4.2.2 Statistical graphic visualisation\nIn this section, we are going to compare the distribution of Hansen’s accessibility values by URA Planning Region.\nFirstly, we need to add the planning region field into haxegon_Hansen simple feature data frame by using the code chunk below.\n\nhexagon_Hansen &lt;- st_join(hexagon_Hansen, mpsz, \n                          join = st_intersects)\n\nNext, ggplot() will be used to plot the distribution by using boxplot graphical method.\n\nggplot(data=hexagon_Hansen, \n       aes(y = log(accHansen), \n           x= REGION_N)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\", \n             fun.y=\"mean\", \n             colour =\"red\", \n             size=2)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#computing-kd2sfcas-accessibility",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#computing-kd2sfcas-accessibility",
+    "title": "Hands-on Exercise 9",
+    "section": "5.1 Computing KD2SFCA’s accessibility",
+    "text": "5.1 Computing KD2SFCA’s accessibility\nIn this section, you are going to repeat most of the steps you had learned in previous section to perform the analysis. However, some of the codes will be combined into one code chunk.\nThe code chunk below calculates Hansen’s accessibility using ac() of SpatialAcc and data.frame() is used to save the output in a data frame called acc_KD2SFCA. Notice that KD2SFCA is used for family argument.\n\nacc_KD2SFCA &lt;- data.frame(ac(hexagons$demand,\n                            eldercare$capacity,\n                            distmat_km, \n                            d0 = 50,\n                            power = 2, \n                            family = \"KD2SFCA\"))\n\ncolnames(acc_KD2SFCA) &lt;- \"accKD2SFCA\"\nacc_KD2SFCA &lt;- tbl_df(acc_KD2SFCA)\nhexagon_KD2SFCA &lt;- bind_cols(hexagons, acc_KD2SFCA)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#visualising-kd2sfcas-accessibility",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#visualising-kd2sfcas-accessibility",
+    "title": "Hands-on Exercise 9",
+    "section": "5.2 Visualising KD2SFCA’s accessibility",
+    "text": "5.2 Visualising KD2SFCA’s accessibility\nThe code chunk below uses a collection of mapping fucntions of tmap package to create a high cartographic quality accessibility to eldercare centre in Singapore. Notice that mapex is reused for bbox argument.\n\ntmap_mode(\"plot\")\ntm_shape(hexagon_KD2SFCA,\n         bbox = mapex) + \n  tm_fill(col = \"accKD2SFCA\",\n          n = 10,\n          style = \"quantile\",\n          border.col = \"black\",\n          border.lwd = 1) +\ntm_shape(eldercare) +\n  tm_symbols(size = 0.1) +\n  tm_layout(main.title = \"Accessibility to eldercare: KD2SFCA method\",\n            main.title.position = \"center\",\n            main.title.size = 2,\n            legend.outside = FALSE,\n            legend.height = 0.45, \n            legend.width = 3.0,\n            legend.format = list(digits = 6),\n            legend.position = c(\"right\", \"top\"),\n            frame = TRUE) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_scale_bar(width = 0.15) +\n  tm_grid(lwd = 0.1, alpha = 0.5)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#statistical-graphic-visualisation-1",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#statistical-graphic-visualisation-1",
+    "title": "Hands-on Exercise 9",
+    "section": "5.3 Statistical graphic visualisation",
+    "text": "5.3 Statistical graphic visualisation\nNow, we are going to compare the distribution of KD2CFA accessibility values by URA Planning Region.\nFirstly, we need to add the planning region field into hexagon_KD2SFCA simple feature data frame by using the code chunk below.\n\nhexagon_KD2SFCA &lt;- st_join(hexagon_KD2SFCA, mpsz, \n                          join = st_intersects)\n\nNext, ggplot() will be used to plot the distribution by using boxplot graphical method.\n\nggplot(data=hexagon_KD2SFCA, \n       aes(y = accKD2SFCA, \n           x= REGION_N)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\", \n             fun.y=\"mean\", \n             colour =\"red\", \n             size=2)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#computing-sam-accessibility",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#computing-sam-accessibility",
+    "title": "Hands-on Exercise 9",
+    "section": "6.1 Computing SAM accessibility",
+    "text": "6.1 Computing SAM accessibility\nIn this section, you are going to repeat most of the steps you had learned in previous section to perform the analysis. However, some of the codes will be combined into one code chunk.\nThe code chunk below calculates Hansen’s accessibility using ac() of SpatialAcc and data.frame() is used to save the output in a data frame called acc_SAM. Notice that SAM is used for family argument.\n\nacc_SAM &lt;- data.frame(ac(hexagons$demand,\n                         eldercare$capacity,\n                         distmat_km, \n                         d0 = 50,\n                         power = 2, \n                         family = \"SAM\"))\n\ncolnames(acc_SAM) &lt;- \"accSAM\"\nacc_SAM &lt;- tbl_df(acc_SAM)\nhexagon_SAM &lt;- bind_cols(hexagons, acc_SAM)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#visualising-sams-accessibility",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#visualising-sams-accessibility",
+    "title": "Hands-on Exercise 9",
+    "section": "6.2 Visualising SAM’s accessibility",
+    "text": "6.2 Visualising SAM’s accessibility\nThe code chunk below uses a collection of mapping fucntions of tmap package to create a high cartographic quality accessibility to eldercare centre in Singapore. Notice that mapex is reused for bbox argument.\n\ntmap_mode(\"plot\")\ntm_shape(hexagon_SAM,\n         bbox = mapex) + \n  tm_fill(col = \"accSAM\",\n          n = 10,\n          style = \"quantile\",\n          border.col = \"black\",\n          border.lwd = 1) +\ntm_shape(eldercare) +\n  tm_symbols(size = 0.1) +\n  tm_layout(main.title = \"Accessibility to eldercare: SAM method\",\n            main.title.position = \"center\",\n            main.title.size = 2,\n            legend.outside = FALSE,\n            legend.height = 0.45, \n            legend.width = 3.0,\n            legend.format = list(digits = 3),\n            legend.position = c(\"right\", \"top\"),\n            frame = TRUE) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_scale_bar(width = 0.15) +\n  tm_grid(lwd = 0.1, alpha = 0.5)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#statistical-graphic-visualisation-2",
+    "href": "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex09.html#statistical-graphic-visualisation-2",
+    "title": "Hands-on Exercise 9",
+    "section": "6.3 Statistical graphic visualisation",
+    "text": "6.3 Statistical graphic visualisation\nNow, we are going to compare the distribution of SAM accessibility values by URA Planning Region.\nFirstly, we need to add the planning region field into hexagon_SAM simple feature data frame by using the code chunk below.\n\nhexagon_SAM &lt;- st_join(hexagon_SAM, mpsz, \n                       join = st_intersects)\n\nNext, ggplot() will be used to plot the distribution by using boxplot graphical method.\n\nggplot(data=hexagon_SAM, \n       aes(y = accSAM, \n           x= REGION_N)) +\n  geom_boxplot() +\n  geom_point(stat=\"summary\", \n             fun.y=\"mean\", \n             colour =\"red\", \n             size=2)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html",
+    "title": "Hands-on Exercise 10",
+    "section": "",
+    "text": "In this exercise, we are going to calibrate SIM to determine factors affecting the public bus passenger flows during the morning peak in Singapore.\nFor the purpose of this exercise, four r packages will be used. They are:\n\nsf for importing, integrating, processing and transforming geospatial data.\ntidyverse for importing, integrating, wrangling and visualising data.\ntmap for creating thematic maps.\n\n\npacman::p_load(tmap, sf, sp,\n               performance, reshape2,\n               ggpubr, tidyverse)\n\nThis exercise is a continuation of Chapter 15: Processing and Visualising Flow Data and the following data will be used:\n\nod_data.rds, weekday morning peak passenger flows at planning subzone level.\nmpsz.rds, URA Master Plan 2019 Planning Subzone boundary in simple feature tibble data frame format.\n\nBeside these two data sets, an additional attribute data file called pop.csv will be provided. It"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#converting-from-sf-data.table-to-spatialpolygonsdataframe",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#converting-from-sf-data.table-to-spatialpolygonsdataframe",
+    "title": "Hands-on Exercise 10",
+    "section": "2.1 Converting from sf data.table to SpatialPolygonsDataFrame",
+    "text": "2.1 Converting from sf data.table to SpatialPolygonsDataFrame\nThere are at least two ways to compute the required distance matrix. One is based on sf and the other is based on sp. Past experience shown that computing distance matrix by using sf function took relatively longer time that sp method especially the data set is large. In view of this, sp method is used in the code chunks below.\nFirst as.Spatial() will be used to convert mpsz from sf tibble data frame to SpatialPolygonsDataFrame of sp object as shown in the code chunk below.\n\nmpsz_sp &lt;- as(mpsz, \"Spatial\")\nmpsz_sp"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#computing-the-distance-matrix",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#computing-the-distance-matrix",
+    "title": "Hands-on Exercise 10",
+    "section": "2.2 Computing the distance matrix",
+    "text": "2.2 Computing the distance matrix\nNext, spDists() of sp package will be used to compute the Euclidean distance between the centroids of the planning subzones.\n\ndist &lt;- spDists(mpsz_sp, \n                longlat = FALSE)\n\n\nhead(dist, n=c(10, 10))\n\nNotice that the output dist is a matrix object class of R. Also notice that the column heanders and row headers are not labeled with the planning subzone codes."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#labelling-column-and-row-heanders-of-a-distance-matrix",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#labelling-column-and-row-heanders-of-a-distance-matrix",
+    "title": "Hands-on Exercise 10",
+    "section": "2.3 Labelling column and row heanders of a distance matrix",
+    "text": "2.3 Labelling column and row heanders of a distance matrix\nFirst, we will create a list sorted according to the the distance matrix by planning sub-zone code.\n\nsz_names &lt;- mpsz$SUBZONE_C\n\nNext we will attach SUBZONE_C to row and column for distance matrix matching ahead\n\ncolnames(dist) &lt;- paste0(sz_names)\nrownames(dist) &lt;- paste0(sz_names)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#pivoting-distance-value-by-subzone_c",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#pivoting-distance-value-by-subzone_c",
+    "title": "Hands-on Exercise 10",
+    "section": "2.4 Pivoting distance value by SUBZONE_C",
+    "text": "2.4 Pivoting distance value by SUBZONE_C\nNext, we will pivot the distance matrix into a long table by using the row and column subzone codes as show in the code chunk below.\n\ndistPair &lt;- melt(dist) %&gt;%\n  rename(dist = value)\nhead(distPair, 10)\n\nNotice that the within zone distance is 0."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#updating-intra-zonal-distances",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#updating-intra-zonal-distances",
+    "title": "Hands-on Exercise 10",
+    "section": "2.5 Updating intra-zonal distances",
+    "text": "2.5 Updating intra-zonal distances\nIn this section, we are going to append a constant value to replace the intra-zonal distance of 0.\nFirst, we will select and find out the minimum value of the distance by using summary().\n\ndistPair %&gt;%\n  filter(dist &gt; 0) %&gt;%\n  summary()\n\nNext, a constant distance value of 50m is added into intra-zones distance.\n\ndistPair$dist &lt;- ifelse(distPair$dist == 0,\n                        50, distPair$dist)\n\nThe code chunk below will be used to check the result data.frame.\n\ndistPair %&gt;%\n  summary()\n\nThe code chunk below is used to rename the origin and destination fields.\n\ndistPair &lt;- distPair %&gt;%\n  rename(orig = Var1,\n         dest = Var2)\n\nLastly, the code chunk below is used to save the dataframe for future use.\n\nwrite_rds(distPair, \"../../data/rds/distPair.rds\") \n\n\ndistPair &lt;- read_rds(\"../../data/rds/distPair.rds\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#separating-intra-flow-from-passenger-volume-df",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#separating-intra-flow-from-passenger-volume-df",
+    "title": "Hands-on Exercise 10",
+    "section": "3.1 Separating intra-flow from passenger volume df",
+    "text": "3.1 Separating intra-flow from passenger volume df\nCode chunk below is used to add three new fields in flow_data dataframe.\n\nflow_data$FlowNoIntra &lt;- ifelse(\n  flow_data$ORIGIN_SZ == flow_data$DESTIN_SZ, \n  0, flow_data$TRIPS)\nflow_data$offset &lt;- ifelse(\n  flow_data$ORIGIN_SZ == flow_data$DESTIN_SZ, \n  0.000001, 1)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#combining-passenger-volume-data-with-distance-value",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#combining-passenger-volume-data-with-distance-value",
+    "title": "Hands-on Exercise 10",
+    "section": "3.2 Combining passenger volume data with distance value",
+    "text": "3.2 Combining passenger volume data with distance value\nBefore we can join flow_data and distPair, we need to convert data value type of ORIGIN_SZ and DESTIN_SZ fields of flow_data dataframe into factor data type.\n\nflow_data$ORIGIN_SZ &lt;- as.factor(flow_data$ORIGIN_SZ)\nflow_data$DESTIN_SZ &lt;- as.factor(flow_data$DESTIN_SZ)\n\nNow, left_join() of dplyr will be used to flow_data dataframe and distPair dataframe. The output is called flow_data1.\n\nflow_data1 &lt;- flow_data %&gt;%\n  left_join (distPair,\n             by = c(\"ORIGIN_SZ\" = \"orig\",\n                    \"DESTIN_SZ\" = \"dest\"))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#importing-population-data",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#importing-population-data",
+    "title": "Hands-on Exercise 10",
+    "section": "4.1 Importing population data",
+    "text": "4.1 Importing population data\n\npop &lt;- read_csv(\"../../data/aspatial/pop.csv\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#geospatial-data-wrangling",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#geospatial-data-wrangling",
+    "title": "Hands-on Exercise 10",
+    "section": "4.2 Geospatial data wrangling",
+    "text": "4.2 Geospatial data wrangling\n\npop &lt;- pop %&gt;%\n  left_join(mpsz,\n            by = c(\"PA\" = \"PLN_AREA_N\",\n                   \"SZ\" = \"SUBZONE_N\")) %&gt;%\n  select(1:6) %&gt;%\n  rename(SZ_NAME = SZ,\n         SZ = SUBZONE_C)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#preparing-origin-attribute",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#preparing-origin-attribute",
+    "title": "Hands-on Exercise 10",
+    "section": "4.3 Preparing origin attribute",
+    "text": "4.3 Preparing origin attribute\n\nflow_data1 &lt;- flow_data1 %&gt;%\n  left_join(pop,\n            by = c(ORIGIN_SZ = \"SZ\")) %&gt;%\n  rename(ORIGIN_AGE7_12 = AGE7_12,\n         ORIGIN_AGE13_24 = AGE13_24,\n         ORIGIN_AGE25_64 = AGE25_64) %&gt;%\n  select(-c(PA, SZ_NAME))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#preparing-destination-attribute",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#preparing-destination-attribute",
+    "title": "Hands-on Exercise 10",
+    "section": "4.4 Preparing destination attribute",
+    "text": "4.4 Preparing destination attribute\n\nflow_data1 &lt;- flow_data1 %&gt;%\n  left_join(pop,\n            by = c(DESTIN_SZ = \"SZ\")) %&gt;%\n  rename(DESTIN_AGE7_12 = AGE7_12,\n         DESTIN_AGE13_24 = AGE13_24,\n         DESTIN_AGE25_64 = AGE25_64) %&gt;%\n  select(-c(PA, SZ_NAME))\n\nWe will called the output data file SIM_data. it is in rds data file format.\n\nwrite_rds(flow_data1, \"../../data/rds/flow_data_6-9.rds\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#importing-the-modelling-data",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#importing-the-modelling-data",
+    "title": "Hands-on Exercise 10",
+    "section": "5.1 Importing the modelling data",
+    "text": "5.1 Importing the modelling data\nFirstly, let us import the modelling data by using the code chunk below.\n\nSIM_data &lt;- read_rds(\"../../data/rds/SIM_data.rds\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#visualising-the-dependent-variable",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#visualising-the-dependent-variable",
+    "title": "Hands-on Exercise 10",
+    "section": "5.2 Visualising the dependent variable",
+    "text": "5.2 Visualising the dependent variable\nFirstly, let us plot the distribution of the dependent variable (i.e. TRIPS) by using histogram method by using the code chunk below.\n\nggplot(data = SIM_data,\n       aes(x = TRIPS)) +\n  geom_histogram()\n\nNotice that the distribution is highly skewed and not resemble bell shape or also known as normal distribution.\nNext, let us visualise the relation between the dependent variable and one of the key independent variable in Spatial Interaction Model, namely distance.\n\nggplot(data = SIM_data,\n       aes(x = dist,\n           y = TRIPS)) +\n  geom_point() +\n  geom_smooth(method = lm)\n\nNotice that their relationship hardly resemble linear relationship.\nOn the other hand, if we plot the scatter plot by using the log transformed version of both variables, we can see that their relationship is more resemble linear relationship.\n\nggplot(data = SIM_data,\n       aes(x = log(dist),\n           y = log(TRIPS))) +\n  geom_point() +\n  geom_smooth(method = lm)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#checking-for-variables-with-zero-values",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#checking-for-variables-with-zero-values",
+    "title": "Hands-on Exercise 10",
+    "section": "5.3 Checking for variables with zero values",
+    "text": "5.3 Checking for variables with zero values\nSince Poisson Regression is based of log and log 0 is undefined, it is important for us to ensure that no 0 values in the explanatory variables.\nIn the code chunk below, summary() of Base R is used to compute the summary statistics of all variables in SIM_data data frame.\n\nsummary(SIM_data)\n\nThe print report above reveals that variables ORIGIN_AGE7_12, ORIGIN_AGE13_24, ORIGIN_AGE25_64,DESTIN_AGE7_12, DESTIN_AGE13_24, DESTIN_AGE25_64 consist of 0 values.\nIn view of this, code chunk below will be used to replace zero values to 0.99.\n\nSIM_data$DESTIN_AGE7_12 &lt;- ifelse(\n  SIM_data$DESTIN_AGE7_12 == 0,\n  0.99, SIM_data$DESTIN_AGE7_12)\nSIM_data$DESTIN_AGE13_24 &lt;- ifelse(\n  SIM_data$DESTIN_AGE13_24 == 0,\n  0.99, SIM_data$DESTIN_AGE13_24)\nSIM_data$DESTIN_AGE25_64 &lt;- ifelse(\n  SIM_data$DESTIN_AGE25_64 == 0,\n  0.99, SIM_data$DESTIN_AGE25_64)\nSIM_data$ORIGIN_AGE7_12 &lt;- ifelse(\n  SIM_data$ORIGIN_AGE7_12 == 0,\n  0.99, SIM_data$ORIGIN_AGE7_12)\nSIM_data$ORIGIN_AGE13_24 &lt;- ifelse(\n  SIM_data$ORIGIN_AGE13_24 == 0,\n  0.99, SIM_data$ORIGIN_AGE13_24)\nSIM_data$ORIGIN_AGE25_64 &lt;- ifelse(\n  SIM_data$ORIGIN_AGE25_64 == 0,\n  0.99, SIM_data$ORIGIN_AGE25_64)\n\nYou can run the summary() again.\n\nsummary(SIM_data)\n\nNotice that all the 0 values have been replaced by 0.99."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#unconstrained-spatial-interaction-model",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#unconstrained-spatial-interaction-model",
+    "title": "Hands-on Exercise 10",
+    "section": "5.4 Unconstrained Spatial Interaction Model",
+    "text": "5.4 Unconstrained Spatial Interaction Model\nIn this section, you will learn how to calibrate an unconstrained spatial interaction model by using glm() of Base Stats. The explanatory variables are origin population by different age cohort, destination population by different age cohort (i.e. ORIGIN_AGE25_64) and distance between origin and destination in km (i.e. dist).\nThe general formula of Unconstrained Spatial Interaction Model\nThe code chunk used to calibrate to model is shown below:\n\nuncSIM &lt;- glm(formula = TRIPS ~ \n                log(ORIGIN_AGE25_64) + \n                log(DESTIN_AGE25_64) +\n                log(dist),\n              family = poisson(link = \"log\"),\n              data = SIM_data,\n              na.action = na.exclude)\nuncSIM"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#r-squared-function",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#r-squared-function",
+    "title": "Hands-on Exercise 10",
+    "section": "5.5 R-squared function",
+    "text": "5.5 R-squared function\nIn order to measure how much variation of the trips can be accounted by the model we will write a function to calculate R-Squared value as shown below.\n\nCalcRSquared &lt;- function(observed,estimated){\n  r &lt;- cor(observed,estimated)\n  R2 &lt;- r^2\n  R2\n}\n\nNext, we will compute the R-squared of the unconstrained SIM by using the code chunk below.\n\nCalcRSquared(uncSIM$data$TRIPS, uncSIM$fitted.values)\n\n\nr2_mcfadden(uncSIM)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#origin-production-constrained-sim",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#origin-production-constrained-sim",
+    "title": "Hands-on Exercise 10",
+    "section": "5.6 Origin (Production) constrained SIM",
+    "text": "5.6 Origin (Production) constrained SIM\nIn this section, we will fit an origin constrained SIM by using the code3 chunk below.\nThe general formula of Origin Constrained Spatial Interaction Model\n\norcSIM &lt;- glm(formula = TRIPS ~ \n                 ORIGIN_SZ +\n                 log(DESTIN_AGE25_64) +\n                 log(dist),\n              family = poisson(link = \"log\"),\n              data = SIM_data,\n              na.action = na.exclude)\nsummary(orcSIM)\n\nWe can examine how the constraints hold for destinations this time.\n\nCalcRSquared(orcSIM$data$TRIPS, orcSIM$fitted.values)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#destination-constrained",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#destination-constrained",
+    "title": "Hands-on Exercise 10",
+    "section": "5.7 Destination constrained",
+    "text": "5.7 Destination constrained\nIn this section, we will fit a destination constrained SIM by using the code chunk below.\nThe general formula of Destination Constrained Spatial Interaction Model\n\ndecSIM &lt;- glm(formula = TRIPS ~ \n                DESTIN_SZ + \n                log(ORIGIN_AGE25_64) + \n                log(dist),\n              family = poisson(link = \"log\"),\n              data = SIM_data,\n              na.action = na.exclude)\nsummary(decSIM)\n\nWe can examine how the constraints hold for destinations this time.\n\nCalcRSquared(decSIM$data$TRIPS, decSIM$fitted.values)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#doubly-constrained",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#doubly-constrained",
+    "title": "Hands-on Exercise 10",
+    "section": "5.8 Doubly constrained",
+    "text": "5.8 Doubly constrained\nIn this section, we will fit a doubly constrained SIM by using the code chunk below.\nThe general formula of Doubly Constrained Spatial Interaction Model\n\ndbcSIM &lt;- glm(formula = TRIPS ~ \n                ORIGIN_SZ + \n                DESTIN_SZ + \n                log(dist),\n              family = poisson(link = \"log\"),\n              data = SIM_data,\n              na.action = na.exclude)\nsummary(dbcSIM)\n\nWe can examine how the constraints hold for destinations this time.\n\nCalcRSquared(dbcSIM$data$TRIPS, dbcSIM$fitted.values)\n\nNotice that there is a relatively greater improvement in the R^2 value."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#model-comparison",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#model-comparison",
+    "title": "Hands-on Exercise 10",
+    "section": "5.9 Model comparison",
+    "text": "5.9 Model comparison\nAnother useful model performance measure for continuous dependent variable is Root Mean Squared Error. In this sub-section, you will learn how to use compare_performance() of performance package\nFirst of all, let us create a list called model_list by using the code chun below.\n\nmodel_list &lt;- list(unconstrained=uncSIM,\n                   originConstrained=orcSIM,\n                   destinationConstrained=decSIM,\n                   doublyConstrained=dbcSIM)\n\nNext, we will compute the RMSE of all the models in model_list file by using the code chunk below.\n\ncompare_performance(model_list,\n                    metrics = \"RMSE\")\n\nThe print above reveals that doubly constrained SIM is the best model among all the four SIMs because it has the smallest RMSE value of 1487.111."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#visualising-fitted-values",
+    "href": "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex10.html#visualising-fitted-values",
+    "title": "Hands-on Exercise 10",
+    "section": "5.10 Visualising fitted values",
+    "text": "5.10 Visualising fitted values\nIn this section, you will learn how to visualise the observed values and the fitted values.\nFirstly we will extract the fitted values from each model by using the code chunk below.\n\ndf &lt;- as.data.frame(uncSIM$fitted.values) %&gt;%\n  round(digits = 0)\n\nNext, we will join the values to SIM_data data frame.\n\nSIM_data &lt;- SIM_data %&gt;%\n  cbind(df) %&gt;%\n  rename(uncTRIPS = \"uncSIM$fitted.values\")\n\nRepeat the same step by for Origin Constrained SIM (i.e. orcSIM)\n\ndf &lt;- as.data.frame(orcSIM$fitted.values) %&gt;%\n  round(digits = 0)\n\n\nSIM_data &lt;- SIM_data %&gt;%\n  cbind(df) %&gt;%\n  rename(orcTRIPS = \"orcSIM$fitted.values\")\n\nRepeat the same step by for Destination Constrained SIM (i.e. decSIM)\n\ndf &lt;- as.data.frame(decSIM$fitted.values) %&gt;%\n  round(digits = 0)\n\n\nSIM_data &lt;- SIM_data %&gt;%\n  cbind(df) %&gt;%\n  rename(decTRIPS = \"decSIM$fitted.values\")\n\nRepeat the same step by for Doubly Constrained SIM (i.e. dbcSIM)\n\ndf &lt;- as.data.frame(dbcSIM$fitted.values) %&gt;%\n  round(digits = 0)\n\n\nSIM_data &lt;- SIM_data %&gt;%\n  cbind(df) %&gt;%\n  rename(dbcTRIPS = \"dbcSIM$fitted.values\")\n\n\nunc_p &lt;- ggplot(data = SIM_data,\n                aes(x = uncTRIPS,\n                    y = TRIPS)) +\n  geom_point() +\n  geom_smooth(method = lm)\n\norc_p &lt;- ggplot(data = SIM_data,\n                aes(x = orcTRIPS,\n                    y = TRIPS)) +\n  geom_point() +\n  geom_smooth(method = lm)\n\ndec_p &lt;- ggplot(data = SIM_data,\n                aes(x = decTRIPS,\n                    y = TRIPS)) +\n  geom_point() +\n  geom_smooth(method = lm)\n\ndbc_p &lt;- ggplot(data = SIM_data,\n                aes(x = dbcTRIPS,\n                    y = TRIPS)) +\n  geom_point() +\n  geom_smooth(method = lm)\n\nNow, we will put all the graphs into a single visual for better comparison by using the code chunk below.\n\nggarrange(unc_p, orc_p, dec_p, dbc_p,\n          ncol = 2,\n          nrow = 2)"
   }
 ]

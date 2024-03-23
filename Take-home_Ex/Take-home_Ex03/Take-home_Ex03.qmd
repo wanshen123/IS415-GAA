@@ -63,17 +63,23 @@ In Shiny, the user interface is divided into two main panels: the sidebar panel 
 
 -   Data Preprocessing: After uploading the data files, the user can trigger the data preprocessing step by clicking an action button in this section.
 
--   Data Summary: Once the data preprocessing is complete, this section will display a summary output showing the number of records, data types, and basic statistics for the imported and preprocessed datasets.
+-   Data Summary: Once the data preprocessing is complete, this section will display a summary output showing the number of records, data types, and basic statistics for the imported and preprocessed datasets. The summary output may include a simple map visualization to show the location of the bins and the density of the bins as shown in the image below.
 
--   Spatial Analysis: This section will provide a selection input (e.g., dropdown, radio buttons) for the user to choose the desired spatial analysis method, such as hotspot analysis, spatial autocorrelation, or density-based clustering.
+    ![](000010.png)
 
--   KDE Analysis: Similar to the spatial analysis section, this section will offer selection inputs (e.g., checkboxes) for the user to choose the bin types (normal blue recycling bins, incentive bins, or e-waste bins) for which the KDE analysis should be conducted. This will be done through the use of Singapore map to show the location of the bins and the density of the bins as shown in the image below.
+-   Spatial Analysis: This section will provide a selection input (e.g., dropdown, radio buttons) for the user to choose the desired spatial analysis method, such as hotspot analysis, spatial autocorrelation, or density-based clustering. The output of the spatial analysis will be displayed on an interactive map, as shown in the image below.
 
     ![](map.png)
 
+-   KDE Analysis: Similar to the spatial analysis section, this section will offer selection inputs (e.g., checkboxes) for the user to choose the bin types (normal blue recycling bins, incentive bins, or e-waste bins) for which the KDE analysis should be conducted. This will be done through the use of Singapore map to show the location of the bins and the density of the bins as shown in the image below.
+
+    ![](000011.png)
+
 ## 4.2 Main Panel
 
--   Analysis Results: This area of the main panel will display the outputs of the spatial analysis and KDE analysis. It may include an interactive map output, chart outputs (e.g., bar charts, line charts), and table outputs to visualize the results.
+-   Analysis Results: This area of the main panel will display the outputs of the spatial analysis and KDE analysis. It may include an interactive map output, chart outputs (e.g., bar charts, line charts), and table outputs to visualize the results. The analysis results will be updated based on the user inputs and selections in the sidebar panel. The main panel may also include a navigation bar at the top to allow the user to switch between different sections of the application, as shown in the image below.
+
+    ![](navbar.png)
 
 -   User Interaction: Within the main panel, the user will be able to interact with the visualizations presented in the "Analysis Results" section. This section may include:
 
@@ -95,10 +101,10 @@ In Shiny, the user interface is divided into two main panels: the sidebar panel 
 
     </div>
 
-The Shiny application will use reactive programming principles to update the outputs in the main panel based on the user inputs and selections in the sidebar panel. The layout and styling of the UI elements can be further customized using Shiny's built-in functions and external CSS frameworks. However, I lack the expertise to produce additional polished prototype screenshots, as I have not yet received instruction in this area.
+The Shiny application will use reactive programming principles to update the outputs in the main panel based on the user inputs and selections in the sidebar panel. The layout and styling of the UI elements can be further customized using Shiny's built-in functions and external CSS frameworks. However, I lack the expertise to produce additional polished prototype screenshots, as I have not yet received instruction in this area. 
 
 ![](8jg6yz.jpg){fig-align="center"}
 
 # 5.0 Conclusion
 
-This exercise has outlined the objectives, storyboard, and UI design for the geospatial analytics application. The next steps will involve prototyping the modules using R and Shiny, integrating the modules into a comprehensive application, and conducting user testing to gather feedback and refine the application. The final application will provide valuable insights and recommendations for optimizing the distribution of recycling bins across Singapore, contributing to sustainable waste management and environmental conservation efforts.
+This exercise has outlined the objectives, storyboard, and UI design for the geospatial analytics application. The next steps will involve prototyping the modules using R and Shiny, integrating the modules into a comprehensive application, and conducting user testing to gather feedback and refine the application. The final application will provide valuable insights for optimizing the distribution of recycling bins across Singapore, contributing to sustainable waste management and environmental conservation efforts. 
